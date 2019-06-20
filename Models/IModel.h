@@ -6,7 +6,7 @@
 #define TASKY_IMODEL_H
 
 
-#include "IObserver.h"
+#include "../IObserver.h"
 
 class IModel {
 public:

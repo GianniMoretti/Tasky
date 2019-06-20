@@ -18,7 +18,7 @@ void XMLFileRepository::saveChanges() {
     //TODO: implement
 }
 
-const std::multimap<wxDateTime, Task> &XMLFileRepository::getData() {
+std::multimap<wxDateTime, Task> XMLFileRepository::getData() {
     return Tasks;
 }
 

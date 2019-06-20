@@ -8,7 +8,7 @@
 #include <map>
 #include <wx/datetime.h>
 
-#include "Task.h"
+#include "../Models/Task.h"
 
 class IFIleRepository {
 public:
@@ -16,7 +16,7 @@ public:
 
     virtual void saveChanges() = 0;
 
-    virtual const std::multimap<wxDateTime, Task> &getData() = 0;
+    virtual std::multimap<wxDateTime, Task> getData() = 0;
 };
 
 

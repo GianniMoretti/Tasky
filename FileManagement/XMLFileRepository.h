@@ -7,8 +7,8 @@
 
 
 #include "IFIleRepository.h"
-#include "IObserver.h"
-#include "Model.h"
+#include "../IObserver.h"
+#include "../Models/Model.h"
 
 #include <string>
 #include <map>
@@ -22,7 +22,7 @@ public:
 
     void saveChanges() override;
 
-    const std::multimap<wxDateTime, Task> &getData() override;
+    std::multimap<wxDateTime, Task> getData() override;
 
     void update() override;
 

@@ -7,7 +7,7 @@
 
 #include <wx/wx.h>
 
-#include "MainView.h"
+#include "Views/MainView.h"
 
 #endif
 
