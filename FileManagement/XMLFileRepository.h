@@ -13,16 +13,13 @@
 #include <string>
 #include <map>
 
-class XMLFileRepository : public IFIleRepository, public IObserver {
+class XMLFileRepository : public IFIleRepository {
 public:
     explicit XMLFileRepository(const std::string &fp, Model *model);
 
-    //TODO: Di quale fa l'ovveride?
     ~XMLFileRepository() override;
 
-    void saveChanges() override;
-
-    std::multimap<wxDateTime, Task> getData() override;
+    void saveChanges(std::multimap<wxDateTime, Task> &Tasks) override;
 
     void update() override;
 
@@ -30,12 +27,12 @@ public:
 
     void detach() override;
 
+    std::multimap<wxDateTime, Task> loadDataFromFile() override;
+
 private:
     const std::string filePath;
     Model *sub;
-    std::multimap<wxDateTime, Task> Tasks;
 
-    void loadDataFromFile();
 };
 
 

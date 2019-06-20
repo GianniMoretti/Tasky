@@ -39,3 +39,7 @@ Model::~Model() {
 const std::multimap<wxDateTime, Task> &Model::getTaskMap() const {
     return taskMap;
 }
+
+void Model::setTaskMap(const std::multimap<wxDateTime, Task> &taskMap) {
+    Model::taskMap = taskMap;
+}

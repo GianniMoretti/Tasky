@@ -23,7 +23,7 @@ public:
     Priority priority;
     bool checked;
 
-    Task(string &name, string &description, Priority priority, bool checked = false)
+    Task(string name, string description, Priority priority, bool checked = false)
             : name(name), description(description), priority(priority), checked(checked) {};
 };
 

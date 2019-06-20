@@ -31,6 +31,8 @@ public:
 
     const std::multimap<wxDateTime, Task> &getTaskMap() const;
 
+    void setTaskMap(const std::multimap<wxDateTime, Task> &taskMap);
+
 private:
     std::multimap<wxDateTime, Task> taskMap;
     std::list<IObserver *> observers;

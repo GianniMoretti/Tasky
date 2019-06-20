@@ -5,8 +5,7 @@
 #include "XMLFileRepository.h"
 
 XMLFileRepository::XMLFileRepository(const std::string &fp, Model *model) : filePath(fp), sub(model) {
-    //TODO: Aggiungere tutti i try e cath del caso
-    loadDataFromFile();
+    //TODO: Aggiungere tutti i try e catch  del caso
     this->attach();
 }
 
@@ -14,17 +13,14 @@ XMLFileRepository::~XMLFileRepository() {
     this->detach();
 }
 
-void XMLFileRepository::saveChanges() {
-    //TODO: implement
+void XMLFileRepository::saveChanges(std::multimap<wxDateTime, Task> &Tasks) {
+    //TODO: salva tasks nel file.
 }
 
-std::multimap<wxDateTime, Task> XMLFileRepository::getData() {
-    return Tasks;
-}
 
 void XMLFileRepository::update() {
-    this->Tasks = sub->getTaskMap();
-    saveChanges();
+    std::multimap<wxDateTime, Task> Tasks = sub->getTaskMap();
+    saveChanges(Tasks);
 }
 
 void XMLFileRepository::attach() {
@@ -35,8 +31,9 @@ void XMLFileRepository::detach() {
     sub->unsubscribe(this);
 }
 
-void XMLFileRepository::loadDataFromFile() {
+std::multimap<wxDateTime, Task> XMLFileRepository::loadDataFromFile() {
     //TODO: Metodo che carica dati da file XML
+    return std::multimap<wxDateTime, Task>();
 }
 
 
