@@ -29,6 +29,8 @@ public:
 
     void RemoveTask(wxDateTime dateTime, const Task &task);
 
+    const std::multimap<wxDateTime, Task> &getTaskMap() const;
+
 private:
     std::multimap<wxDateTime, Task> taskMap;
     std::list<IObserver *> observers;

@@ -35,3 +35,7 @@ void Model::RemoveTask(wxDateTime dateTime, const Task &task) {
 Model::~Model() {
 
 }
+
+const std::multimap<wxDateTime, Task> &Model::getTaskMap() const {
+    return taskMap;
+}
