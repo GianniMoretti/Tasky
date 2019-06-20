@@ -18,7 +18,6 @@ public:
     bool OnInit() override;
 };
 
-
 //potrebbe dare eccezzione da catturare
 wxIMPLEMENT_APP(Tasky);
 
