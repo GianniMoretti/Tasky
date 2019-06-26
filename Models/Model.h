@@ -27,11 +27,13 @@ public:
 
     void addTask(wxDateTime dateTime, const Task &task);
 
-    void RemoveTask(wxDateTime dateTime, const Task &task);
+    void removeTask(wxDateTime dateTime, const Task &task);
 
     const std::multimap<wxDateTime, Task> &getTaskMap() const;
 
     void setTaskMap(const std::multimap<wxDateTime, Task> &taskMap);
+
+    int numberTasksCompleted(wxDateTime dateTime);
 
 private:
     std::multimap<wxDateTime, Task> taskMap;

@@ -26,7 +26,7 @@ void Model::addTask(wxDateTime dateTime, const Task &task) {
     notify();
 }
 
-void Model::RemoveTask(wxDateTime dateTime, const Task &task) {
+void Model::removeTask(wxDateTime dateTime, const Task &task) {
     //TODO:: come si rimuove un elemento?
     //Come distinguiamo un elemento uno dall'altro?
     notify();
@@ -42,4 +42,13 @@ const std::multimap<wxDateTime, Task> &Model::getTaskMap() const {
 
 void Model::setTaskMap(const std::multimap<wxDateTime, Task> &taskMap) {
     Model::taskMap = taskMap;
+}
+
+int Model::numberTasksCompleted(wxDateTime dateTime) {
+    int count = 0;
+    for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
+        if (itr->second.checked)
+            count++;
+    }
+    return count;
 }
