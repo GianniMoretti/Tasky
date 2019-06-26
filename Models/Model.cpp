@@ -27,9 +27,15 @@ void Model::addTask(wxDateTime dateTime, const Task &task) {
 }
 
 void Model::removeTask(wxDateTime dateTime, const Task &task) {
-    //TODO:: come si rimuove un elemento?
-    //Come distinguiamo un elemento uno dall'altro?
-    notify();
+    //FIXME:: come si rimuove un elemento? Se possibile trovare un'alternativa.
+    //Come distinguiamo un elemento uno dall'altro?Possibile soluzione: utilizzo operator ==.(Non unica soluzione)
+    for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
+        if (itr->second == task) {
+            taskMap.erase(itr);
+            break;
+        }
+    }
+    //notify();
 }
 
 Model::~Model() {
@@ -44,7 +50,7 @@ void Model::setTaskMap(const std::multimap<wxDateTime, Task> &taskMap) {
     Model::taskMap = taskMap;
 }
 
-int Model::numberTasksCompleted(wxDateTime dateTime) {
+int Model::numberCompletedTasks(wxDateTime dateTime) {
     int count = 0;
     for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
         if (itr->second.checked)

@@ -25,6 +25,11 @@ public:
 
     Task(string name, string description, Priority priority, bool checked = false)
             : name(name), description(description), priority(priority), checked(checked) {};
+
+    bool operator==(const Task &task);
+
+private :
+    bool isEqual(const Task &task);
 };
 
 

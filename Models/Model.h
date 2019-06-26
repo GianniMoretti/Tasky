@@ -33,7 +33,7 @@ public:
 
     void setTaskMap(const std::multimap<wxDateTime, Task> &taskMap);
 
-    int numberTasksCompleted(wxDateTime dateTime);
+    int numberCompletedTasks(wxDateTime dateTime);
 
 private:
     std::multimap<wxDateTime, Task> taskMap;
