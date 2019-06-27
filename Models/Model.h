@@ -15,7 +15,7 @@
 
 class Model : public IModel {
 public:
-    Model();
+    Model() = default;
 
     void notify() const override;
 
@@ -33,7 +33,9 @@ public:
 
     void setTaskMap(const std::multimap<wxDateTime, Task> &taskMap);
 
-    int numberCompletedTasks(wxDateTime dateTime);
+    int numberOfCompletedTasks(wxDateTime dateTime) const;
+
+    int numberOfTasks(wxDateTime dt) const;
 
 private:
     std::multimap<wxDateTime, Task> taskMap;

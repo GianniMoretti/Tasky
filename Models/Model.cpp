@@ -4,9 +4,6 @@
 
 #include "Model.h"
 
-Model::Model() {
-    //TODO: Ancora da implementare
-}
 
 void Model::notify() const {
     for (auto obs : observers)
@@ -35,12 +32,10 @@ void Model::removeTask(wxDateTime dateTime, const Task &task) {
             break;
         }
     }
-    //notify();
+    notify();
 }
 
-Model::~Model() {
-
-}
+Model::~Model() {}
 
 const std::multimap<wxDateTime, Task> &Model::getTaskMap() const {
     return taskMap;
@@ -50,7 +45,17 @@ void Model::setTaskMap(const std::multimap<wxDateTime, Task> &taskMap) {
     Model::taskMap = taskMap;
 }
 
-int Model::numberCompletedTasks(wxDateTime dateTime) {
+int Model::numberOfTasks(wxDateTime dt) const {
+    //TODO: Dobbiamo controllare find()?
+    int count = 0;
+    for (auto itr = taskMap.find(dt); itr != taskMap.end(); itr++) {
+        count++;
+    }
+    return count;
+}
+
+int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
+    //TODO: Dobbiamo controllare find()?
     int count = 0;
     for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
         if (itr->second.checked)

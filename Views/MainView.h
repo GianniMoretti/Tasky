@@ -10,6 +10,7 @@
 #ifndef WX_PRECOMP
 
 #include <wx/wx.h>
+#include "wxDayBoxView.h"
 
 #endif
 
@@ -19,7 +20,7 @@ public:
     MainView(const wxString &title, const wxPoint &pos, const wxSize &size);
 
 private:
-
+    wxDayBoxView *Day;
 };
 
 

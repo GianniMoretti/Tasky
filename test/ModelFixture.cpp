@@ -11,11 +11,11 @@ protected:
     void SetUp() override {
         wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
 
-        Task t("ciao", "gianni", Low, true);
+        Task t("pippo", "pluto", Low, true);
         m.addTask(dateTime, t);
-        t = Task("hello", "try", High, true);
+        t = Task("hello", "world", High, true);
         m.addTask(dateTime, t);
-        t = Task("hello", "try", High);
+        t = Task("foo", "bar", High);
         m.addTask(dateTime, t);
     };
 
@@ -29,7 +29,7 @@ TEST_F(ModelSuite, testAddTask) {
 }
 
 TEST_F(ModelSuite, testRemoveTask) {
-    Task t("ciao", "gianni", Low, true);
+    Task t("pippo", "pluto", Low, true);
     wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
     m.removeTask(dateTime, t);
     ASSERT_EQ(m.getTaskMap().size(), 2);
@@ -37,5 +37,10 @@ TEST_F(ModelSuite, testRemoveTask) {
 
 TEST_F(ModelSuite, testCountTasksCompleted) {
     wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
-    ASSERT_EQ(m.numberCompletedTasks(dateTime), 2);
+    ASSERT_EQ(m.numberOfCompletedTasks(dateTime), 2);
+}
+
+TEST_F(ModelSuite, testCountTasks) {
+    wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
+    ASSERT_EQ(m.numberOfTasks(dateTime), 3);
 }
