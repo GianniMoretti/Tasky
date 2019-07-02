@@ -10,7 +10,7 @@
 
 using std::string;
 
-enum Priority {
+enum class Priority {
     High,
     Medium,
     Low
@@ -18,18 +18,29 @@ enum Priority {
 
 class Task {
 public:
-    string name;
-    string description;
-    Priority priority;
-    bool checked;
 
     Task(string name, string description, Priority priority, bool checked = false)
             : name(name), description(description), priority(priority), checked(checked) {};
 
-    bool operator==(const Task &task);
+    bool operator==(const Task &task) const;
+
+    const string &getName() const;
+
+    const string &getDescription() const;
+
+    Priority getPriority() const;
+
+    bool isChecked() const;
 
 private :
-    bool isEqual(const Task &task);
+    string name;
+
+private:
+    string description;
+    Priority priority;
+    bool checked;
+
+    bool isEqual(const Task &task) const;
 };
 
 

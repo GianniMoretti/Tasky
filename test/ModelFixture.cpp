@@ -11,11 +11,11 @@ protected:
     void SetUp() override {
         wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
 
-        Task t("pippo", "pluto", Low, true);
+        Task t("pippo", "pluto", Priority::Low, true);
         m.addTask(dateTime, t);
-        t = Task("hello", "world", High, true);
+        t = Task("hello", "world", Priority::High, true);
         m.addTask(dateTime, t);
-        t = Task("foo", "bar", High);
+        t = Task("foo", "bar", Priority::High);
         m.addTask(dateTime, t);
     };
 
@@ -23,13 +23,13 @@ protected:
 };
 
 TEST_F(ModelSuite, testAddTask) {
-    Task t("ciao", "gianni", Low);
+    Task t("ciao", "gianni", Priority::Low);
     m.addTask(wxDateTime().Now().GetDateOnly(), t);
     ASSERT_EQ(m.getTaskMap().size(), 4);
 }
 
 TEST_F(ModelSuite, testRemoveTask) {
-    Task t("pippo", "pluto", Low, true);
+    Task t("pippo", "pluto", Priority::Low, true);
     wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
     m.removeTask(dateTime, t);
     ASSERT_EQ(m.getTaskMap().size(), 2);

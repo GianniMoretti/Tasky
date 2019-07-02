@@ -17,8 +17,6 @@ class Model : public IModel {
 public:
     Model() = default;
 
-    void notify() const override;
-
     void subscribe(IObserver *obs) override;
 
     void unsubscribe(IObserver *obs) override;
@@ -38,6 +36,7 @@ public:
     int numberOfTasks(wxDateTime dt) const;
 
 private:
+    void notify() const override;
     std::multimap<wxDateTime, Task> taskMap;
     std::list<IObserver *> observers;
 };

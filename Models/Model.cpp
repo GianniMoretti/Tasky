@@ -58,7 +58,7 @@ int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
     //TODO: Dobbiamo controllare find()?
     int count = 0;
     for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
-        if (itr->second.checked)
+        if (itr->second.isChecked())
             count++;
     }
     return count;

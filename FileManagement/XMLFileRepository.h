@@ -21,15 +21,14 @@ public:
 
     void saveChanges(std::multimap<wxDateTime, Task> &Tasks) override;
 
-    void update() override;
-
-    void attach() override;
-
-    void detach() override;
-
     std::multimap<wxDateTime, Task> loadDataFromFile() override;
 
+    void update() override;
+
+
 private:
+    void attach() override;
+    void detach() override;
     const std::string filePath;
     Model *sub;
 
