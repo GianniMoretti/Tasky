@@ -10,12 +10,14 @@
 
 using std::string;
 
+//TODO: Classe num
 enum Priority {
     High,
     Medium,
     Low
 };
 
+//TODO: Privati get setter
 class Task {
 public:
     string name;
@@ -26,10 +28,10 @@ public:
     Task(string name, string description, Priority priority, bool checked = false)
             : name(name), description(description), priority(priority), checked(checked) {};
 
-    bool operator==(const Task &task);
+    bool operator==(const Task &task) const;
 
 private :
-    bool isEqual(const Task &task);
+    bool isEqual(const Task &task) const;
 };
 
 

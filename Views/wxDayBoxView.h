@@ -29,6 +29,7 @@
 
 class wxDayBoxView : public wxPanel, public IObserver {
 protected:
+    //TODO: é meglio utilizzare smart pointer?
     wxStaticLine *m_staticline7;
     wxStaticLine *m_staticline1;
     wxButton *wxDayButton;
@@ -40,7 +41,7 @@ protected:
 
 public:
 
-    wxDayBoxView(Model &m, wxDateTime dt, wxWindow *parent, wxWindowID id = wxID_ANY,
+    wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID id = wxID_ANY,
                  const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxSize(150, 150),
                  long style = wxTAB_TRAVERSAL, const wxString &name = wxEmptyString);
 

@@ -4,9 +4,14 @@
 
 #include "wxDayBoxView.h"
 
-wxDayBoxView::wxDayBoxView(Model &m, wxDateTime dt, wxWindow *parent, wxWindowID id, const wxPoint &pos,
+wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID id, const wxPoint &pos,
                            const wxSize &size, long style, const wxString &name) : wxPanel(parent, id, pos, size, style,
                                                                                            name) {
+
+    model = m;
+    numberOfTasks = model->numberOfTasks(dateTime);
+    numberOfCompletedTasks = model->numberOfCompletedTasks(dateTime);
+
     this->SetFont(
             wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false,
                    wxEmptyString));
@@ -36,16 +41,18 @@ wxDayBoxView::wxDayBoxView(Model &m, wxDateTime dt, wxWindow *parent, wxWindowID
     wxBoxSizer *wxDateSizer;
     wxDateSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    //wxString s = wxString::Format(_T("%d"), 12);
-    wxDayButton = new wxButton(this, wxID_ANY, wxT("12"), wxDefaultPosition, wxDefaultSize, 0);
+    wxString num = dt.Format(wxT("%d"), wxDateTime::CET).c_str();
+    wxDayButton = new wxButton(this, wxID_ANY, num, wxDefaultPosition, wxDefaultSize, 0);
     wxDayButton->SetFont(wxFont(26, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Sans")));
     wxDayButton->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BACKGROUND));
     wxDayButton->SetMaxSize(wxSize(75, -1));
 
     wxDateSizer->Add(wxDayButton, 0, wxALIGN_CENTER_VERTICAL | wxALL | wxEXPAND, 5);
 
-    //TODO: da settare Mese giorno
-    wxDayInfoLabel = new wxStaticText(this, wxID_ANY, wxT("Giu \nMar"), wxDefaultPosition, wxSize(-1, 45),
+    wxString day = dt.Format(wxT("%a"), wxDateTime::CET).c_str();
+    wxString month = dt.Format(wxT("%b"), wxDateTime::CET).c_str();
+    wxString date = wxString::Format(day + "/n" + month);
+    wxDayInfoLabel = new wxStaticText(this, wxID_ANY, date, wxDefaultPosition, wxSize(-1, 45),
                                       wxALIGN_CENTER_HORIZONTAL);
     wxDayInfoLabel->Wrap(-1);
     wxDayInfoLabel->SetFont(
@@ -56,7 +63,8 @@ wxDayBoxView::wxDayBoxView(Model &m, wxDateTime dt, wxWindow *parent, wxWindowID
 
     wxMainSizer3->Add(wxDateSizer, 1, wxEXPAND, 5);
 
-    wxStatTasksLabel = new wxStaticText(this, wxID_ANY, wxT("5/12"), wxDefaultPosition, wxSize(-1, 20),
+    wxString t = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
+    wxStatTasksLabel = new wxStaticText(this, wxID_ANY, t, wxDefaultPosition, wxSize(-1, 20),
                                         wxALIGN_CENTER_HORIZONTAL);
     wxStatTasksLabel->Wrap(-1);
     wxStatTasksLabel->SetFont(
