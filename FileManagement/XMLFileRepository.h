@@ -17,18 +17,18 @@ class XMLFileRepository : public IFIleRepository {
 public:
     explicit XMLFileRepository(const std::string &fp, Model *model);
 
-    ~XMLFileRepository() override;
-
     void saveChanges(std::multimap<wxDateTime, Task> &Tasks) override;
 
     std::multimap<wxDateTime, Task> loadDataFromFile() override;
 
     void update() override;
 
+    ~XMLFileRepository() override;
 
 private:
     void attach() override;
     void detach() override;
+
     const std::string filePath;
     Model *sub;
 

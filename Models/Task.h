@@ -34,12 +34,9 @@ public:
 
 private :
     string name;
-
-private:
     string description;
     Priority priority;
     bool checked;
-
     bool isEqual(const Task &task) const;
 };
 

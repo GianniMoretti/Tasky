@@ -27,6 +27,7 @@ public:
 
     void removeTask(wxDateTime dateTime, const Task &task);
 
+    //TODO: controllare se ha operatore
     const std::multimap<wxDateTime, Task> &getTaskMap() const;
 
     void setTaskMap(const std::multimap<wxDateTime, Task> &taskMap);

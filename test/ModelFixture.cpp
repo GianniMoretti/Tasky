@@ -22,6 +22,7 @@ protected:
     Model m;
 };
 
+//TODO: anche le cose che vanno storte
 TEST_F(ModelSuite, testAddTask) {
     Task t("ciao", "gianni", Priority::Low);
     m.addTask(wxDateTime().Now().GetDateOnly(), t);
