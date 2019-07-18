@@ -23,16 +23,17 @@ void Model::addTask(wxDateTime dateTime, const Task &task) {
     notify();
 }
 
-void Model::removeTask(wxDateTime dateTime, const Task &task) {
-    //FIXME:: come si rimuove un elemento? Se possibile trovare un'alternativa.
-    //Come distinguiamo un elemento uno dall'altro?Possibile soluzione: utilizzo operator ==.(Non unica soluzione)
+bool Model::removeTask(wxDateTime dateTime, const Task &task) {
+    bool ok = false;
     for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
         if (itr->second == task) {
             taskMap.erase(itr);
+            ok = true;
             break;
         }
     }
     notify();
+    return ok;
 }
 
 Model::~Model() {}
@@ -46,7 +47,6 @@ void Model::setTaskMap(const std::multimap<wxDateTime, Task> &taskMap) {
 }
 
 int Model::numberOfTasks(wxDateTime dt) const {
-    //TODO: Dobbiamo controllare find()?
     int count = 0;
     for (auto itr = taskMap.find(dt); itr != taskMap.end(); itr++) {
         count++;
@@ -55,11 +55,15 @@ int Model::numberOfTasks(wxDateTime dt) const {
 }
 
 int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
-    //TODO: Dobbiamo controllare find()?
     int count = 0;
     for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
         if (itr->second.isChecked())
             count++;
     }
     return count;
+}
+
+std::list<Task> Model::researchTasks(const wxString str) {
+    //TODO: Come ricerca? Cossa ritorna?
+    return std::list<Task>();
 }

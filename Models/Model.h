@@ -25,9 +25,10 @@ public:
 
     void addTask(wxDateTime dateTime, const Task &task);
 
-    void removeTask(wxDateTime dateTime, const Task &task);
+    bool removeTask(wxDateTime dateTime, const Task &task);
 
-    //TODO: controllare se ha operatore
+    std::list<Task> researchTasks(wxString str);
+
     const std::multimap<wxDateTime, Task> &getTaskMap() const;
 
     void setTaskMap(const std::multimap<wxDateTime, Task> &taskMap);

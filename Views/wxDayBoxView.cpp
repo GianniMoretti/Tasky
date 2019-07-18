@@ -15,7 +15,7 @@ wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID
     this->SetFont(
             wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false,
                    wxEmptyString));
-    this->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BACKGROUND));
+
     this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BACKGROUND));
 
     //FIXME:Devo liberare la memoria?
@@ -51,7 +51,7 @@ wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID
 
     wxString day = dt.Format(wxT("%a"), wxDateTime::CET).c_str();
     wxString month = dt.Format(wxT("%b"), wxDateTime::CET).c_str();
-    wxString date = wxString::Format(day + "/n" + month);
+    wxString date = wxString::Format(day + "\n" + month);
     wxDayInfoLabel = new wxStaticText(this, wxID_ANY, date, wxDefaultPosition, wxSize(-1, 45),
                                       wxALIGN_CENTER_HORIZONTAL);
     wxDayInfoLabel->Wrap(-1);
@@ -116,7 +116,7 @@ void wxDayBoxView::detach() {
 }
 
 void wxDayBoxView::render() {
-    //TODO: Aggiornare le label
-    wxStatTasksLabel->SetLabel(wxString());
+    wxString t = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
+    wxStatTasksLabel->SetLabel(t);
     wxProgressbar->SetValue((100 * numberOfCompletedTasks) / numberOfTasks);
 }
