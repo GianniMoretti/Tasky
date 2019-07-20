@@ -63,3 +63,7 @@ int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
     }
     return count;
 }
+
+std::multimap<wxDateTime, Task>::iterator Model::GetTasks(wxDateTime date) {
+    return taskMap.find(date);
+}

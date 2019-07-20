@@ -10,5 +10,5 @@ include(${wxWidgets_USE_FILE})
 
 set(SOURCE_FILES Views/MainView.cpp Views/MainView.h Models/Task.h Models/Task.cpp Models/IModel.h IObserver.h Models/Model.cpp Models/Model.h FileManagement/IFIleRepository.h FileManagement/XMLFileRepository.cpp FileManagement/XMLFileRepository.h Views/wxDayBoxView.h Views/wxDayBoxView.cpp)
 add_executable(Tasky main.cpp ${SOURCE_FILES})
-add_library(core ${SOURCE_FILES})
+add_library(core ${SOURCE_FILES} Views/wxDayView.cpp Views/wxDayView.h)
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES} core)

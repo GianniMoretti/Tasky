@@ -36,6 +36,8 @@ public:
 
     int numberOfTasks(wxDateTime dt) const;
 
+    std::multimap<wxDateTime, Task>::iterator GetTasks(wxDateTime date);
+
 private:
     void notify() const override;
     std::multimap<wxDateTime, Task> taskMap;
