@@ -23,11 +23,11 @@ public:
 
     ~Model() override;
 
-    void addTask(wxDateTime dateTime, const Task &task);
+    void addTask(const Task &task);
 
-    bool removeTask(wxDateTime dateTime, const Task &task);
+    bool removeTask(const Task &task);
 
-    std::list<Task> researchTasks(wxString str);
+    std::list<Task> researchTasks(wxString str, bool Unchecked = false);
 
     const std::multimap<wxDateTime, Task> &getTaskMap() const;
 

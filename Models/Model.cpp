@@ -18,14 +18,14 @@ void Model::unsubscribe(IObserver *obs) {
     observers.remove(obs);
 }
 
-void Model::addTask(wxDateTime dateTime, const Task &task) {
-    taskMap.insert(std::make_pair(dateTime, task));
+void Model::addTask(const Task &task) {
+    taskMap.insert(std::make_pair(task.getDate(), task));
     notify();
 }
 
-bool Model::removeTask(wxDateTime dateTime, const Task &task) {
+bool Model::removeTask(const Task &task) {
     bool ok = false;
-    for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
+    for (auto itr = taskMap.find(task.getDate()); itr != taskMap.end(); itr++) {
         if (itr->second == task) {
             taskMap.erase(itr);
             ok = true;
@@ -63,7 +63,22 @@ int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
     return count;
 }
 
-std::list<Task> Model::researchTasks(const wxString str) {
-    //TODO: Come ricerca? Cossa ritorna?
-    return std::list<Task>();
+std::list<Task> Model::researchTasks(const wxString str, bool onlyUnchecked) {
+    //TODO: Fare test
+    std::list<Task> ris;
+
+    if (onlyUnchecked)  // cerco solo quelli non verificati
+        for (auto itr = taskMap.begin(); itr != taskMap.end(); itr++) {
+            if (!itr->second.isChecked() && (itr->second.getName().find(str) != std::string::npos ||
+                                             itr->second.getDescription().find(str) != std::string::npos))
+                ris.push_back(itr->second);
+        }
+    else
+        for (auto itr = taskMap.begin(); itr != taskMap.end(); itr++) {
+            if (itr->second.getName().find(str) != std::string::npos ||
+                itr->second.getDescription().find(str) != std::string::npos)
+                ris.push_back(itr->second);
+        }
+
+    return ris;
 }

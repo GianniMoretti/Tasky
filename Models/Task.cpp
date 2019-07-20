@@ -29,3 +29,7 @@ Priority Task::getPriority() const {
 bool Task::isChecked() const {
     return checked;
 }
+
+wxDateTime Task::getDate() const {
+    return Date.GetDateOnly();
+}

@@ -12,12 +12,14 @@
 
 #include <string>
 #include <map>
+#include "pugixml.hpp"
+
 
 class XMLFileRepository : public IFIleRepository {
 public:
     explicit XMLFileRepository(const std::string &fp, Model *model);
 
-    void saveChanges(std::multimap<wxDateTime, Task> &Tasks) override;
+    bool saveChanges(std::multimap<wxDateTime, Task> &Tasks) override;
 
     std::multimap<wxDateTime, Task> loadDataFromFile() override;
 
@@ -29,6 +31,7 @@ private:
     void attach() override;
     void detach() override;
 
+    bool createXMLFile();
     const std::string filePath;
     Model *sub;
 
