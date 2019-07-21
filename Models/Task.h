@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include <wx/datetime.h>
 
 using std::string;
 
@@ -30,12 +31,15 @@ public:
 
     Priority getPriority() const;
 
+    wxDateTime getDate() const;
+
     bool isChecked() const;
 
 private :
     string name;
     string description;
     Priority priority;
+    wxDateTime Date;
     bool checked;
     bool isEqual(const Task &task) const;
 };

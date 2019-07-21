@@ -2,7 +2,7 @@
 // Created by lucian on 20/07/19.
 //
 
-#include <wx/gtk/checkbox.h>
+//#include <wx/gtk/checkbox.h>
 #include "wxDayView.h"
 
 
@@ -167,7 +167,7 @@ void wxDayView::render() {
 void wxDayView::AddTasksToScrolledWindow(wxDateTime date) {
     //TODO:Creazione CheckBox
     for (auto iterator = model->GetTasks(date); iterator != model->getTaskMap().end(); iterator++) {
-        wxCheckBox box = new wxCheckBox(wxScrolledWindowTask, wxID_ANY, iterator->second.getName(), wxDefaultPosition,
-                                        wxDefaultSize, 0);
+        //wxCheckBox box = new wxCheckBox(wxScrolledWindowTask, wxID_ANY, iterator->second.getName(), wxDefaultPosition,
+        //                                wxDefaultSize, 0);
     }
 }

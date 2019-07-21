@@ -7,7 +7,7 @@
 wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID id, const wxPoint &pos,
                            const wxSize &size, long style, const wxString &name) : wxPanel(parent, id, pos, size, style,
                                                                                            name) {
-    //TODO:Call attach();
+
     model = m;
     numberOfTasks = model->numberOfTasks(dateTime);
     numberOfCompletedTasks = model->numberOfCompletedTasks(dateTime);
@@ -15,6 +15,7 @@ wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID
     this->SetFont(
             wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false,
                    wxEmptyString));
+
     this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BACKGROUND));
 
     //FIXME:Devo liberare la memoria?
@@ -22,7 +23,7 @@ wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID
     wxMainSizer = new wxBoxSizer(wxHORIZONTAL);
 
     m_staticline7 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxSize(2, -1), wxLI_HORIZONTAL);
-    m_staticline7->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
+    m_staticline7->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
 
     wxMainSizer->Add(m_staticline7, 0, wxEXPAND, 0);
 
@@ -30,7 +31,7 @@ wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID
     wxMainSizer2 = new wxBoxSizer(wxVERTICAL);
 
     m_staticline1 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxSize(-1, 2), wxLI_HORIZONTAL);
-    m_staticline1->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
+    m_staticline1->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
 
     wxMainSizer2->Add(m_staticline1, 0, wxEXPAND, 0);
 
@@ -72,8 +73,7 @@ wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID
     wxMainSizer3->Add(wxStatTasksLabel, 0, wxALL | wxEXPAND | wxALIGN_CENTER_HORIZONTAL, 5);
 
     wxProgressbar = new wxGauge(this, wxID_ANY, 100, wxDefaultPosition, wxSize(-1, 10), wxGA_HORIZONTAL);
-    int progressbarValue = (numberOfCompletedTasks * numberOfTasks) / 100;
-    wxProgressbar->SetValue(progressbarValue);
+    wxProgressbar->SetValue(0);
     wxMainSizer3->Add(wxProgressbar, 0, wxALL | wxEXPAND, 5);
 
 
@@ -116,7 +116,7 @@ void wxDayBoxView::detach() {
 }
 
 void wxDayBoxView::render() {
-    //TODO: Aggiornare labels e progressbar
-    wxStatTasksLabel->SetLabel(wxString());
+    wxString t = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
+    wxStatTasksLabel->SetLabel(t);
     wxProgressbar->SetValue((100 * numberOfCompletedTasks) / numberOfTasks);
 }

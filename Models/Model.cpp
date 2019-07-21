@@ -18,21 +18,22 @@ void Model::unsubscribe(IObserver *obs) {
     observers.remove(obs);
 }
 
-void Model::addTask(wxDateTime dateTime, const Task &task) {
-    taskMap.insert(std::make_pair(dateTime, task));
+void Model::addTask(const Task &task) {
+    taskMap.insert(std::make_pair(task.getDate(), task));
     notify();
 }
 
-void Model::removeTask(wxDateTime dateTime, const Task &task) {
-    //FIXME:: come si rimuove un elemento? Se possibile trovare un'alternativa.
-    //Come distinguiamo un elemento uno dall'altro?Possibile soluzione: utilizzo operator ==.(Non unica soluzione)
-    for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
+bool Model::removeTask(const Task &task) {
+    bool ok = false;
+    for (auto itr = taskMap.find(task.getDate()); itr != taskMap.end(); itr++) {
         if (itr->second == task) {
             taskMap.erase(itr);
+            ok = true;
             break;
         }
     }
     notify();
+    return ok;
 }
 
 Model::~Model() {}
@@ -46,7 +47,6 @@ void Model::setTaskMap(const std::multimap<wxDateTime, Task> &taskMap) {
 }
 
 int Model::numberOfTasks(wxDateTime dt) const {
-    //TODO: Dobbiamo controllare find()?
     int count = 0;
     for (auto itr = taskMap.find(dt); itr != taskMap.end(); itr++) {
         count++;
@@ -55,13 +55,32 @@ int Model::numberOfTasks(wxDateTime dt) const {
 }
 
 int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
-    //TODO: Dobbiamo controllare find()?
     int count = 0;
     for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
         if (itr->second.isChecked())
             count++;
     }
     return count;
+}
+
+std::list<Task> Model::researchTasks(const wxString str, bool onlyUnchecked) {
+    //TODO: Fare test
+    std::list<Task> ris;
+
+    if (onlyUnchecked)  // cerco solo quelli non verificati
+        for (auto itr = taskMap.begin(); itr != taskMap.end(); itr++) {
+            if (!itr->second.isChecked() && (itr->second.getName().find(str) != std::string::npos ||
+                                             itr->second.getDescription().find(str) != std::string::npos))
+                ris.push_back(itr->second);
+        }
+    else
+        for (auto itr = taskMap.begin(); itr != taskMap.end(); itr++) {
+            if (itr->second.getName().find(str) != std::string::npos ||
+                itr->second.getDescription().find(str) != std::string::npos)
+                ris.push_back(itr->second);
+        }
+
+    return ris;
 }
 
 std::multimap<wxDateTime, Task>::iterator Model::GetTasks(wxDateTime date) {

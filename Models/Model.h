@@ -23,11 +23,12 @@ public:
 
     ~Model() override;
 
-    void addTask(wxDateTime dateTime, const Task &task);
+    void addTask(const Task &task);
 
-    void removeTask(wxDateTime dateTime, const Task &task);
+    bool removeTask(const Task &task);
 
-    //TODO: controllare se ha operatore
+    std::list<Task> researchTasks(wxString str, bool Unchecked = false);
+
     const std::multimap<wxDateTime, Task> &getTaskMap() const;
 
     void setTaskMap(const std::multimap<wxDateTime, Task> &taskMap);
