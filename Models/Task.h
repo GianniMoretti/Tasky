@@ -20,8 +20,8 @@ enum class Priority {
 class Task {
 public:
 
-    Task(string name, string description, Priority priority, bool checked = false)
-            : name(name), description(description), priority(priority), checked(checked) {};
+    Task(string name, string description, wxDateTime date, Priority priority, bool checked = false)
+            : name(name), description(description), priority(priority), checked(checked), date(date) {};
 
     bool operator==(const Task &task) const;
 
@@ -35,11 +35,13 @@ public:
 
     bool isChecked() const;
 
+    const string getPriorityString() const;
+
 private :
     string name;
     string description;
     Priority priority;
-    wxDateTime Date;
+    wxDateTime date;
     bool checked;
     bool isEqual(const Task &task) const;
 };

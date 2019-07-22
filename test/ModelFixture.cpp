@@ -11,12 +11,12 @@ protected:
     void SetUp() override {
         wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
 
-        Task t("pippo", "pluto", Priority::Low, true);
-        m.addTask(dateTime, t);
-        t = Task("hello", "world", Priority::High, true);
-        m.addTask(dateTime, t);
-        t = Task("foo", "bar", Priority::High);
-        m.addTask(dateTime, t);
+        Task t("pippo", "pluto", dateTime, Priority::Low, true);
+        m.addTask(t);
+        t = Task("hello", "world", dateTime, Priority::High, true);
+        m.addTask(t);
+        t = Task("foo", "bar", dateTime, Priority::High);
+        m.addTask(t);
     };
 
     Model m;
@@ -24,15 +24,15 @@ protected:
 
 //TODO: anche le cose che vanno storte
 TEST_F(ModelSuite, testAddTask) {
-    Task t("ciao", "gianni", Priority::Low);
-    m.addTask(wxDateTime().Now().GetDateOnly(), t);
+    Task t("ciao", "gianni", wxDateTime().Now().GetDateOnly(), Priority::Low);
+    m.addTask(t);
     ASSERT_EQ(m.getTaskMap().size(), 4);
 }
 
 TEST_F(ModelSuite, testRemoveTask) {
-    Task t("pippo", "pluto", Priority::Low, true);
+    Task t("pippo", "pluto", wxDateTime().Now().GetDateOnly(), Priority::Low, true);
     wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
-    m.removeTask(dateTime, t);
+    m.removeTask(t);
     ASSERT_EQ(m.getTaskMap().size(), 2);
 }
 

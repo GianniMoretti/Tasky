@@ -3,7 +3,7 @@
 //
 
 #ifndef TASKY_WXDAYVIEW_H
-#define TASKY_WXDAYVIEW_Hprivate:
+#define TASKY_WXDAYVIEW_H
 
 
 #pragma once

@@ -12,6 +12,8 @@
 
 #include <string>
 #include <map>
+#include <iostream>
+#include <fstream>
 #include "pugixml.hpp"
 
 
@@ -30,6 +32,8 @@ public:
 private:
     void attach() override;
     void detach() override;
+
+    bool fileExist(const std::string &fp);
 
     bool createXMLFile();
     const std::string filePath;

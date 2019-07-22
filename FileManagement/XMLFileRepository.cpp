@@ -5,6 +5,9 @@
 #include "XMLFileRepository.h"
 
 XMLFileRepository::XMLFileRepository(const std::string &fp, Model *model) : filePath(fp), sub(model) {
+    if (!fileExist(fp))
+        createXMLFile();
+
     this->attach();
 }
 
@@ -14,8 +17,6 @@ XMLFileRepository::~XMLFileRepository() {
 
 bool XMLFileRepository::saveChanges(std::multimap<wxDateTime, Task> &Tasks) {
     //TODO: salva tasks nel file.
-    //se il file non esiste va creato.
-    //apertura dello stream
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
 
@@ -26,14 +27,13 @@ bool XMLFileRepository::saveChanges(std::multimap<wxDateTime, Task> &Tasks) {
             pugi::xml_node nodeChild = root.append_child("Task");
             nodeChild.append_attribute("Name") = itr->second.getName().c_str();
             nodeChild.append_attribute("Description") = itr->second.getDescription().c_str();
-            //nodeChild.append_attribute("Priority") = itr->second.getPriority(); metodo per la conversione
+            nodeChild.append_attribute("Priority") = itr->second.getPriorityString().c_str();
+            nodeChild.append_attribute("IsChecked") = itr->second.isChecked();
             //nodeChild.append_attribute("Date") = itr->second.getDate(); come si converte
-            //nodeChild.append_attribute("IsChecked") = itr->second.isChecked();
         }
 
         return doc.save_file(filePath.c_str(), PUGIXML_TEXT("  "));
     } else {
-        //TODO: lanciare eccezione?
         return false;
     }
 }
@@ -59,7 +59,6 @@ std::multimap<wxDateTime, Task> XMLFileRepository::loadDataFromFile() {
 
 bool XMLFileRepository::createXMLFile() {
     pugi::xml_document doc;
-
     auto declarationNode = doc.append_child(pugi::node_declaration);
     declarationNode.append_attribute("version") = "1.0";
     declarationNode.append_attribute("encoding") = "ISO-8859-1";
@@ -69,5 +68,18 @@ bool XMLFileRepository::createXMLFile() {
 
     return doc.save_file(filePath.c_str(), PUGIXML_TEXT("  "));
 }
+
+bool XMLFileRepository::fileExist(const std::string &fp) {
+    std::fstream fin;
+
+    fin.open(fp, std::ios::in);
+    if (fin.is_open()) {
+        fin.close();
+        return true;
+    }
+
+    return false;
+}
+
 
 

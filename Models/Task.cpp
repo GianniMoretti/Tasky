@@ -11,7 +11,7 @@ bool Task::operator==(const Task &task) const {
 
 bool Task::isEqual(const Task &task) const {
     return task.name == this->name && task.description == this->description && task.priority == this->priority &&
-           task.checked == this->checked;
+           task.checked == this->checked && task.getDate() == this->getDate();
 }
 
 const string &Task::getName() const {
@@ -31,5 +31,22 @@ bool Task::isChecked() const {
 }
 
 wxDateTime Task::getDate() const {
-    return Date.GetDateOnly();
+    return date.GetDateOnly();
+}
+
+const string Task::getPriorityString() const {
+    string ris;
+
+    switch (priority) {
+        case Priority::High:
+            ris = "High";
+            break;
+        case Priority::Medium:
+            ris = "Medium";
+            break;
+        case Priority::Low:
+            ris = "Low";
+            break;
+    }
+    return ris;
 }
