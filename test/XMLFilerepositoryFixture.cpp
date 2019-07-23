@@ -6,7 +6,7 @@
 #include "../Models/Model.h"
 #include "../FileManagement/XMLFileRepository.h"
 
-class XMLFileRepositoryFixture : public ::testing::Test {
+class XMLFileRepositorySuite : public ::testing::Test {
 protected:
     void SetUp() override {
         wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
@@ -18,9 +18,20 @@ protected:
         t = Task("foo", "bar", dateTime, Priority::High);
         m.addTask(t);
 
-        fileRepository = new XMLFileRepository("", &m);
+        fileRepository = new XMLFileRepository("/home/giannimoretti/Scrivania/prova.xml", &m);
     };
 
     Model m;
     XMLFileRepository *fileRepository;
 };
+
+
+TEST_F(XMLFileRepositorySuite, testSaveChanges) {
+    bool ok = fileRepository->saveChanges(m.getTaskMap());
+    ASSERT_EQ(ok, true);
+}
+
+TEST_F(XMLFileRepositorySuite, testLoadDataFromFile) {
+    m.setTaskMap(fileRepository->loadDataFromFile());
+    ASSERT_EQ(m.getTaskMap().size(), 3);
+}

@@ -21,7 +21,7 @@ class XMLFileRepository : public IFIleRepository {
 public:
     explicit XMLFileRepository(const std::string &fp, Model *model);
 
-    bool saveChanges(std::multimap<wxDateTime, Task> &Tasks) override;
+    bool saveChanges(const std::multimap<wxDateTime, Task> &Tasks) override;
 
     std::multimap<wxDateTime, Task> loadDataFromFile() override;
 
@@ -34,6 +34,8 @@ private:
     void detach() override;
 
     bool fileExist(const std::string &fp);
+
+    Priority Str2Pri(std::string s);
 
     bool createXMLFile();
     const std::string filePath;

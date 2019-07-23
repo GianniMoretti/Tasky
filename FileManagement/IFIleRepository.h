@@ -15,7 +15,7 @@ class IFIleRepository : public IObserver {
 public:
     virtual ~IFIleRepository() {};
 
-    virtual bool saveChanges(std::multimap<wxDateTime, Task> &Tasks) = 0;
+    virtual bool saveChanges(const std::multimap<wxDateTime, Task> &Tasks) = 0;
 
     virtual std::multimap<wxDateTime, Task> loadDataFromFile() = 0;
 };

@@ -15,8 +15,8 @@ XMLFileRepository::~XMLFileRepository() {
     this->detach();
 }
 
-bool XMLFileRepository::saveChanges(std::multimap<wxDateTime, Task> &Tasks) {
-    //TODO: salva tasks nel file.
+bool XMLFileRepository::saveChanges(const std::multimap<wxDateTime, Task> &Tasks) {
+    //TODO: Devi cancellare prima di riscrivere
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
 
@@ -29,7 +29,7 @@ bool XMLFileRepository::saveChanges(std::multimap<wxDateTime, Task> &Tasks) {
             nodeChild.append_attribute("Description") = itr->second.getDescription().c_str();
             nodeChild.append_attribute("Priority") = itr->second.getPriorityString().c_str();
             nodeChild.append_attribute("IsChecked") = itr->second.isChecked();
-            //nodeChild.append_attribute("Date") = itr->second.getDate(); come si converte
+            nodeChild.append_attribute("Date") = itr->second.getDate().FormatDate().c_str().AsChar();
         }
 
         return doc.save_file(filePath.c_str(), PUGIXML_TEXT("  "));
@@ -53,8 +53,25 @@ void XMLFileRepository::detach() {
 }
 
 std::multimap<wxDateTime, Task> XMLFileRepository::loadDataFromFile() {
-    //TODO: Metodo che carica dati da file XML
-    return std::multimap<wxDateTime, Task>();
+    //TODO: Mancano tutti i controlli
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
+    std::multimap<wxDateTime, Task> Tasks;
+    if (result) {
+        pugi::xml_node root = doc.document_element();
+        for (pugi::xml_node tool = root.child("Task"); tool; tool = tool.next_sibling("Task")) {
+            std::string n = tool.attribute("Name").as_string();
+            std::string d = tool.attribute("Description").as_string();
+            Priority p = Str2Pri(tool.attribute("Priority").as_string());
+            bool c = tool.attribute("IsChecked").as_bool();
+            wxDateTime da;
+            da.ParseDate(tool.attribute("Date").as_string());
+
+            Task t(n, d, da, p, c);
+            Tasks.insert(std::make_pair(t.getDate(), t));
+        }
+    }
+    return Tasks;
 }
 
 bool XMLFileRepository::createXMLFile() {
@@ -80,6 +97,21 @@ bool XMLFileRepository::fileExist(const std::string &fp) {
 
     return false;
 }
+
+Priority XMLFileRepository::Str2Pri(const std::string s) {
+    Priority p;
+
+    if (s == "High")
+        p = Priority::High;
+    else if (s == "Medium")
+        p = Priority::Medium;
+    else
+        p = Priority::Low;
+
+    return p;
+}
+
+
 
 
 
