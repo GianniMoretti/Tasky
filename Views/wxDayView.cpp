@@ -2,7 +2,6 @@
 // Created by lucian on 20/07/19.
 //
 
-//#include <wx/gtk/checkbox.h>
 #include "wxDayView.h"
 
 
@@ -12,7 +11,6 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     numberOfTasks = model->numberOfTasks(dateTime);
     numberOfCompletedTasks = model->numberOfCompletedTasks(dateTime);
 
-    //TODO:Call attach();
     this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 
     wxBoxSizer *wxMainSizer;
@@ -140,6 +138,8 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
 
     this->SetSizer(wxMainSizer);
     this->Layout();
+
+    attach();
 }
 
 wxDayView::~wxDayView() {
@@ -166,8 +166,12 @@ void wxDayView::render() {
 
 void wxDayView::AddTasksToScrolledWindow(wxDateTime date) {
     //TODO:Creazione CheckBox
+    /*wxSizer* sizer=wxScrolledWindowTask->GetSizer();
     for (auto iterator = model->GetTasks(date); iterator != model->getTaskMap().end(); iterator++) {
-        //wxCheckBox box = new wxCheckBox(wxScrolledWindowTask, wxID_ANY, iterator->second.getName(), wxDefaultPosition,
-        //                                wxDefaultSize, 0);
-    }
+        wxCheckBox* box;
+        *box = wxCheckBox(wxScrolledWindowTask, wxID_ANY, iterator->second.getName(), wxDefaultPosition,
+                             wxDefaultSize, 0);
+        if(iterator->second.isChecked())
+            box->SetValue(true);
+    }*/
 }

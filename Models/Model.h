@@ -27,7 +27,7 @@ public:
 
     bool removeTask(const Task &task);
 
-    std::list<Task> researchTasks(wxString str, bool Unchecked = false);
+    std::list<Task *> researchTasks(wxString str, bool Unchecked = false);
 
     const std::multimap<wxDateTime, Task> &getTaskMap() const;
 
@@ -38,6 +38,8 @@ public:
     int numberOfTasks(wxDateTime dt) const;
 
     std::multimap<wxDateTime, Task>::iterator GetTasks(wxDateTime date);
+
+    std::list<wxDateTime> GetKeysOnce();
 
 private:
     void notify() const override;

@@ -13,7 +13,7 @@ protected:
 
         Task t("pippo", "pluto", dateTime, Priority::Low, true);
         m.addTask(t);
-        t = Task("hello", "world", dateTime, Priority::High, true);
+        t = Task("hello", "pippo", dateTime, Priority::High, true);
         m.addTask(t);
         t = Task("foo", "bar", dateTime, Priority::High);
         m.addTask(t);
@@ -31,7 +31,6 @@ TEST_F(ModelSuite, testAddTask) {
 
 TEST_F(ModelSuite, testRemoveTask) {
     Task t("pippo", "pluto", wxDateTime().Now().GetDateOnly(), Priority::Low, true);
-    wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
     m.removeTask(t);
     ASSERT_EQ(m.getTaskMap().size(), 2);
 }
@@ -44,4 +43,27 @@ TEST_F(ModelSuite, testCountTasksCompleted) {
 TEST_F(ModelSuite, testCountTasks) {
     wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
     ASSERT_EQ(m.numberOfTasks(dateTime), 3);
+}
+
+TEST_F(ModelSuite, testResearchChecked) {
+    std::list<Task *> list = m.researchTasks("1", true);
+    ASSERT_EQ(list.size(), 0);
+}
+
+TEST_F(ModelSuite, testResearchUnChecked) {
+    std::list<Task *> list = m.researchTasks("pippo", false);
+    ASSERT_EQ(list.size(), 2);
+}
+
+TEST_F(ModelSuite, testGetTasks) {
+    wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
+    auto itr = m.GetTasks(dateTime);
+    int count = 0;
+    for (itr; itr != m.getTaskMap().end(); itr++)
+        count++;
+    ASSERT_EQ(count, 3);
+}
+
+TEST_F(ModelSuite, testGkeys) {
+    ASSERT_EQ(m.GetKeysOnce().size(), 1);
 }

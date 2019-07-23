@@ -5,10 +5,11 @@
 #include "wxEditTaskView.h"
 
 
-wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, Task task, wxWindowID id, const wxPoint &pos,
+wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, Task *task, wxWindowID id, const wxPoint &pos,
                                const wxSize &size, long style, const wxString &name) : wxPanel(parent, id, pos, size,
                                                                                                style, name) {
     this->model = model;
+    this->task = task;
 
     wxBoxSizer *wxMainSizer;
     wxMainSizer = new wxBoxSizer(wxVERTICAL);
@@ -78,6 +79,8 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, Task task, wxWind
 
     this->SetSizer(wxMainSizer);
     this->Layout();
+
+    attach();
 }
 
 wxEditTaskView::~wxEditTaskView() {

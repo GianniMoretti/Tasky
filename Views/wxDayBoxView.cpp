@@ -95,6 +95,8 @@ wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID
 
     this->SetSizer(wxMainSizer);
     this->Layout();
+
+    attach();
 }
 
 wxDayBoxView::~wxDayBoxView() {

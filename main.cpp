@@ -32,15 +32,8 @@ bool Tasky::OnInit() {
     XMLFileRepository fileRepository(filepath, &model);
     model.setTaskMap(fileRepository.loadDataFromFile());
 
-    MainView *mainView = new MainView("Tasky", wxPoint(50, 50), wxSize(500, 500));
+    MainView *mainView = new MainView(&model, "Tasky", wxPoint(50, 50), wxSize(500, 500));
 
-    wxSizer *mainSizer = new wxBoxSizer(wxHORIZONTAL);
-
-    wxDayBoxView *day = new wxDayBoxView(&model, wxDateTime::Now().GetDateOnly(), mainView);
-    wxDayBoxView *day2 = new wxDayBoxView(&model, wxDateTime::Now().GetDateOnly(), mainView);
-    mainSizer->Add(day);
-    mainSizer->Add(day2);
-    mainView->SetSizer(mainSizer);
 
     mainView->Show(true);
     return true;

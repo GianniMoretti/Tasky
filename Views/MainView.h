@@ -15,13 +15,33 @@
 #endif
 
 
-class MainView : public wxFrame {
+class MainView : public wxFrame, IObserver {
+protected:
+    wxButton *wxButtonSwap;
+
+
+
 public:
-    MainView(const wxString &title, const wxPoint &pos, const wxSize &size);
+    MainView(Model *model, const wxString &title, const wxPoint &pos, const wxSize &size);
+
+    ~MainView() override;
+
+    void update() override;
 
 private:
-    wxDayBoxView *Day;
+    Model *model;
+    std::list<wxDayBoxView *> wxDayBoxViewsList;
+
+    void FillGridSizer(wxGridSizer *pSizer);
+
+    void attach() override;
+
+    void detach() override;
+
 };
 
+bool dateCmp(const wxDateTime &date1, wxDateTime &date2) {
+    return date1.GetTicks() < date2.GetTicks();
+}
 
 #endif //TASKY_MAINVIEW_H
