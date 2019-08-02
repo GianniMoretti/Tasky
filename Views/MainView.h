@@ -40,8 +40,5 @@ private:
 
 };
 
-bool dateCmp(const wxDateTime &date1, wxDateTime &date2) {
-    return date1.GetTicks() < date2.GetTicks();
-}
 
 #endif //TASKY_MAINVIEW_H

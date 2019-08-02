@@ -56,7 +56,7 @@ void MainView::detach() {
 void MainView::FillGridSizer(wxGridSizer *pSizer) {
     std::list<wxDateTime> keys = model->GetKeysOnce();
     //TODO:sort della lista
-    keys.sort(dateCmp);
+    //keys.sort(dateCmp);
     for (auto &key : keys) {
         wxDayBoxView *box = new wxDayBoxView(model, key, this);
         pSizer->Add(box);

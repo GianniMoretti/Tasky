@@ -16,7 +16,7 @@ XMLFileRepository::~XMLFileRepository() {
 }
 
 bool XMLFileRepository::saveChanges(const std::multimap<wxDateTime, Task> &Tasks) {
-    //TODO: Devi cancellare prima di riscrivere
+    //TODO: Devi cancellare prima di riscrivere, aggiungere controlli
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
 

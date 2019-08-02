@@ -7,7 +7,7 @@
 wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID id, const wxPoint &pos,
                            const wxSize &size, long style, const wxString &name) : wxPanel(parent, id, pos, size, style,
                                                                                            name) {
-
+    dateTime = dt;
     model = m;
     numberOfTasks = model->numberOfTasks(dateTime);
     numberOfCompletedTasks = model->numberOfCompletedTasks(dateTime);

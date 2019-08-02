@@ -32,9 +32,7 @@ bool Tasky::OnInit() {
 
     model.setTaskMap(fileRepository.loadDataFromFile());
 
-    MainView *mainView = new MainView(&model, "Tasky", wxPoint(50, 50), wxSize(500, 500));
-
-
+    MainView *mainView = new MainView(&model, "Tasky", wxPoint(50, 50), wxSize(1200, 700));
 
     mainView->Show(true);
     return true;

@@ -11,8 +11,7 @@
 
 using std::string;
 
-//TODO: Class enum?
-enum Priority {
+enum class Priority {
     High,
     Medium,
     Low

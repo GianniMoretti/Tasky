@@ -22,7 +22,7 @@ protected:
     Model m;
 };
 
-//TODO: anche le cose che vanno storte
+//TODO: testing delle cose quando vanno male (es ricerca lista vuota)
 TEST_F(ModelSuite, testAddTask) {
     Task t("ciao", "gianni", wxDateTime().Now().GetDateOnly(), Priority::Low);
     m.addTask(t);
