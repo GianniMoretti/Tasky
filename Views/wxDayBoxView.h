@@ -7,24 +7,11 @@
 
 #pragma once
 
-#include <wx/artprov.h>
-#include <wx/xrc/xmlres.h>
+#include <wx/wx.h>
 #include <wx/statline.h>
-#include <wx/gdicmn.h>
-#include <wx/font.h>
-#include <wx/colour.h>
-#include <wx/settings.h>
-#include <wx/string.h>
-#include <wx/bitmap.h>
-#include <wx/image.h>
-#include <wx/icon.h>
-#include <wx/button.h>
-#include <wx/stattext.h>
-#include <wx/sizer.h>
-#include <wx/gauge.h>
-#include <wx/panel.h>
 #include "../IObserver.h"
 #include "../Models/Model.h"
+#include "../Controllers/MainViewController.h"
 
 
 class wxDayBoxView : public wxPanel, public IObserver {
@@ -41,7 +28,7 @@ protected:
 
 public:
 
-    wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID id = wxID_ANY,
+    wxDayBoxView(Model *m,MainViewController* pController, wxDateTime dt, wxWindow *parent, wxWindowID id = wxID_ANY,
                  const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxSize(150, 150),
                  long style = wxTAB_TRAVERSAL, const wxString &name = wxEmptyString);
 
@@ -54,11 +41,13 @@ public:
     void detach() override;
 
 private:
+    MainViewController* controller;
     wxDateTime dateTime;
     int numberOfCompletedTasks;
     int numberOfTasks;
     Model *model;
 
+    void buttonOneClickShowDay(wxEvent &event);
     void render();
 };
 

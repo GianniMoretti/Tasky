@@ -1,9 +1,10 @@
-//
+//dayView
 // Created by giannimoretti on 17/06/19.
 //
 
 #include <algorithm>
 #include "Model.h"
+
 
 
 void Model::notify() const {
@@ -48,16 +49,16 @@ void Model::setTaskMap(const std::multimap<wxDateTime, Task> &taskMap) {
 }
 
 int Model::numberOfTasks(wxDateTime dt) const {
-    int count = 0;
-    for (auto itr = taskMap.find(dt); itr != taskMap.end(); itr++) {
-        count++;
-    }
+    bool l=dt.IsValid();
+    auto ref=taskMap.equal_range(dt);
+    int count = std::distance(ref.first,ref.second);
     return count;
 }
 
 int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
     int count = 0;
-    for (auto itr = taskMap.find(dateTime); itr != taskMap.end(); itr++) {
+    auto ref=taskMap.equal_range(dateTime);
+    for (auto itr = ref.first; itr != ref.second; itr++) {
         if (itr->second.isChecked())
             count++;
     }
@@ -85,6 +86,7 @@ std::list<Task *> Model::researchTasks(const wxString str, bool onlyUnchecked) {
 }
 
 std::multimap<wxDateTime, Task>::iterator Model::GetTasks(wxDateTime date) {
+    //TODO:meglio usare equal range e dare in out il risultato
     return taskMap.find(date);
 }
 
@@ -96,3 +98,4 @@ std::list<wxDateTime> Model::GetKeysOnce() {
     }
     return keys;
 }
+

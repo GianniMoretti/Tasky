@@ -10,6 +10,7 @@
 #include "Views/MainView.h"
 #include "Models/Model.h"
 #include "FileManagement/XMLFileRepository.h"
+#include "Views/MainFrame.h"
 
 #endif
 
@@ -23,18 +24,17 @@ wxIMPLEMENT_APP(Tasky);
 
 bool Tasky::OnInit() {
     //TODO: controllo del percorso e se non esiste crearlo
-    std::string filepath = "/home/giannimoretti/Scrivania/prova.xml";
+    std::string filepath = "/home/lucian/Scrivania/prova.xml";
 
-    Model model;
+    Model* model = new Model();
 
     //TODO: aggiungere try per le eccezioni all'interno di loaddatafromfile
-    XMLFileRepository fileRepository(filepath, &model);
+    XMLFileRepository fileRepository(filepath, model);
 
-    model.setTaskMap(fileRepository.loadDataFromFile());
+    model->setTaskMap(fileRepository.loadDataFromFile());
 
-    MainView *mainView = new MainView(&model, "Tasky", wxPoint(50, 50), wxSize(1200, 700));
-
-    mainView->Show(true);
+    MainFrame *mainFrame=new MainFrame(model, nullptr,"Tasky",wxID_ANY,wxPoint(0, 0), wxSize(1200, 700));
+    
     return true;
 }
 

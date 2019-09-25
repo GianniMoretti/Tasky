@@ -4,13 +4,14 @@
 
 #include "wxDayBoxView.h"
 
-wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID id, const wxPoint &pos,
+wxDayBoxView::wxDayBoxView(Model *m,MainViewController* pController, wxDateTime dt, wxWindow *parent, wxWindowID id, const wxPoint &pos,
                            const wxSize &size, long style, const wxString &name) : wxPanel(parent, id, pos, size, style,
                                                                                            name) {
     dateTime = dt;
     model = m;
     numberOfTasks = model->numberOfTasks(dateTime);
     numberOfCompletedTasks = model->numberOfCompletedTasks(dateTime);
+    controller=pController;
 
     this->SetFont(
             wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false,
@@ -92,9 +93,12 @@ wxDayBoxView::wxDayBoxView(Model *m, wxDateTime dt, wxWindow *parent, wxWindowID
 
     wxMainSizer->Add(m_staticline8, 0, wxEXPAND, 0);
 
+    //Creazione evento click sul pulsante(o almeno è una prova)
+    wxDayButton->Bind(wxEVT_BUTTON,&wxDayBoxView::buttonOneClickShowDay, this);
 
     this->SetSizer(wxMainSizer);
     this->Layout();
+    render();
 
     attach();
 }
@@ -120,5 +124,9 @@ void wxDayBoxView::detach() {
 void wxDayBoxView::render() {
     wxString t = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
     wxStatTasksLabel->SetLabel(t);
-    wxProgressbar->SetValue((100 * numberOfCompletedTasks) / numberOfTasks);
+    wxProgressbar->SetValue((int)((100 * numberOfCompletedTasks) / numberOfTasks));
+}
+
+void wxDayBoxView::buttonOneClickShowDay(wxEvent &event) {
+    controller->ShowDayView(dateTime);
 }

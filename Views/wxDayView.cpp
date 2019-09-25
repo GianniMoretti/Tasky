@@ -8,28 +8,28 @@
 wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id, const wxPoint &pos, const wxSize &size,
                      long style, const wxString &name) : wxPanel(parent, id, pos, size, style, name) {
     model = m;
+    dateTime=date;
     numberOfTasks = model->numberOfTasks(dateTime);
     numberOfCompletedTasks = model->numberOfCompletedTasks(dateTime);
-
     this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 
     wxBoxSizer *wxMainSizer;
     wxMainSizer = new wxBoxSizer(wxVERTICAL);
 
-    wxMainSizer->SetMinSize(wxSize(5000, 5000));
+    wxMainSizer->SetMinSize(wxSize(-1, -1));
     wxTopPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1, 20), wxTAB_TRAVERSAL);
     wxTopPanel->SetFont(
             wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false,
                    wxEmptyString));
     wxTopPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
-    wxTopPanel->SetMaxSize(wxSize(-1, 20));
+    wxTopPanel->SetMaxSize(wxSize(-1, -1));
 
     wxMainSizer->Add(wxTopPanel, 1, wxEXPAND, 5);
 
     wxBoxSizer *wxDetailsSizer;
     wxDetailsSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    wxDetailsSizer->SetMinSize(wxSize(5000, 5000));
+    wxDetailsSizer->SetMinSize(wxSize(-1, -1));
     wxBoxSizer *wxDayInfoOperetionSizer;
     wxDayInfoOperetionSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -39,23 +39,23 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxBoxSizer *wxTopLabelSizer;
     wxTopLabelSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    wxString num = date.Format(wxT("%d"), wxDateTime::CET).c_str();
-    m_staticText3 = new wxStaticText(this, wxID_ANY, num, wxDefaultPosition, wxSize(150, 100), 0);
+    wxString num = dateTime.Format(wxT("%d"), wxDateTime::CET).c_str();
+    m_staticText3 = new wxStaticText(this, wxID_ANY, num, wxDefaultPosition, wxSize(-1, -1), 0);
     m_staticText3->Wrap(-1);
     m_staticText3->SetFont(
             wxFont(80, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
-    wxTopLabelSizer->Add(m_staticText3, 1, wxALL | wxEXPAND | wxSHAPED | wxALIGN_CENTER_VERTICAL, 5);
+    wxTopLabelSizer->Add(m_staticText3, 1, wxALL | wxEXPAND | wxALIGN_CENTER_VERTICAL, 5);
 
-    wxString day = date.Format(wxT("%a"), wxDateTime::CET).c_str();
-    wxString month = date.Format(wxT("%b"), wxDateTime::CET).c_str();
+    wxString day = dateTime.Format(wxT("%a"), wxDateTime::CET).c_str();
+    wxString month = dateTime.Format(wxT("%b"), wxDateTime::CET).c_str();
     wxString fulldate = wxString::Format(day + "\n" + month);
     wxMonthDayLabel = new wxStaticText(this, wxID_ANY, fulldate, wxDefaultPosition, wxSize(100, 100), 0);
     wxMonthDayLabel->Wrap(-1);
     wxMonthDayLabel->SetFont(
             wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString));
 
-    wxTopLabelSizer->Add(wxMonthDayLabel, 0, wxALIGN_CENTER_VERTICAL | wxEXPAND | wxSHAPED | wxTOP, 30);
+    wxTopLabelSizer->Add(wxMonthDayLabel, 1, wxALIGN_CENTER_VERTICAL | wxEXPAND | wxTOP, 30);
 
 
     wxDayInfoOperetionSizer->Add(wxTopLabelSizer, 1, wxEXPAND, 5);
@@ -85,7 +85,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxStaticline1->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
     wxStaticline1->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
 
-    wxDetailsSizer->Add(wxStaticline1, 0, wxALL | wxEXPAND, 0);
+    wxDetailsSizer->Add(wxStaticline1, 1, wxALL | wxEXPAND, 0);
 
     wxBoxSizer *bSizer8;
     bSizer8 = new wxBoxSizer(wxVERTICAL);
@@ -96,7 +96,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxBoxSizer *wxTasksSizer;
     wxTasksSizer = new wxBoxSizer(wxVERTICAL);
 
-    wxTasksSizer->SetMinSize(wxSize(50000, -1));
+    wxTasksSizer->SetMinSize(wxSize(-1, -1));
 
     wxScrolledWindowTask->SetSizer(wxTasksSizer);
     wxScrolledWindowTask->Layout();
@@ -107,16 +107,16 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     bSizer4 = new wxBoxSizer(wxHORIZONTAL);
 
     wxRemoveButton = new wxButton(this, wxID_ANY, wxT("Remove"), wxDefaultPosition, wxDefaultSize, 0);
-    bSizer4->Add(wxRemoveButton, 0, wxALIGN_CENTER_VERTICAL | wxALL, 10);
+    bSizer4->Add(wxRemoveButton, 1, wxALIGN_CENTER_VERTICAL | wxALL, 10);
 
     wxEditButton = new wxButton(this, wxID_ANY, wxT("Edit"), wxDefaultPosition, wxDefaultSize, 0);
-    bSizer4->Add(wxEditButton, 0, wxALIGN_CENTER_VERTICAL | wxALL, 10);
+    bSizer4->Add(wxEditButton, 1, wxALIGN_CENTER_VERTICAL | wxALL, 10);
 
     wxNewTaskButton = new wxButton(this, wxID_ANY, wxT("New task"), wxDefaultPosition, wxDefaultSize, 0);
-    bSizer4->Add(wxNewTaskButton, 0, wxALIGN_CENTER_VERTICAL | wxALL, 10);
+    bSizer4->Add(wxNewTaskButton, 1, wxALIGN_CENTER_VERTICAL | wxALL, 10);
 
 
-    bSizer8->Add(bSizer4, 0, wxALIGN_CENTER | wxLEFT | wxSHAPED, 5);
+    bSizer8->Add(bSizer4, 1, wxALIGN_CENTER | wxLEFT , 5);
 
 
     wxDetailsSizer->Add(bSizer8, 1, wxEXPAND, 5);
@@ -127,15 +127,15 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxStaticline2 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
     wxStaticline2->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
 
-    wxMainSizer->Add(wxStaticline2, 0, wxEXPAND | wxALL, 0);
+    wxMainSizer->Add(wxStaticline2, 1, wxEXPAND | wxALL, 0);
 
     wxProgressbar = new wxGauge(this, wxID_ANY, 100, wxDefaultPosition, wxSize(1000, 10), wxGA_HORIZONTAL);
+    //TODO: Da aggiustare
     int progressbarValue = (numberOfCompletedTasks * numberOfTasks) / 100;
     wxProgressbar->SetValue(progressbarValue);
-    wxMainSizer->Add(wxProgressbar, 0, wxEXPAND | wxALIGN_CENTER_HORIZONTAL | wxBOTTOM | wxRIGHT | wxLEFT, 5);
+    wxMainSizer->Add(wxProgressbar, 1, wxEXPAND | wxALIGN_CENTER_HORIZONTAL | wxBOTTOM | wxRIGHT | wxLEFT, 5);
 
-    AddTasksToScrolledWindow(date);
-
+    //AddTasksToScrolledWindow(date);
     this->SetSizer(wxMainSizer);
     this->Layout();
 

@@ -11,6 +11,7 @@
 #include <list>
 #include "IModel.h"
 #include "Task.h"
+#include <wx/wx.h>
 
 
 class Model : public IModel {

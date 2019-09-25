@@ -18,7 +18,7 @@ protected:
         t = Task("foo", "bar", dateTime, Priority::High);
         m.addTask(t);
 
-        fileRepository = new XMLFileRepository("/home/giannimoretti/Scrivania/prova.xml", &m);
+        fileRepository = new XMLFileRepository("/home/lucian/Scrivania/prova.xml", &m);
     };
 
     Model m;

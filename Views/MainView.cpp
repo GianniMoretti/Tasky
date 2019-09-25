@@ -5,10 +5,11 @@
 #include "MainView.h"
 
 
-MainView::MainView(Model *model, const wxString &title, const wxPoint &pos, const wxSize &size)
-        : wxFrame(nullptr, wxID_ANY, title, pos, size) {
+MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &pos, const wxSize &size)
+        : wxPanel(parent, id, pos, size) {
 
     this->model = model;
+    controller=new MainViewController(this->model,parent);
 
     this->SetSizeHints(wxDefaultSize, wxDefaultSize);
 
@@ -55,10 +56,8 @@ void MainView::detach() {
 
 void MainView::FillGridSizer(wxGridSizer *pSizer) {
     std::list<wxDateTime> keys = model->GetKeysOnce();
-    //TODO:sort della lista
-    //keys.sort(dateCmp);
     for (auto &key : keys) {
-        wxDayBoxView *box = new wxDayBoxView(model, key, this);
+        wxDayBoxView *box = new wxDayBoxView(model,controller, key, this);
         pSizer->Add(box);
         wxDayBoxViewsList.push_back(box);
     }

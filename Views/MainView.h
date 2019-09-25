@@ -6,23 +6,21 @@
 #define TASKY_MAINVIEW_H
 
 #include <wx/wxprec.h>
+#include "wxDayBoxView.h"
+#include "../Controllers/MainViewController.h"
 
 #ifndef WX_PRECOMP
-
 #include <wx/wx.h>
-#include "wxDayBoxView.h"
-
 #endif
 
 
-class MainView : public wxFrame, IObserver {
+class MainView : public wxPanel, IObserver {
 protected:
     wxButton *wxButtonSwap;
 
 
-
 public:
-    MainView(Model *model, const wxString &title, const wxPoint &pos, const wxSize &size);
+    MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &pos, const wxSize &size);
 
     ~MainView() override;
 
@@ -31,13 +29,13 @@ public:
 private:
     Model *model;
     std::list<wxDayBoxView *> wxDayBoxViewsList;
+    MainViewController *controller;
 
     void FillGridSizer(wxGridSizer *pSizer);
 
     void attach() override;
 
     void detach() override;
-
 };
 
 

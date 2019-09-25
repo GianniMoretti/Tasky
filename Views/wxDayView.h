@@ -44,9 +44,12 @@ protected:
 
 public:
 
-    wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id = wxID_ANY,
+    wxDayView(wxWindow *parent, Model *m ,wxDateTime date, wxWindowID id = wxID_ANY,
               const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxSize(600, 500),
               long style = wxTAB_TRAVERSAL, const wxString &name = wxEmptyString);
+
+
+    wxDayView()= default;
 
     ~wxDayView();
 
