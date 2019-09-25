@@ -7,6 +7,8 @@
 #include "../Views/MainView.h"
 #include "wxDayView.h"
 #include "wxEditTaskView.h"
+#include "ListTasksView.h"
+
 #define TASKY_MAINFRAME_H
 
 
@@ -16,9 +18,12 @@ public:
 
     void ShowDayView(wxDateTime pTime);
 
+    void SwapHomeViews();
+
 private:
     Model*model;
     MainView* mainView;
+    ListTasksView* tasksView;
     wxDayView* dayView;
     wxEditTaskView* editTaskView;
 };

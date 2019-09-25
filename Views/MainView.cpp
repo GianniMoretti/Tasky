@@ -26,6 +26,7 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
 
     wxMainSizer->Add(GridSizer, 1, wxEXPAND | wxTOP, 5);
 
+    wxButtonSwap->Bind(wxEVT_BUTTON,&MainView::buttonOneClickSwapViews, this);
 
     this->SetSizer(wxMainSizer);
     this->Layout();
@@ -61,5 +62,9 @@ void MainView::FillGridSizer(wxGridSizer *pSizer) {
         pSizer->Add(box);
         wxDayBoxViewsList.push_back(box);
     }
+}
+
+void MainView::buttonOneClickSwapViews(wxEvent &event) {
+    controller->SwapViews();
 }
 

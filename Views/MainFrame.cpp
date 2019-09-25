@@ -25,3 +25,11 @@ void MainFrame::ShowDayView(wxDateTime pTime) {
     dayView->Show(true);
     this->Layout();
 }
+
+void MainFrame::SwapHomeViews() {
+    mainView->Hide();
+    tasksView=new ListTasksView(this,model);
+    (wxBoxSizer*)this->GetSizer()->Add(tasksView);
+    tasksView->Show(true);
+    this->Layout();
+}
