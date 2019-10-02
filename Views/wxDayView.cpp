@@ -130,12 +130,12 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxMainSizer->Add(wxStaticline2, 1, wxEXPAND | wxALL, 0);
 
     wxProgressbar = new wxGauge(this, wxID_ANY, 100, wxDefaultPosition, wxSize(1000, 10), wxGA_HORIZONTAL);
-    //TODO: Da aggiustare
-    int progressbarValue = (numberOfCompletedTasks * numberOfTasks) / 100;
+    //TODO: Da aggiustare (non viene visualizzata, quindi andrebbe guardata da wxFormBuilder)
+    int progressbarValue = 100;
     wxProgressbar->SetValue(progressbarValue);
     wxMainSizer->Add(wxProgressbar, 1, wxEXPAND | wxALIGN_CENTER_HORIZONTAL | wxBOTTOM | wxRIGHT | wxLEFT, 5);
 
-    //AddTasksToScrolledWindow(date);
+    AddTasksToScrolledWindow(date);
     this->SetSizer(wxMainSizer);
     this->Layout();
 
@@ -161,17 +161,20 @@ void wxDayView::detach() {
 }
 
 void wxDayView::render() {
-    //TODO:Aggiornare label stats e progressbar
+    wxString stat = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
+    wxStatTasksLabel->SetLabel(stat);
+    wxProgressbar->SetValue((numberOfCompletedTasks * numberOfTasks) / 100);
 }
 
 void wxDayView::AddTasksToScrolledWindow(wxDateTime date) {
-    //TODO:Creazione CheckBox
-    /*wxSizer* sizer=wxScrolledWindowTask->GetSizer();
-    for (auto iterator = model->GetTasks(date); iterator != model->getTaskMap().end(); iterator++) {
-        wxCheckBox* box;
-        *box = wxCheckBox(wxScrolledWindowTask, wxID_ANY, iterator->second.getName(), wxDefaultPosition,
+    wxSizer *sizer = wxScrolledWindowTask->GetSizer();
+    wxString tmp;
+    for (auto iter = model->GetTasks(date); iter.first != iter.second; iter.first++) {
+        tmp = wxString::Format("%s | %s", iter.first->second.getName(), iter.first->second.getPriorityString());
+        wxCheckBox *box = new wxCheckBox(wxScrolledWindowTask, wxID_ANY, tmp, wxDefaultPosition,
                              wxDefaultSize, 0);
-        if(iterator->second.isChecked())
-            box->SetValue(true);
-    }*/
+        box->SetValue(iter.first->second.isChecked());
+        sizer->Add(box);
+    }
+    wxScrolledWindowTask->Layout();
 }
