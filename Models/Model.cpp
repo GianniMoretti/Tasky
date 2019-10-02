@@ -65,11 +65,11 @@ int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
     return count;
 }
 
-std::list<Task *> Model::researchTasks(const wxString str, bool onlyUnchecked) {
+std::list<Task *> Model::researchTasks(const wxString str, bool unChecked) {
     //TODO: Fare test
     std::list<Task *> ris;
 
-    if (onlyUnchecked)  // cerco solo quelli non verificati
+    if (unChecked)  // cerco solo quelli non verificati
         for (auto itr = taskMap.begin(); itr != taskMap.end(); itr++) {
             if (!itr->second.isChecked() && (itr->second.getName().find(str) != std::string::npos ||
                                              itr->second.getDescription().find(str) != std::string::npos))
@@ -97,5 +97,22 @@ std::list<wxDateTime> Model::GetKeysOnce() {
             keys.push_back(itr->first);
     }
     return keys;
+}
+
+std::list<Task> Model::getTaskList(bool unChecked) {
+    std::list<Task> ris;
+
+    if(unChecked){
+        for (auto itr = taskMap.begin(); itr != taskMap.end(); itr++) {
+            if (!itr->second.isChecked())
+                ris.push_back(itr->second);
+        }
+    }
+    else {
+        for (auto itr = taskMap.begin(); itr != taskMap.end(); itr++) {
+                ris.push_back(itr->second);
+        }
+    }
+    return ris;
 }
 

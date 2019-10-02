@@ -38,6 +38,8 @@ private:
     void attach() override;
 
     void detach() override;
+
+    void buttonOneClickSwapViews(wxEvent &event);
 };
 
 

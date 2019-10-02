@@ -26,7 +26,10 @@ void MainFrame::ShowDayView(wxDateTime pTime) {
     this->Layout();
 }
 
-void MainFrame::ShowReserchView() {
-    //TODO::Appena gianni fa il push della view va fatta la creazione della view e il hide della mainView.
-
+void MainFrame::SwapHomeViews() {
+    mainView->Hide();
+    tasksView=new ListTasksView(this,model);
+    (wxBoxSizer*)this->GetSizer()->Add(tasksView);
+    tasksView->Show(true);
+    this->Layout();
 }

@@ -6,6 +6,7 @@
 #define TASKY_MAINVIEWCONTROLLER_H
 
 
+#include <wx/event.h>
 #include "../Models/Model.h"
 
 class MainViewController {

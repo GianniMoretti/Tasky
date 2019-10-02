@@ -136,8 +136,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxMainSizer->Add(wxStaticline2, 1, wxEXPAND | wxALL, 0);
 
     wxProgressbar = new wxGauge(this, wxID_ANY, 100, wxDefaultPosition, wxSize(1000, 10), wxGA_HORIZONTAL);
-    //TODO: Da aggiustare (non viene visualizzata, quindi andrebbe guardata da wxFormBuilder)
-    int progressbarValue = 100;
+    int progressbarValue = (numberOfCompletedTasks *  100) / numberOfTasks;
     wxProgressbar->SetValue(progressbarValue);
     wxMainSizer->Add(wxProgressbar, 1, wxEXPAND | wxALIGN_CENTER_HORIZONTAL | wxBOTTOM | wxRIGHT | wxLEFT, 5);
 
