@@ -17,6 +17,8 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
     wxMainSizer = new wxBoxSizer(wxVERTICAL);
 
     wxButtonSwap = new wxButton(this, wxID_ANY, wxT("!"), wxDefaultPosition, wxDefaultSize, 0);
+    //Crezione evento pulsante swap per passare alla view dell ricerca
+    wxButtonSwap->Bind(wxEVT_BUTTON, &MainView::OnButtonClickSwapView, this);
     wxMainSizer->Add(wxButtonSwap, 0, wxALL | wxALIGN_RIGHT, 5);
 
     wxGridSizer *GridSizer;
@@ -61,5 +63,9 @@ void MainView::FillGridSizer(wxGridSizer *pSizer) {
         pSizer->Add(box);
         wxDayBoxViewsList.push_back(box);
     }
+}
+
+void MainView::OnButtonClickSwapView(wxEvent &event) {
+    controller->ShowReserchView();
 }
 

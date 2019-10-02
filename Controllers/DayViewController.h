@@ -6,8 +6,23 @@
 #define TASKY_DAYVIEWCONTROLLER_H
 
 
+#ifndef WX_PRECOMP
+
+#include <wx/wx.h>
+
+#endif
+
+#include "../Models/Model.h"
+
+
 class DayViewController {
 
+public:
+    DayViewController(Model *pModel, wxWindow *pWindow);
+
+private:
+    Model *model;
+    wxWindow *window;
 };
 
 

@@ -25,3 +25,8 @@ void MainFrame::ShowDayView(wxDateTime pTime) {
     dayView->Show(true);
     this->Layout();
 }
+
+void MainFrame::ShowReserchView() {
+    //TODO::Appena gianni fa il push della view va fatta la creazione della view e il hide della mainView.
+
+}

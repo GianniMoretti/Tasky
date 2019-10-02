@@ -14,3 +14,8 @@ void MainViewController::ShowDayView(wxDateTime pDate) {
     auto tmp=(MainFrame*)(frame);
     tmp->ShowDayView(pDate);
 }
+
+void MainViewController::ShowReserchView() {
+    auto tmp = (MainFrame *) (frame);
+    tmp->ShowReserchView();
+}

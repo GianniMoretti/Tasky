@@ -16,6 +16,8 @@ public:
 
     void ShowDayView(wxDateTime pTime);
 
+    void ShowReserchView();
+
 private:
     Model*model;
     MainView* mainView;

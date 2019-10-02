@@ -27,6 +27,14 @@
 #include <wx/gauge.h>
 #include "../IObserver.h"
 #include "../Models/Model.h"
+#include "../Controllers/DayViewController.h"
+
+#ifndef WX_PRECOMP
+
+#include <wx/wx.h>
+
+#endif
+
 
 class wxDayView : public wxPanel, IObserver {
 protected:
@@ -65,10 +73,17 @@ private:
     int numberOfCompletedTasks;
     int numberOfTasks;
     Model *model;
+    DayViewController *controller;
 
     void render();
 
     void AddTasksToScrolledWindow(wxDateTime date);
+
+    void OnButtonClickRemoveTask(wxEvent &event);
+
+    void OnButtonClickShowEditView(wxEvent &event);
+
+    void OnButtonClickAddNewTask(wxEvent &event);
 
 };
 

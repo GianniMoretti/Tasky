@@ -6,13 +6,14 @@
 #define TASKY_MAINVIEWCONTROLLER_H
 
 
-#include <wx/event.h>
 #include "../Models/Model.h"
 
 class MainViewController {
 public:
     MainViewController(Model* pModel,wxWindow* pFrame);
     void ShowDayView(wxDateTime pDate);
+
+    void ShowReserchView();
 
 private:
     Model* model;
