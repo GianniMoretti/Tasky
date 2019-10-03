@@ -7,6 +7,7 @@
 ListTasksView::ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name ) : wxPanel( parent, id, pos, size, style, name )
 {
     model=pModel;
+    controller = new ListTasksViewController(model, parent);
 
     wxBoxSizer* bSizer1;
     bSizer1 = new wxBoxSizer( wxVERTICAL );
@@ -24,12 +25,14 @@ ListTasksView::ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id, con
 
     m_bpButton1 = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|0 );
     bSizer6->Add( m_bpButton1, 0, wxALL, 5 );
-
+    //event
 
     bSizer2->Add( bSizer6, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
 
     m_bpButton4 = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|0 );
     bSizer2->Add( m_bpButton4, 0, wxALL|wxALIGN_RIGHT, 5 );
+    //event button swap
+    m_bpButton4->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickSwapView, this);
 
 
     bSizer1->Add( bSizer2, 0, wxALIGN_CENTER_HORIZONTAL|wxEXPAND, 5 );
@@ -86,6 +89,7 @@ void ListTasksView::FillScorlledWindow(std::list<Task> list) {
 
     for (auto task:list) {
         //Da usare per mettere i task nella scolled window
+        //TODO:Guardare se conviene usare scrollled window oppure list
         wxString num = task.getDate().Format(wxT("%d"), wxDateTime::CET).c_str();
         wxString day = task.getDate().Format(wxT("%a"), wxDateTime::CET).c_str();
         wxString month = task.getDate().Format(wxT("%b"), wxDateTime::CET).c_str();
@@ -99,3 +103,12 @@ void ListTasksView::FillScorlledWindow(std::list<Task> list) {
     m_scrolledWindow1->Layout();
     bSizer7->Fit( m_scrolledWindow1 );
 }
+
+void ListTasksView::OnButtonClickSwapView(wxEvent &event) {
+    controller->SwapOnMainView();
+}
+
+void ListTasksView::setTaskList(std::list<Task> list) {
+    taskList = list;
+    FillScorlledWindow(taskList);
+};

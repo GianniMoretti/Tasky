@@ -18,7 +18,13 @@ public:
 
     void ShowDayView(wxDateTime pTime);
 
-    void SwapHomeViews();
+    void SwapOnTaskListView();
+
+    void SwapOnMainView();
+
+    void ShowEditTaskView(wxDateTime *pTime, bool editMode, Task *pTask);
+
+    void BackToDayView();
 
 private:
     Model*model;

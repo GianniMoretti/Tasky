@@ -5,11 +5,15 @@
 #include "wxEditTaskView.h"
 
 
-wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, Task *task, wxWindowID id, const wxPoint &pos,
+wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime, bool editMode, Task *pTask,
+                               wxWindowID id, const wxPoint &pos,
                                const wxSize &size, long style, const wxString &name) : wxPanel(parent, id, pos, size,
                                                                                                style, name) {
     this->model = model;
-    this->task = task;
+    this->task = pTask;
+    date = pTime;
+    this->editMode = editMode;
+    controller = new EditTaskViewController(model, parent);
 
     wxBoxSizer *wxMainSizer;
     wxMainSizer = new wxBoxSizer(wxVERTICAL);
@@ -72,10 +76,24 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, Task *task, wxWin
 
     wxCancelButton = new wxButton(this, wxID_ANY, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0);
     wxButtonSizer->Add(wxCancelButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+    //event cancel
+    wxCancelButton->Bind(wxEVT_BUTTON, &wxEditTaskView::OnButtonClickCancelOperation, this);
 
 
     wxMainSizer->Add(wxButtonSizer, 1, wxALIGN_CENTER_HORIZONTAL, 5);
 
+    //event salvataggio task in base se è da modificare oppure nuovo
+    if (editMode) {
+        //Scrivere i dati nelle caselle e linkare il pulsante save al metodo saveEditTask
+        wxNameTxt->SetValue(task->getName());
+        wxPriorityCmbox->SetSelection((int) task->getPriority());
+        wxDescriptionTxt->SetValue(task->getDescription());
+        wxSaveButton->Bind(wxEVT_BUTTON, &wxEditTaskView::OnButtonClickSaveEditTask, this);
+
+    } else {
+        //Lasciare vuote le caselle e linkare i pulsante save a saveNewTask
+        wxSaveButton->Bind(wxEVT_BUTTON, &wxEditTaskView::OnButtonClickSaveNewTask, this);
+    }
 
     this->SetSizer(wxMainSizer);
     this->Layout();
@@ -97,4 +115,27 @@ void wxEditTaskView::attach() {
 
 void wxEditTaskView::detach() {
     model->unsubscribe(this);
+}
+
+void wxEditTaskView::OnButtonClickSaveEditTask(wxEvent &event) {
+    //Call al controller per salvare un task editato
+    auto task = GetTask();
+    controller->SaveEditTask(task, *(this->task));
+}
+
+void wxEditTaskView::OnButtonClickSaveNewTask(wxEvent &event) {
+//Call al controller per salvare un nuovo task
+    auto task = GetTask();
+    controller->SaveNewTask(task);
+}
+
+Task wxEditTaskView::GetTask() {
+    auto name = wxNameTxt->GetValue();
+    auto priority = wxPriorityCmbox->GetSelection();
+    auto description = wxDescriptionTxt->GetValue();
+    return Task(name.ToStdString(), description.ToStdString(), *date, (Priority) priority);
+}
+
+void wxEditTaskView::OnButtonClickCancelOperation(wxEvent &event) {
+    controller->CancelOperation();
 }

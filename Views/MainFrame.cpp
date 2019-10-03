@@ -7,6 +7,8 @@
 MainFrame::MainFrame(Model* pModel,wxWindow *parent, wxString title, wxWindowID id, const wxPoint &pos, const wxSize &size)
 :wxFrame(parent,id,title,pos,size){
     model=pModel;
+    //TODO:Controllare perchè tasksView non è null pur non essendo inizializzata
+    tasksView = nullptr;
     this->SetMinSize(wxSize(1000, 700));
     auto sizer=new wxBoxSizer(wxVERTICAL);
 
@@ -26,10 +28,28 @@ void MainFrame::ShowDayView(wxDateTime pTime) {
     this->Layout();
 }
 
-void MainFrame::SwapHomeViews() {
+void MainFrame::SwapOnTaskListView() {
+    if (tasksView == nullptr) {
+        tasksView = new ListTasksView(this, model);
+        (wxBoxSizer *) this->GetSizer()->Add(tasksView);
+    }
     mainView->Hide();
-    tasksView=new ListTasksView(this,model);
-    (wxBoxSizer*)this->GetSizer()->Add(tasksView);
+    tasksView->setTaskList(model->getTaskList());
     tasksView->Show(true);
     this->Layout();
+}
+
+void MainFrame::SwapOnMainView() {
+    tasksView->Hide();
+    mainView->Show();
+}
+
+void MainFrame::ShowEditTaskView(wxDateTime *pTime, bool editMode, Task *pTask) {
+    dayView->Hide();
+    (wxBoxSizer *) this->GetSizer()->Add(editTaskView);
+}
+
+void MainFrame::BackToDayView() {
+    editTaskView->Hide();
+    dayView->Show();
 }

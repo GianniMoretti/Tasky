@@ -20,6 +20,8 @@ class DayViewController {
 public:
     DayViewController(Model *pModel, wxWindow *pWindow);
 
+    void ShowEditTaskView(wxDateTime *date, bool editMode, Task *task);
+
 private:
     Model *model;
     wxWindow *window;

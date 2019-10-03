@@ -24,11 +24,20 @@
 #include <wx/scrolwin.h>
 #include <wx/panel.h>
 #include "../Models/Model.h"
+#include "../Controllers/ListTasksViewController.h"
 
 class ListTasksView : public wxPanel
 {
 private:
+    //FIXME:Model non viene usato ,il suo unico scopo è essere un parametro per controller
     Model* model;
+    ListTasksViewController *controller;
+    std::list<Task> taskList;
+
+    void FillScorlledWindow(std::list<Task> list);
+
+    void OnButtonClickSwapView(wxEvent &event);
+
 protected:
     wxTextCtrl* m_textCtrl1;
     wxBitmapButton* m_bpButton1;
@@ -40,8 +49,10 @@ protected:
 public:
 
     ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 892,531 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
+
     ~ListTasksView();
-    void FillScorlledWindow(std::list<Task> list);
+
+    void setTaskList(std::list<Task> list);
 
 };
 

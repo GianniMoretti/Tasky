@@ -6,7 +6,7 @@
 
 
 wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id, const wxPoint &pos, const wxSize &size,
-                     long style, const wxString &name) : wxPanel(parent, id, pos, size, style, name) {
+                     long style, const wxString &name) : wxPanel(parent, id, pos, wxSize(1000, 900), style, name) {
     model = m;
     controller = new DayViewController(model, parent);
     dateTime=date;
@@ -180,7 +180,6 @@ void wxDayView::AddTasksToScrolledWindow(wxDateTime date) {
         wxCheckBox *box = new wxCheckBox(wxScrolledWindowTask, wxID_ANY, tmp, wxDefaultPosition,
                              wxDefaultSize, 0);
         box->SetValue(iter.first->second.isChecked());
-        box->Enable(false);
         sizer->Add(box);
     }
     wxScrolledWindowTask->Layout();
@@ -195,5 +194,5 @@ void wxDayView::OnButtonClickShowEditView(wxEvent &event) {
 }
 
 void wxDayView::OnButtonClickAddNewTask(wxEvent &event) {
-
+    controller->ShowEditTaskView(nullptr, false, nullptr);
 }

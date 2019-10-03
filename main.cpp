@@ -24,7 +24,7 @@ wxIMPLEMENT_APP(Tasky);
 
 bool Tasky::OnInit() {
     //TODO: controllo del percorso e se non esiste crearlo
-    std::string filepath = "/home/giannimoretti/Scrivania/prova.xml";
+    std::string filepath = "/home/lucian/Scrivania/prova.xml";
 
     Model* model = new Model();
 

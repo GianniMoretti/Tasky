@@ -93,7 +93,7 @@ wxDayBoxView::wxDayBoxView(Model *m,MainViewController* pController, wxDateTime 
 
     wxMainSizer->Add(m_staticline8, 0, wxEXPAND, 0);
 
-    //Creazione evento click sul pulsante(o almeno è una prova)
+    //Event visualizzare DayView
     wxDayButton->Bind(wxEVT_BUTTON,&wxDayBoxView::buttonOneClickShowDay, this);
 
     this->SetSizer(wxMainSizer);

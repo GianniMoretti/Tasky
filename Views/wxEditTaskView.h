@@ -26,6 +26,7 @@
 #include "../IObserver.h"
 #include "../Models/Task.h"
 #include "../Models/Model.h"
+#include "../Controllers/EditTaskViewController.h"
 
 
 class wxEditTaskView : public wxPanel, IObserver {
@@ -42,7 +43,8 @@ protected:
 
 public:
 
-    wxEditTaskView(wxWindow *parent, Model *model, Task *task, wxWindowID id = wxID_ANY,
+    wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime, bool editMode, Task *pTask,
+                   wxWindowID id = wxID_ANY,
                    const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxSize(500, 300),
                    long style = wxTAB_TRAVERSAL, const wxString &name = wxEmptyString);
 
@@ -57,10 +59,24 @@ private:
 
     Task *task;
 
+    wxDateTime *date;
+
+    bool editMode;
+
+    EditTaskViewController *controller;
+
     void attach() override;
 
     void detach() override;
 
+    //events
+    void OnButtonClickSaveEditTask(wxEvent &event);
+
+    void OnButtonClickSaveNewTask(wxEvent &event);
+
+    void OnButtonClickCancelOperation(wxEvent &event);
+
+    Task GetTask();
 };
 
 

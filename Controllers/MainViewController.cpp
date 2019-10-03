@@ -17,5 +17,5 @@ void MainViewController::ShowDayView(wxDateTime pDate) {
 
 void MainViewController::ShowReserchView() {
     auto tmp = (MainFrame *) (frame);
-    tmp->ShowReserchView();
+    tmp->SwapOnTaskListView();
 }
