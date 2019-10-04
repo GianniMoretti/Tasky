@@ -4,55 +4,12 @@
 
 #include "XMLFileRepository.h"
 
-XMLFileRepository::XMLFileRepository(const std::string &fp, Model *model) : filePath(fp), sub(model) {
+XMLFileRepository::XMLFileRepository(const std::string &fp) : filePath(fp) {
     if (!fileExist(fp))
         createXMLFile();
-
-    this->attach();
 }
 
-XMLFileRepository::~XMLFileRepository() {
-    this->detach();
-}
-
-bool XMLFileRepository::saveChanges(const std::multimap<wxDateTime, Task> &Tasks) {
-    //TODO: Devi cancellare prima di riscrivere, aggiungere controlli
-    pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
-
-    if (result) {
-        pugi::xml_node root = doc.document_element();
-
-        for (auto itr = Tasks.begin(); itr != Tasks.end(); itr++) {
-            pugi::xml_node nodeChild = root.append_child("Task");
-            nodeChild.append_attribute("Name") = itr->second.getName().c_str();
-            nodeChild.append_attribute("Description") = itr->second.getDescription().c_str();
-            nodeChild.append_attribute("Priority") = itr->second.getPriorityString().c_str();
-            nodeChild.append_attribute("IsChecked") = itr->second.isChecked();
-            nodeChild.append_attribute("Date") = itr->second.getDate().FormatDate().c_str().AsChar();
-        }
-
-        return doc.save_file(filePath.c_str(), PUGIXML_TEXT("  "));
-    } else {
-        return false;
-    }
-}
-
-
-void XMLFileRepository::update() {
-    std::multimap<wxDateTime, Task> Tasks = sub->getTaskMap();
-    saveChanges(Tasks);
-}
-
-void XMLFileRepository::attach() {
-    sub->subscribe(this);
-}
-
-void XMLFileRepository::detach() {
-    sub->unsubscribe(this);
-}
-
-std::multimap<wxDateTime, Task> XMLFileRepository::loadDataFromFile() {
+std::multimap<wxDateTime, Task> XMLFileRepository::loadTaskFromFile() {
     //TODO: Mancano tutti i controlli
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
@@ -72,6 +29,101 @@ std::multimap<wxDateTime, Task> XMLFileRepository::loadDataFromFile() {
         }
     }
     return Tasks;
+}
+
+bool XMLFileRepository::deleteTask(const Task &t) {
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
+
+    if (result) {
+        pugi::xpath_variable_set vars;
+        vars.add("N", pugi::xpath_type_string);
+        vars.add("D", pugi::xpath_type_string);
+        vars.add("P", pugi::xpath_type_string);
+        vars.add("C", pugi::xpath_type_boolean);
+        vars.add("Dat", pugi::xpath_type_string);
+
+        vars.set("N", t.getName().c_str());
+        vars.set("D", t.getDescription().c_str());
+        vars.set("P", t.getPriorityString().c_str());
+        vars.set("C", t.isChecked());
+        vars.set("Dat", t.getDate().FormatDate().c_str().AsChar());
+
+        pugi::xpath_node tSelected = doc.select_nodes(
+                "/Tasks/Task[@Name = string($N) and @Description = string($D) and @Priority = string($P) and @IsChecked = string($C) and @Date = string($Dat)]",
+                &vars).first();
+
+        if (tSelected == nullptr)
+            return false;
+
+        pugi::xml_node root = doc.document_element();
+
+        bool ok = root.remove_child(tSelected.node());
+        if (!ok)
+            return false;
+
+        return doc.save_file(filePath.c_str(), PUGIXML_TEXT("  "));
+    } else {
+        return false;
+    }
+}
+
+bool XMLFileRepository::updateTask(const Task &oldTask, const Task &newTask) {
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
+
+    if (result) {
+        pugi::xpath_variable_set vars;
+        vars.add("N", pugi::xpath_type_string);
+        vars.add("D", pugi::xpath_type_string);
+        vars.add("P", pugi::xpath_type_string);
+        vars.add("C", pugi::xpath_type_boolean);
+        vars.add("Dat", pugi::xpath_type_string);
+
+        vars.set("N", oldTask.getName().c_str());
+        vars.set("D", oldTask.getDescription().c_str());
+        vars.set("P", oldTask.getPriorityString().c_str());
+        vars.set("C", oldTask.isChecked());
+        vars.set("Dat", oldTask.getDate().FormatDate().c_str().AsChar());
+
+        pugi::xpath_node tSelected = doc.select_nodes(
+                "/Tasks/Task[@Name = string($N) and @Description = string($D) and @Priority = string($P) and @IsChecked = string($C) and @Date = string($Dat)]",
+                &vars).first();
+
+        if (tSelected == nullptr)
+            return false;
+
+        tSelected.node().attribute("Name") = newTask.getName().c_str();
+        tSelected.node().attribute("Description") = newTask.getDescription().c_str();
+        tSelected.node().attribute("Priority") = newTask.getPriorityString().c_str();
+        tSelected.node().attribute("IsChecked") = newTask.isChecked();
+        tSelected.node().attribute("Date") = newTask.getDate().FormatDate().c_str().AsChar();
+
+        return doc.save_file(filePath.c_str(), PUGIXML_TEXT("  "));
+
+    } else {
+        return false;
+    }
+}
+
+bool XMLFileRepository::addTask(const Task &t) {
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
+
+    if (result) {
+        pugi::xml_node root = doc.document_element();
+
+        pugi::xml_node nodeChild = root.append_child("Task");
+        nodeChild.append_attribute("Name") = t.getName().c_str();
+        nodeChild.append_attribute("Description") = t.getDescription().c_str();
+        nodeChild.append_attribute("Priority") = t.getPriorityString().c_str();
+        nodeChild.append_attribute("IsChecked") = t.isChecked();
+        nodeChild.append_attribute("Date") = t.getDate().FormatDate().c_str().AsChar();
+
+        return doc.save_file(filePath.c_str(), PUGIXML_TEXT("  "));
+    } else {
+        return false;
+    }
 }
 
 bool XMLFileRepository::createXMLFile() {
@@ -110,6 +162,9 @@ Priority XMLFileRepository::Str2Pri(const std::string s) {
 
     return p;
 }
+
+
+
 
 
 

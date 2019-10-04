@@ -10,28 +10,47 @@ class XMLFileRepositorySuite : public ::testing::Test {
 protected:
     void SetUp() override {
         wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
+        fileRepository = new XMLFileRepository("/home/giannimoretti/Scrivania/prova.xml");
 
-        Task t("pippo", "pluto", dateTime, Priority::Low, true);
-        m.addTask(t);
+        m = new Model(fileRepository);
+
+        /*Task t("pippo", "pluto", dateTime, Priority::Low, true);
+        m->addTask(t);
         t = Task("hello", "world", dateTime, Priority::High, true);
-        m.addTask(t);
+        m->addTask(t);
         t = Task("foo", "bar", dateTime, Priority::High);
-        m.addTask(t);
+        m->addTask(t);*/
 
-        fileRepository = new XMLFileRepository("/home/lucian/Scrivania/prova.xml", &m);
     };
 
-    Model m;
+    Model *m;
     XMLFileRepository *fileRepository;
 };
 
 
-TEST_F(XMLFileRepositorySuite, testSaveChanges) {
-    bool ok = fileRepository->saveChanges(m.getTaskMap());
+TEST_F(XMLFileRepositorySuite, testAddTask) {
+    wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
+    Task t("pippo", "pluto", dateTime, Priority::Low, true);
+    bool ok = fileRepository->addTask(t);
+    ASSERT_EQ(ok, true);
+}
+
+TEST_F(XMLFileRepositorySuite, testRemoveTask) {
+    wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
+    Task t("pippo", "pluto", dateTime, Priority::Low, true);
+    bool ok = fileRepository->deleteTask(t);
     ASSERT_EQ(ok, true);
 }
 
 TEST_F(XMLFileRepositorySuite, testLoadDataFromFile) {
-    m.setTaskMap(fileRepository->loadDataFromFile());
-    ASSERT_EQ(m.getTaskMap().size(), 3);
+    m->setTaskMap(fileRepository->loadTaskFromFile());
+    ASSERT_EQ(m->getTaskMap().size(), 38);
+}
+
+TEST_F(XMLFileRepositorySuite, testUpdateTask) {
+    wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
+    Task t("pippo", "pluto", dateTime, Priority::High, true);
+    Task t1("Gianni", "Moretti", dateTime, Priority::Medium, false);
+    bool ok = fileRepository->updateTask(t, t1);
+    ASSERT_EQ(ok, true);
 }

@@ -11,13 +11,17 @@
 #include "../Models/Task.h"
 #include "../IObserver.h"
 
-class IFIleRepository : public IObserver {
+class IFIleRepository {
 public:
-    virtual ~IFIleRepository() {};
+    virtual ~IFIleRepository() = default;
 
-    virtual bool saveChanges(const std::multimap<wxDateTime, Task> &Tasks) = 0;
+    virtual bool addTask(const Task &t) = 0;
 
-    virtual std::multimap<wxDateTime, Task> loadDataFromFile() = 0;
+    virtual bool deleteTask(const Task &t) = 0;
+
+    virtual bool updateTask(const Task &oldTask, const Task &newTask) = 0;
+
+    virtual std::multimap<wxDateTime, Task> loadTaskFromFile() = 0;
 };
 
 

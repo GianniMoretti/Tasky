@@ -24,14 +24,15 @@ wxIMPLEMENT_APP(Tasky);
 
 bool Tasky::OnInit() {
     //TODO: controllo del percorso e se non esiste crearlo
+
     std::string filepath = "/home/giannimoretti/Scrivania/prova.xml";
 
-    Model* model = new Model();
-
     //TODO: aggiungere try per le eccezioni all'interno di loaddatafromfile
-    XMLFileRepository fileRepository(filepath, model);
+    XMLFileRepository fileRepository(filepath);
 
-    model->setTaskMap(fileRepository.loadDataFromFile());
+    Model *model = new Model(&fileRepository);
+
+    model->setTaskMap(fileRepository.loadTaskFromFile());
 
     MainFrame *mainFrame=new MainFrame(model, nullptr,"Tasky",wxID_ANY,wxPoint(0, 0), wxSize(1200, 700));
     
