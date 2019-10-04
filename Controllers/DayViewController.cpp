@@ -3,3 +3,8 @@
 //
 
 #include "DayViewController.h"
+
+DayViewController::DayViewController(Model *pModel, wxWindow *pWindow) {
+    model = pModel;
+    window = pWindow;
+}

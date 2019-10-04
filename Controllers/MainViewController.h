@@ -14,7 +14,7 @@ public:
     MainViewController(Model* pModel,wxWindow* pFrame);
     void ShowDayView(wxDateTime pDate);
 
-    void SwapViews();
+    void ShowReserchView();
 
 private:
     Model* model;

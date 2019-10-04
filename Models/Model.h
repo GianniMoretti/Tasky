@@ -39,7 +39,8 @@ public:
 
     int numberOfTasks(wxDateTime dt) const;
 
-    std::multimap<wxDateTime, Task>::iterator GetTasks(wxDateTime date);
+    std::pair<std::multimap<wxDateTime, Task>::iterator, std::multimap<wxDateTime, Task>::iterator>
+    GetTasks(wxDateTime date);
 
     std::list<wxDateTime> GetKeysOnce();
 

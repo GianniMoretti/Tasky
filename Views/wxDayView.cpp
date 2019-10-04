@@ -8,6 +8,7 @@
 wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id, const wxPoint &pos, const wxSize &size,
                      long style, const wxString &name) : wxPanel(parent, id, pos, size, style, name) {
     model = m;
+    controller = new DayViewController(model, parent);
     dateTime=date;
     numberOfTasks = model->numberOfTasks(dateTime);
     numberOfCompletedTasks = model->numberOfCompletedTasks(dateTime);
@@ -115,6 +116,11 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxNewTaskButton = new wxButton(this, wxID_ANY, wxT("New task"), wxDefaultPosition, wxDefaultSize, 0);
     bSizer4->Add(wxNewTaskButton, 1, wxALIGN_CENTER_VERTICAL | wxALL, 10);
 
+    //Creazione eventi pulsanti
+    wxRemoveButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickRemoveTask, this);
+    wxEditButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickShowEditView, this);
+    wxNewTaskButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickAddNewTask, this);
+
 
     bSizer8->Add(bSizer4, 1, wxALIGN_CENTER | wxLEFT , 5);
 
@@ -134,7 +140,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxProgressbar->SetValue(progressbarValue);
     wxMainSizer->Add(wxProgressbar, 1, wxEXPAND | wxALIGN_CENTER_HORIZONTAL | wxBOTTOM | wxRIGHT | wxLEFT, 5);
 
-    //AddTasksToScrolledWindow(date);
+    AddTasksToScrolledWindow(date);
     this->SetSizer(wxMainSizer);
     this->Layout();
 
@@ -160,17 +166,34 @@ void wxDayView::detach() {
 }
 
 void wxDayView::render() {
-    //TODO:Aggiornare label stats e progressbar
+    wxString stat = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
+    wxStatTasksLabel->SetLabel(stat);
+    wxProgressbar->SetValue((numberOfCompletedTasks * numberOfTasks) / 100);
 }
 
 void wxDayView::AddTasksToScrolledWindow(wxDateTime date) {
-    //TODO:Creazione CheckBox
-    /*wxSizer* sizer=wxScrolledWindowTask->GetSizer();
-    for (auto iterator = model->GetTasks(date); iterator != model->getTaskMap().end(); iterator++) {
-        wxCheckBox* box;
-        *box = wxCheckBox(wxScrolledWindowTask, wxID_ANY, iterator->second.getName(), wxDefaultPosition,
+    //Usare le CheckBox forse non è una vuona idea a causa della selezione nella lista
+    wxSizer *sizer = wxScrolledWindowTask->GetSizer();
+    wxString tmp;
+    for (auto iter = model->GetTasks(date); iter.first != iter.second; iter.first++) {
+        tmp = wxString::Format("%s | %s", iter.first->second.getName(), iter.first->second.getPriorityString());
+        wxCheckBox *box = new wxCheckBox(wxScrolledWindowTask, wxID_ANY, tmp, wxDefaultPosition,
                              wxDefaultSize, 0);
-        if(iterator->second.isChecked())
-            box->SetValue(true);
-    }*/
+        box->SetValue(iter.first->second.isChecked());
+        box->Enable(false);
+        sizer->Add(box);
+    }
+    wxScrolledWindowTask->Layout();
+}
+
+void wxDayView::OnButtonClickRemoveTask(wxEvent &event) {
+
+}
+
+void wxDayView::OnButtonClickShowEditView(wxEvent &event) {
+
+}
+
+void wxDayView::OnButtonClickAddNewTask(wxEvent &event) {
+
 }

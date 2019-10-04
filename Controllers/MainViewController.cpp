@@ -15,7 +15,7 @@ void MainViewController::ShowDayView(wxDateTime pDate) {
     tmp->ShowDayView(pDate);
 }
 
-void MainViewController::SwapViews() {
-    auto tmp=(MainFrame*)(frame);
-    tmp->SwapHomeViews();
+void MainViewController::ShowReserchView() {
+    auto tmp = (MainFrame *) (frame);
+    tmp->ShowReserchView();
 }

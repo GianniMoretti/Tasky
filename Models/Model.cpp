@@ -92,9 +92,9 @@ std::list<Task *> Model::researchTasks(const wxString str, bool unChecked) {
     return ris;
 }
 
-std::multimap<wxDateTime, Task>::iterator Model::GetTasks(wxDateTime date) {
-    //TODO:meglio usare equal range e dare in out il risultato
-    return taskMap.find(date);
+std::pair<std::multimap<wxDateTime, Task>::iterator, std::multimap<wxDateTime, Task>::iterator>
+Model::GetTasks(wxDateTime date) {
+    return taskMap.equal_range(date);
 }
 
 std::list<wxDateTime> Model::GetKeysOnce() {

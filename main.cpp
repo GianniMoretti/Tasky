@@ -35,7 +35,7 @@ bool Tasky::OnInit() {
     model->setTaskMap(fileRepository.loadTaskFromFile());
 
     MainFrame *mainFrame=new MainFrame(model, nullptr,"Tasky",wxID_ANY,wxPoint(0, 0), wxSize(1200, 700));
-    
+
     return true;
 }
 

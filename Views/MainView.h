@@ -33,6 +33,8 @@ private:
 
     void FillGridSizer(wxGridSizer *pSizer);
 
+    void OnButtonClickSwapView(wxEvent &event);
+
     void attach() override;
 
     void detach() override;
