@@ -5,7 +5,9 @@
 #include <algorithm>
 #include "Model.h"
 
-
+Model::Model(IFIleRepository *repository) {
+    this->repo = repository;
+}
 
 void Model::notify() const {
     for (auto obs : observers)
@@ -21,14 +23,20 @@ void Model::unsubscribe(IObserver *obs) {
 }
 
 void Model::addTask(const Task &task) {
+    //TODO: se non lo riesce ad aggiungere?
+    repo->addTask(task);
     taskMap.insert(std::make_pair(task.getDate(), task));
     notify();
 }
 
 bool Model::removeTask(const Task &task) {
+    //TODO: da controllare
     bool ok = false;
-    for (auto itr = taskMap.find(task.getDate()); itr != taskMap.end(); itr++) {
+    auto ref = taskMap.equal_range(task.getDate());
+
+    for (auto itr = ref.first; itr != ref.second; itr++) {
         if (itr->second == task) {
+            repo->deleteTask(task);
             taskMap.erase(itr);
             ok = true;
             break;
@@ -49,7 +57,6 @@ void Model::setTaskMap(const std::multimap<wxDateTime, Task> &taskMap) {
 }
 
 int Model::numberOfTasks(wxDateTime dt) const {
-    bool l=dt.IsValid();
     auto ref=taskMap.equal_range(dt);
     int count = std::distance(ref.first,ref.second);
     return count;
@@ -115,4 +122,6 @@ std::list<Task> Model::getTaskList(bool unChecked) {
     }
     return ris;
 }
+
+
 

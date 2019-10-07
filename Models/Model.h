@@ -11,12 +11,13 @@
 #include <list>
 #include "IModel.h"
 #include "Task.h"
+#include "../FileManagement/IFIleRepository.h"
 #include <wx/wx.h>
 
 
 class Model : public IModel {
 public:
-    Model() = default;
+    explicit Model(IFIleRepository *repository);
 
     void subscribe(IObserver *obs) override;
 
@@ -49,6 +50,7 @@ private:
     void notify() const override;
     std::multimap<wxDateTime, Task> taskMap;
     std::list<IObserver *> observers;
+    IFIleRepository *repo;
 };
 
 
