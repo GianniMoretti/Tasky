@@ -15,6 +15,8 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     this->editMode = editMode;
     controller = new EditTaskViewController(model, parent);
 
+    this->SetSizeHints(wxDefaultSize, wxDefaultSize);
+
     wxBoxSizer *wxMainSizer;
     wxMainSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -28,7 +30,7 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     m_staticText1->Wrap(-1);
     wxNameSizer->Add(m_staticText1, 0, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
 
-    wxNameTxt = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(200, -1), 0);
+    wxNameTxt = new wxTextCtrl(this, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(200, -1), 0);
     wxNameSizer->Add(wxNameTxt, 0, wxALL | wxEXPAND | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
 
 
@@ -45,7 +47,7 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     int wxPriorityCmboxNChoices = sizeof(wxPriorityCmboxChoices) / sizeof(wxString);
     wxPriorityCmbox = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxPriorityCmboxNChoices,
                                    wxPriorityCmboxChoices, 0);
-    wxPriorityCmbox->SetSelection(2);
+    //wxPriorityCmbox->SetSelection( 2 );
     wxPrioritySizer->Add(wxPriorityCmbox, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
 
 
@@ -61,8 +63,7 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     m_staticText2->Wrap(-1);
     wxDescriptionSizer->Add(m_staticText2, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
-    wxDescriptionTxt = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(5000, 200),
-                                      wxTE_MULTILINE);
+    wxDescriptionTxt = new wxTextCtrl(this, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(5000, 200), wxTE_MULTILINE);
     wxDescriptionSizer->Add(wxDescriptionTxt, 1, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
 
@@ -76,11 +77,15 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
 
     wxCancelButton = new wxButton(this, wxID_ANY, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0);
     wxButtonSizer->Add(wxCancelButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
-    //event cancel
-    wxCancelButton->Bind(wxEVT_BUTTON, &wxEditTaskView::OnButtonClickCancelOperation, this);
 
 
     wxMainSizer->Add(wxButtonSizer, 1, wxALIGN_CENTER_HORIZONTAL, 5);
+
+
+    this->SetSizer(wxMainSizer);
+    this->Layout();
+
+    this->Centre(wxBOTH);
 
     //event salvataggio task in base se è da modificare oppure nuovo
     if (editMode) {

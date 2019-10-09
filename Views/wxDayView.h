@@ -76,6 +76,7 @@ private:
     int numberOfTasks;
     Model *model;
     DayViewController *controller;
+    std::list<Task> tasks;
 
     void render();
 

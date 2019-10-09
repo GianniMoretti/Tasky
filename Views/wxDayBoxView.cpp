@@ -124,7 +124,10 @@ void wxDayBoxView::detach() {
 void wxDayBoxView::render() {
     wxString t = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
     wxStatTasksLabel->SetLabel(t);
-    wxProgressbar->SetValue((int)((100 * numberOfCompletedTasks) / numberOfTasks));
+    if (numberOfTasks != 0)
+        wxProgressbar->SetValue((int) ((100 * numberOfCompletedTasks) / numberOfTasks));
+    else
+        wxProgressbar->SetValue(0);
 }
 
 void wxDayBoxView::buttonOneClickShowDay(wxEvent &event) {

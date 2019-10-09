@@ -46,6 +46,7 @@ void MainFrame::SwapOnMainView() {
 
 void MainFrame::ShowEditTaskView(wxDateTime *pTime, bool editMode, Task *pTask) {
     dayView->Hide();
+    editTaskView = new wxEditTaskView(this, model, pTime, editMode, pTask);
     (wxBoxSizer *) this->GetSizer()->Add(editTaskView);
 }
 

@@ -28,11 +28,11 @@ bool Tasky::OnInit() {
     std::string filepath = "/home/lucian/Scrivania/prova.xml";
 
     //TODO: aggiungere try per le eccezioni all'interno di loaddatafromfile
-    XMLFileRepository fileRepository(filepath);
+    XMLFileRepository *fileRepository = new XMLFileRepository(filepath);
 
-    Model *model = new Model(&fileRepository);
+    Model *model = new Model(fileRepository);
 
-    model->setTaskMap(fileRepository.loadTaskFromFile());
+    model->setTaskMap(fileRepository->loadTaskFromFile());
 
     MainFrame *mainFrame=new MainFrame(model, nullptr,"Tasky",wxID_ANY,wxPoint(0, 0), wxSize(1200, 700));
 

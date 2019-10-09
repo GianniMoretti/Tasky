@@ -29,6 +29,8 @@ public:
 
     bool removeTask(const Task &task);
 
+    bool updateTask(const Task &old, const Task &New);
+
     std::list<Task *> researchTasks(wxString str, bool unChecked = false);
 
     const std::multimap<wxDateTime, Task> &getTaskMap() const;

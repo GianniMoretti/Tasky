@@ -12,6 +12,10 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     dateTime=date;
     numberOfTasks = model->numberOfTasks(dateTime);
     numberOfCompletedTasks = model->numberOfCompletedTasks(dateTime);
+    for (auto iter = model->GetTasks(dateTime); iter.first != iter.second; iter.first++) {
+        tasks.push_back(iter.first->second);
+    }
+
     this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 
     wxBoxSizer *wxMainSizer;
@@ -67,8 +71,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxBoxSizer *wxButtonSizer;
     wxButtonSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    wxString stat = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
-    wxStatTasksLabel = new wxStaticText(this, wxID_ANY, stat, wxDefaultPosition, wxSize(-1, 40),
+    wxStatTasksLabel = new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(-1, 40),
                                         wxALIGN_CENTER_HORIZONTAL);
     wxStatTasksLabel->Wrap(-1);
     wxStatTasksLabel->SetFont(
@@ -91,9 +94,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxBoxSizer *bSizer8;
     bSizer8 = new wxBoxSizer(wxVERTICAL);
 
-    //TODO::Finire List
     listBox = new wxCheckListBox(this, wxID_ANY);
-
 
     wxBoxSizer *wxTasksSizer;
     wxTasksSizer = new wxBoxSizer(wxVERTICAL);
@@ -135,11 +136,9 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxMainSizer->Add(wxStaticline2, 1, wxEXPAND | wxALL, 0);
 
     wxProgressbar = new wxGauge(this, wxID_ANY, 100, wxDefaultPosition, wxSize(1000, 10), wxGA_HORIZONTAL);
-    int progressbarValue = (numberOfCompletedTasks *  100) / numberOfTasks;
-    wxProgressbar->SetValue(progressbarValue);
     wxMainSizer->Add(wxProgressbar, 1, wxEXPAND | wxALIGN_CENTER_HORIZONTAL | wxBOTTOM | wxRIGHT | wxLEFT, 5);
 
-    AddTasksToGrid(date);
+    render();
     this->SetSizer(wxMainSizer);
     this->Layout();
 
@@ -165,10 +164,14 @@ void wxDayView::detach() {
 }
 
 void wxDayView::render() {
-    //TODO::Aggiornare il list
+    listBox->Clear();
+    AddTasksToGrid(dateTime);
     wxString stat = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
     wxStatTasksLabel->SetLabel(stat);
-    wxProgressbar->SetValue((numberOfCompletedTasks * numberOfTasks) / 100);
+    if (numberOfTasks != 0)
+        wxProgressbar->SetValue((int) ((100 * numberOfCompletedTasks) / numberOfTasks));
+    else
+        wxProgressbar->SetValue(0);
 }
 
 void wxDayView::AddTasksToGrid(wxDateTime date) {
@@ -188,9 +191,13 @@ void wxDayView::OnButtonClickShowEditView(wxEvent &event) {
 }
 
 void wxDayView::OnButtonClickAddNewTask(wxEvent &event) {
-    controller->ShowEditTaskView(nullptr, false, nullptr);
+    controller->ShowEditTaskView(&dateTime);
 }
 
 void wxDayView::OnButtonClickRemoveTask(wxEvent &event) {
-
+    int index = listBox->GetSelection();
+    listBox->Delete(index);
+    auto ref = model->GetTasks(dateTime);
+    std::advance(ref.first, index);
+    controller->RemoveTask((ref.first)->second);
 }

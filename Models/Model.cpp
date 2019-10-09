@@ -123,5 +123,22 @@ std::list<Task> Model::getTaskList(bool unChecked) {
     return ris;
 }
 
+bool Model::updateTask(const Task &old, const Task &New) {
+    auto ref = taskMap.equal_range(old.getDate());
+    bool ok = false;
+
+    //TODO: da riguardare
+    for (auto itr = ref.first; itr != ref.second; itr++) {
+        if (itr->second == old) {
+            taskMap.erase(itr);
+            taskMap.insert(std::make_pair(New.getDate(), New));
+            repo->updateTask(old, New);
+            ok = true;
+        }
+    }
+    notify();
+    return ok;
+}
+
 
 
