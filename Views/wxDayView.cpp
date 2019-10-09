@@ -91,18 +91,17 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxBoxSizer *bSizer8;
     bSizer8 = new wxBoxSizer(wxVERTICAL);
 
-    wxScrolledWindowTask = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxSize(-1, -1),
-                                                wxHSCROLL | wxVSCROLL);
-    wxScrolledWindowTask->SetScrollRate(5, 5);
+    //TODO::Finire List
+    listBox = new wxCheckListBox(this, wxID_ANY);
+
+
     wxBoxSizer *wxTasksSizer;
     wxTasksSizer = new wxBoxSizer(wxVERTICAL);
 
     wxTasksSizer->SetMinSize(wxSize(-1, -1));
 
-    wxScrolledWindowTask->SetSizer(wxTasksSizer);
-    wxScrolledWindowTask->Layout();
-    wxTasksSizer->Fit(wxScrolledWindowTask);
-    bSizer8->Add(wxScrolledWindowTask, 1, wxALL | wxEXPAND, 10);
+    wxTasksSizer->Fit(listBox);
+    bSizer8->Add(listBox, 1, wxALL | wxEXPAND, 10);
 
     wxBoxSizer *bSizer4;
     bSizer4 = new wxBoxSizer(wxHORIZONTAL);
@@ -140,7 +139,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxProgressbar->SetValue(progressbarValue);
     wxMainSizer->Add(wxProgressbar, 1, wxEXPAND | wxALIGN_CENTER_HORIZONTAL | wxBOTTOM | wxRIGHT | wxLEFT, 5);
 
-    AddTasksToScrolledWindow(date);
+    AddTasksToGrid(date);
     this->SetSizer(wxMainSizer);
     this->Layout();
 
@@ -166,33 +165,32 @@ void wxDayView::detach() {
 }
 
 void wxDayView::render() {
+    //TODO::Aggiornare il list
     wxString stat = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
     wxStatTasksLabel->SetLabel(stat);
     wxProgressbar->SetValue((numberOfCompletedTasks * numberOfTasks) / 100);
 }
 
-void wxDayView::AddTasksToScrolledWindow(wxDateTime date) {
+void wxDayView::AddTasksToGrid(wxDateTime date) {
     //Usare le CheckBox forse non è una vuona idea a causa della selezione nella lista
-    wxSizer *sizer = wxScrolledWindowTask->GetSizer();
+    int index = 0;
     wxString tmp;
     for (auto iter = model->GetTasks(date); iter.first != iter.second; iter.first++) {
-        tmp = wxString::Format("%s | %s", iter.first->second.getName(), iter.first->second.getPriorityString());
-        wxCheckBox *box = new wxCheckBox(wxScrolledWindowTask, wxID_ANY, tmp, wxDefaultPosition,
-                             wxDefaultSize, 0);
-        box->SetValue(iter.first->second.isChecked());
-        sizer->Add(box);
+        tmp = wxString::Format("%s | %s | %s", iter.first->second.getName(), iter.first->second.getDescription(),
+                               iter.first->second.getPriorityString());
+        listBox->Append(tmp);
+        listBox->Check(index, iter.first->second.isChecked());
+        index++;
     }
-    wxScrolledWindowTask->Layout();
 }
-
-void wxDayView::OnButtonClickRemoveTask(wxEvent &event) {
-
-}
-
 void wxDayView::OnButtonClickShowEditView(wxEvent &event) {
 
 }
 
 void wxDayView::OnButtonClickAddNewTask(wxEvent &event) {
     controller->ShowEditTaskView(nullptr, false, nullptr);
+}
+
+void wxDayView::OnButtonClickRemoveTask(wxEvent &event) {
+
 }

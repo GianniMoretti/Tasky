@@ -28,6 +28,7 @@
 #include "../IObserver.h"
 #include "../Models/Model.h"
 #include "../Controllers/DayViewController.h"
+#include <wx/checklst.h>
 
 #ifndef WX_PRECOMP
 
@@ -43,7 +44,8 @@ protected:
     wxStaticText *wxMonthDayLabel;
     wxStaticText *wxStatTasksLabel;
     wxStaticLine *wxStaticline1;
-    wxScrolledWindow *wxScrolledWindowTask;
+    //TODO::cambiare il scrolled con list
+    wxCheckListBox *listBox;
     wxButton *wxRemoveButton;
     wxButton *wxEditButton;
     wxButton *wxNewTaskButton;
@@ -77,7 +79,7 @@ private:
 
     void render();
 
-    void AddTasksToScrolledWindow(wxDateTime date);
+    void AddTasksToGrid(wxDateTime date);
 
     void OnButtonClickRemoveTask(wxEvent &event);
 

@@ -18,7 +18,6 @@ void EditTaskViewController::SaveNewTask(Task task) {
 
 void EditTaskViewController::SaveEditTask(Task newTask, Task oldTask) {
     //TODO::Call model metodo update (dopo il push)
-    //model->
     auto tmp = (MainFrame *) (window);
     tmp->BackToDayView();
 }
