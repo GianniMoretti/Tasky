@@ -16,7 +16,9 @@
 
 class MainView : public wxPanel, IObserver {
 protected:
-    wxButton *wxButtonSwap;
+    wxBitmapButton *wxLeftButton;
+    wxBitmapButton *wxRightButton;
+    wxGridSizer *gSizer4;
 
 
 public:

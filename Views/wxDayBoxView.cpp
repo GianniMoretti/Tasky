@@ -97,6 +97,7 @@ wxDayBoxView::wxDayBoxView(Model *m,MainViewController* pController, wxDateTime 
     wxDayButton->Bind(wxEVT_BUTTON,&wxDayBoxView::buttonOneClickShowDay, this);
 
     this->SetSizer(wxMainSizer);
+    wxMainSizer->Fit(this);
     this->Layout();
     render();
 

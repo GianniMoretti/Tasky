@@ -8,13 +8,17 @@
 #include "wxDayView.h"
 #include "wxEditTaskView.h"
 #include "ListTasksView.h"
+#include "wxToolPanel.h"
 
 #define TASKY_MAINFRAME_H
 
 
 class MainFrame:public wxFrame {
 public:
+
     MainFrame(Model* pModel,wxWindow*parent,wxString title,wxWindowID id, const wxPoint &pos, const wxSize &size);
+
+    wxToolPanel *GetToolPanel();
 
     void ShowDayView(wxDateTime pTime);
 
@@ -32,6 +36,13 @@ private:
     ListTasksView* tasksView;
     wxDayView* dayView;
     wxEditTaskView* editTaskView;
+    wxToolPanel *toolPanel;
+
+
+protected:
+    wxBoxSizer *sizer;
+    wxBoxSizer *sizer2;
+
 };
 
 

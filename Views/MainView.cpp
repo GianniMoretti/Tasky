@@ -3,6 +3,7 @@
 //
 
 #include "MainView.h"
+#include "MainFrame.h"
 
 
 MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &pos, const wxSize &size)
@@ -11,28 +12,31 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
     this->model = model;
     controller=new MainViewController(this->model,parent);
 
-    this->SetSizeHints(wxDefaultSize, wxDefaultSize);
+    this->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_3DDKSHADOW));
+    this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BACKGROUND));
 
-    wxBoxSizer *wxMainSizer;
-    wxMainSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *bSizer1;
+    bSizer1 = new wxBoxSizer(wxHORIZONTAL);
 
-    wxButtonSwap = new wxButton(this, wxID_ANY, wxT("!"), wxDefaultPosition, wxDefaultSize, 0);
-    //Crezione evento pulsante swap per passare alla view dell ricerca
-    wxButtonSwap->Bind(wxEVT_BUTTON, &MainView::OnButtonClickSwapView, this);
-    wxMainSizer->Add(wxButtonSwap, 0, wxALL | wxALIGN_RIGHT, 5);
+    wxLeftButton = new wxBitmapButton(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize,
+                                      wxBU_AUTODRAW | 0);
+    bSizer1->Add(wxLeftButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-    wxGridSizer *GridSizer;
-    GridSizer = new wxGridSizer(4, 7, 0, 0);
-    FillGridSizer(GridSizer);
-
-
-    wxMainSizer->Add(GridSizer, 1, wxEXPAND | wxTOP, 5);
+    gSizer4 = new wxGridSizer(4, 7, 0, 0);
+    FillGridSizer(gSizer4);
 
 
-    this->SetSizer(wxMainSizer);
+    bSizer1->Add(gSizer4, 1, wxEXPAND, 5);
+
+    wxRightButton = new wxBitmapButton(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize,
+                                       wxBU_AUTODRAW | 0);
+    bSizer1->Add(wxRightButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+
+    //TODO::Bind dei eventi
+    auto toolPanel = ((MainFrame *) (parent))->GetToolPanel();
+    toolPanel->wxSwapButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickSwapView, this);
+    this->SetSizer(bSizer1);
     this->Layout();
-
-    this->Centre(wxBOTH);
     attach();
 }
 
