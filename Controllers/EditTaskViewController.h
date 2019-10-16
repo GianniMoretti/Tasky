@@ -13,11 +13,9 @@ class EditTaskViewController {
 public:
     EditTaskViewController(Model *pModel, wxWindow *pWindow);
 
-    void SaveNewTask(Task task);
+    void SaveNewTask(wxWindow *pWindows, Task task);
 
-    void SaveEditTask(Task newTask, Task oldTask);
-
-    void CancelOperation();
+    void SaveEditTask(wxWindow *pWindows, Task newTask, Task oldTask, bool isLastDayView = true);
 
 private:
     Model *model;

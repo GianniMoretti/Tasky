@@ -10,11 +10,21 @@ DayViewController::DayViewController(Model *pModel, wxWindow *pWindow) {
     window = pWindow;
 }
 
-void DayViewController::ShowEditTaskView(wxDateTime *date, bool editMode, Task *task) {
+void DayViewController::ShowEditTaskView(wxWindow *currentView, wxDateTime *date, bool editMode, Task *task) {
     auto tmp = (MainFrame *) (window);
-    tmp->ShowEditTaskView(date, editMode, task);
+    tmp->ShowEditTaskView(currentView, date, editMode, task);
 }
 
 void DayViewController::RemoveTask(Task task) {
     model->removeTask(task);
+}
+
+void DayViewController::BackToHomeView(wxWindow *currentView) {
+    auto tmp = (MainFrame *) (window);
+    tmp->GoBack(currentView, 1);
+}
+
+void DayViewController::GoHome(wxWindow *pView) {
+    auto tmp = (MainFrame *) (window);
+    tmp->ShowMainView(pView);
 }

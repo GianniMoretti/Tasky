@@ -28,16 +28,21 @@ MainFrame::MainFrame(Model* pModel,wxWindow *parent, wxString title, wxWindowID 
     this->Layout();
 }
 
-void MainFrame::ShowDayView(wxDateTime pTime) {
-    mainView->Hide();
-    dayView=new wxDayView(this,model,pTime);
-    sizer2->Add(dayView);
-    dayView->Show(true);
+void MainFrame::ShowDayView(wxWindow *currentView, wxDateTime *pTime) {
+    currentView->Hide();
+    if (pTime == nullptr)
+        dayView->Show();
+    else {
+        dayView = new wxDayView(this, model, *pTime);
+        sizer2->Add(dayView);
+    }
 
+    dayView->Show(true);
     this->Layout();
 }
 
-void MainFrame::SwapOnTaskListView() {
+void MainFrame::ShowTaskListView(wxWindow *currentView) {
+    currentView->Hide();
     if (tasksView == nullptr) {
         tasksView = new ListTasksView(this, model);
         sizer2->Add(tasksView);
@@ -45,28 +50,46 @@ void MainFrame::SwapOnTaskListView() {
     mainView->Hide();
     tasksView->setTaskList(model->getTaskList());
     tasksView->Show(true);
+    tasksView->LinkEvents();
 
     this->Layout();
 }
 
-void MainFrame::SwapOnMainView() {
-    tasksView->Hide();
+void MainFrame::ShowMainView(wxWindow *currentView) {
+    currentView->Hide();
     mainView->Show();
+    mainView->LinkEvents();
+    this->Layout();
 }
 
-void MainFrame::ShowEditTaskView(wxDateTime *pTime, bool editMode, Task *pTask) {
-    dayView->Hide();
+void MainFrame::ShowEditTaskView(wxWindow *currentView, wxDateTime *pTime, bool editMode, Task *pTask) {
+    currentView->Hide();
     editTaskView = new wxEditTaskView(this, model, pTime, editMode, pTask);
     sizer2->Add(editTaskView);
     editTaskView->Show();
-
+    this->Layout();
 }
 
-void MainFrame::BackToDayView() {
-    editTaskView->Hide();
-    dayView->Show();
+void MainFrame::GoBack(wxWindow *pWindow, int currentIndex) {
+
+    switch (currentIndex - 1) {
+        case 0:
+            ShowMainView(pWindow);
+            break;
+        case -2:
+            ShowMainView(pWindow);
+            break;
+        case 1:
+            ShowDayView(pWindow);
+            break;
+        case 2:
+            ShowTaskListView(pWindow);
+            break;
+    }
 }
 
 wxToolPanel *MainFrame::GetToolPanel() {
     return toolPanel;
 }
+
+

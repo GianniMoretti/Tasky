@@ -10,20 +10,18 @@ EditTaskViewController::EditTaskViewController(Model *pModel, wxWindow *pWindow)
     window = pWindow;
 }
 
-void EditTaskViewController::SaveNewTask(Task task) {
+void EditTaskViewController::SaveNewTask(wxWindow *pWindows, Task task) {
     model->addTask(task);
     auto tmp = (MainFrame *) (window);
-    tmp->BackToDayView();
+    tmp->ShowDayView(pWindows);
 }
 
-void EditTaskViewController::SaveEditTask(Task newTask, Task oldTask) {
-    //TODO::Call model metodo update (dopo il push)
+void EditTaskViewController::SaveEditTask(wxWindow *pWindows, Task newTask, Task oldTask, bool isLastDayView) {
     model->updateTask(oldTask, newTask);
     auto tmp = (MainFrame *) (window);
-    tmp->BackToDayView();
+    if (isLastDayView)
+        tmp->ShowDayView(pWindows);
+    else
+        tmp->ShowTaskListView(pWindows);
 }
 
-void EditTaskViewController::CancelOperation() {
-    auto tmp = (MainFrame *) (window);
-    tmp->BackToDayView();
-}

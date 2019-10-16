@@ -125,13 +125,14 @@ void wxEditTaskView::detach() {
 void wxEditTaskView::OnButtonClickSaveEditTask(wxEvent &event) {
     //Call al controller per salvare un task editato
     auto task = GetTask();
-    controller->SaveEditTask(task, *(this->task));
+    //TODO::Differenziare l'accesso a edit
+    controller->SaveEditTask(this, task, *(this->task));
 }
 
 void wxEditTaskView::OnButtonClickSaveNewTask(wxEvent &event) {
 //Call al controller per salvare un nuovo task
     auto task = GetTask();
-    controller->SaveNewTask(task);
+    controller->SaveNewTask(this, task);
 }
 
 Task wxEditTaskView::GetTask() {
@@ -139,8 +140,4 @@ Task wxEditTaskView::GetTask() {
     auto priority = wxPriorityCmbox->GetSelection();
     auto description = wxDescriptionTxt->GetValue();
     return Task(name.ToStdString(), description.ToStdString(), *date, (Priority) priority);
-}
-
-void wxEditTaskView::OnButtonClickCancelOperation(wxEvent &event) {
-    controller->CancelOperation();
 }

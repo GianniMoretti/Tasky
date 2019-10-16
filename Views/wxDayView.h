@@ -28,6 +28,7 @@
 #include "../IObserver.h"
 #include "../Models/Model.h"
 #include "../Controllers/DayViewController.h"
+#include "wxToolPanel.h"
 #include <wx/checklst.h>
 
 #ifndef WX_PRECOMP
@@ -44,11 +45,7 @@ protected:
     wxStaticText *wxMonthDayLabel;
     wxStaticText *wxStatTasksLabel;
     wxStaticLine *wxStaticline1;
-    //TODO::cambiare il scrolled con list
     wxCheckListBox *listBox;
-    wxButton *wxRemoveButton;
-    wxButton *wxEditButton;
-    wxButton *wxNewTaskButton;
     wxStaticLine *wxStaticline2;
     wxGauge *wxProgressbar;
 
@@ -77,6 +74,7 @@ private:
     Model *model;
     DayViewController *controller;
     std::list<Task> tasks;
+    wxToolPanel *toolPanel;
 
     void render();
 
@@ -87,6 +85,12 @@ private:
     void OnButtonClickShowEditView(wxEvent &event);
 
     void OnButtonClickAddNewTask(wxEvent &event);
+
+    void OnButtonClickGoBack(wxEvent &event);
+
+    void OnButtonClickGoHome(wxEvent &event);
+
+    void LinkEvents();
 
 };
 

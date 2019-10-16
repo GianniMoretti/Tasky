@@ -12,9 +12,10 @@
 class MainViewController {
 public:
     MainViewController(Model* pModel,wxWindow* pFrame);
-    void ShowDayView(wxDateTime pDate);
 
-    void ShowReserchView();
+    void ShowDayView(wxWindow *pWindow, wxDateTime pDate);
+
+    void ShowReserchView(wxWindow *pWindow);
 
 private:
     Model* model;

@@ -13,7 +13,6 @@ wxToolPanel::wxToolPanel(wxWindow *parent, wxWindowID id, const wxPoint &pos, co
     wxBoxSizer *bSizer;
     bSizer = new wxBoxSizer(wxVERTICAL);
 
-    //TODO::Creare pulsanti in base alla view
 
     wxBackButton = new wxBitmapButton(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize,
                                       wxBU_AUTODRAW | 0);
