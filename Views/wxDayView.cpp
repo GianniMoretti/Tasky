@@ -177,8 +177,12 @@ void wxDayView::AddTasksToGrid(wxDateTime date) {
         index++;
     }
 }
-void wxDayView::OnButtonClickShowEditView(wxEvent &event) {
 
+void wxDayView::OnButtonClickEditTask(wxEvent &event) {
+    auto index = listBox->GetSelection();
+    auto ref = model->GetTasks(dateTime);
+    std::advance(ref.first, index);
+    controller->ShowEditTaskView(this, &dateTime, true, &(ref.first)->second);
 }
 
 void wxDayView::OnButtonClickAddNewTask(wxEvent &event) {
@@ -198,8 +202,14 @@ void wxDayView::OnButtonClickGoBack(wxEvent &event) {
 }
 
 void wxDayView::LinkEvents() {
+    toolPanel->HideButtons();
+    toolPanel->wxRemoveButton->Show();
+    toolPanel->wxEditButton->Show();
+    toolPanel->wxAddButton->Show();
+    toolPanel->wxBackButton->Show();
+    toolPanel->wxHomeButton->Show();
     toolPanel->wxRemoveButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickRemoveTask, this);
-    toolPanel->wxEditButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickShowEditView, this);
+    toolPanel->wxEditButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickEditTask, this);
     toolPanel->wxAddButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickAddNewTask, this);
     toolPanel->wxBackButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoBack, this);
     toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoHome, this);

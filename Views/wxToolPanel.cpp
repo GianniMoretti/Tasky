@@ -13,8 +13,9 @@ wxToolPanel::wxToolPanel(wxWindow *parent, wxWindowID id, const wxPoint &pos, co
     wxBoxSizer *bSizer;
     bSizer = new wxBoxSizer(wxVERTICAL);
 
+    wxBitmap *b = new wxBitmap("../ApplicationIcons/back-icon.png", wxBITMAP_DEFAULT_TYPE);
 
-    wxBackButton = new wxBitmapButton(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize,
+    wxBackButton = new wxBitmapButton(this, wxID_ANY, *b, wxDefaultPosition, wxDefaultSize,
                                       wxBU_AUTODRAW | 0);
     bSizer->Add(wxBackButton, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
@@ -65,4 +66,16 @@ wxToolPanel::wxToolPanel(wxWindow *parent, wxWindowID id, const wxPoint &pos, co
     bSizer->Fit(this);
     this->SetSizer(bSizer);
     this->Layout();
+}
+
+void wxToolPanel::HideButtons() {
+    wxBackButton->Hide();
+    wxAddButton->Hide();
+    wxRemoveButton->Hide();
+    wxEditButton->Hide();
+    wxSwapButton->Hide();
+    wxCheckUnButton->Hide();
+    wxHomeButton->Hide();
+    wxNewDayButton->Hide();
+    wxRemoveDayButton->Hide();
 }

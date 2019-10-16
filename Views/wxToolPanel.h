@@ -22,6 +22,7 @@ public:
 
     wxToolPanel(wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size);
 
+    void HideButtons();
 };
 
 

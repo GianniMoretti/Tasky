@@ -40,6 +40,7 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
 
     this->SetSizer(bSizer1);
     this->Layout();
+    this->Show();
     attach();
 }
 
@@ -77,7 +78,10 @@ void MainView::OnButtonClickSwapView(wxEvent &event) {
 }
 
 void MainView::LinkEvents() {
-    //TODO::Bind dei eventi
+    toolPanel->HideButtons();
+    toolPanel->wxSwapButton->Show();
+    toolPanel->wxNewDayButton->Show();
+    toolPanel->wxRemoveDayButton->Show();
     toolPanel->wxSwapButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickSwapView, this);
 }
 

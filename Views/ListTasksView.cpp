@@ -67,9 +67,11 @@ void ListTasksView::OnButtonClickBack(wxEvent &event) {
 
 void ListTasksView::LinkEvents() {
     //TODO::Bind dei eventi
-    toolPanel->wxSwapButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickSwapView, this);
+    toolPanel->HideButtons();
+    toolPanel->wxHomeButton->Show();
+    toolPanel->wxEditButton->Show();
+    toolPanel->wxCheckUnButton->Show();
     toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickHome, this);
-    toolPanel->wxBackButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickBack, this);
 }
 
 

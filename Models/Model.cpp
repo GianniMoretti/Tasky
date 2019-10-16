@@ -138,6 +138,7 @@ bool Model::updateTask(const Task &old, const Task &New) {
             taskMap.insert(std::make_pair(New.getDate(), New));
             repo->updateTask(old, New);
             ok = true;
+            break;
         }
     }
     notify();

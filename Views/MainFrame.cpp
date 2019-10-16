@@ -38,6 +38,7 @@ void MainFrame::ShowDayView(wxWindow *currentView, wxDateTime *pTime) {
     }
 
     dayView->Show(true);
+    dayView->LinkEvents();
     this->Layout();
 }
 

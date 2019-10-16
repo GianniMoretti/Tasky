@@ -28,7 +28,7 @@ bool Tasky::OnInit() {
 
     //TODO: trovare il percorso in automatico
     //TODO: utilizzare degli unique pointer
-    std::string filepath = "/home/giannimoretti/Scrivania/prova.xml";
+    std::string filepath = "/home/lucian/Scrivania/prova.xml";
     XMLFileRepository *fileRepository;
     //unique_ptr<XMLFileRepository> fileRepository;
 

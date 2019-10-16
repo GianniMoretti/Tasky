@@ -66,6 +66,8 @@ public:
 
     void detach() override;
 
+    void LinkEvents();
+
 
 private:
     wxDateTime dateTime;
@@ -82,7 +84,7 @@ private:
 
     void OnButtonClickRemoveTask(wxEvent &event);
 
-    void OnButtonClickShowEditView(wxEvent &event);
+    void OnButtonClickEditTask(wxEvent &event);
 
     void OnButtonClickAddNewTask(wxEvent &event);
 
@@ -90,7 +92,6 @@ private:
 
     void OnButtonClickGoHome(wxEvent &event);
 
-    void LinkEvents();
 
 };
 

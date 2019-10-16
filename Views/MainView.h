@@ -29,6 +29,7 @@ public:
 
     void update() override;
 
+
     void LinkEvents();
 
 private:
@@ -40,6 +41,8 @@ private:
     void FillGridSizer(wxGridSizer *pSizer);
 
     void OnButtonClickSwapView(wxEvent &event);
+
+    void OnShow(wxShowEvent &event);
 
     void attach() override;
 
