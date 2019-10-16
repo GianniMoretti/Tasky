@@ -5,12 +5,13 @@
 #include "XMLFileRepository.h"
 
 XMLFileRepository::XMLFileRepository(const std::string &fp) : filePath(fp) {
-    if (!fileExist(fp))
-        createXMLFile();
+    if (!fileExist(fp)) {
+        if (!createXMLFile())
+            throw; //TODO : aggiungere eccezione
+    }
 }
 
 std::multimap<wxDateTime, Task> XMLFileRepository::loadTaskFromFile() {
-    //TODO: Mancano tutti i controlli
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(filePath.c_str(), pugi::parse_default | pugi::parse_declaration);
     std::multimap<wxDateTime, Task> Tasks;
@@ -105,6 +106,7 @@ bool XMLFileRepository::updateTask(const Task &oldTask, const Task &newTask) {
         return false;
     }
 }
+
 
 bool XMLFileRepository::addTask(const Task &t) {
     pugi::xml_document doc;

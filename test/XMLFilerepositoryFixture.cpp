@@ -23,6 +23,7 @@ protected:
 
     };
 
+
     Model *m;
     XMLFileRepository *fileRepository;
 };

@@ -34,6 +34,12 @@ TEST_F(ModelSuite, testAddTask) {
     ASSERT_EQ(m->getTaskMap().size(), 4);
 }
 
+TEST_F(ModelSuite, FailtestDataAddTask) {
+    Task t("ciao", "gianni", NULL, Priority::Low);
+    m->addTask(t);
+    ASSERT_EQ(m->getTaskMap().size(), 4);
+}
+
 TEST_F(ModelSuite, testRemoveTask) {
     Task t("pippo", "pluto", wxDateTime().Now().GetDateOnly(), Priority::Low, true);
     m->removeTask(t);
@@ -62,9 +68,9 @@ TEST_F(ModelSuite, testResearchUnChecked) {
 
 TEST_F(ModelSuite, testGetTasks) {
     wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
-    auto itr = m->GetTasks(dateTime);
+    auto ref = m->GetTasks(dateTime);
     int count = 0;
-    for (itr; itr != m->getTaskMap().end(); itr++)
+    for (auto itr = ref.first; itr != ref.second; itr++)
         count++;
     ASSERT_EQ(count, 3);
 }
