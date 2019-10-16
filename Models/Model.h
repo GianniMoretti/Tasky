@@ -25,7 +25,7 @@ public:
 
     ~Model() override;
 
-    void addTask(const Task &task);
+    bool addTask(const Task &task);
 
     bool removeTask(const Task &task);
 

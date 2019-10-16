@@ -16,8 +16,9 @@ public:
     wxBitmapButton *wxEditButton;
     wxBitmapButton *wxSwapButton;
     wxBitmapButton *wxCheckUnButton;
-    wxBitmapButton *m_bpButton21;
     wxBitmapButton *wxHomeButton;
+    wxBitmapButton *wxNewDayButton;
+    wxBitmapButton *wxRemoveDayButton;
 
     wxToolPanel(wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size);
 

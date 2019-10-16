@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <memory>
 // For compilers that support precompilation, includes "wx/wx.h".
 #include <wx/wxprec.h>
 
@@ -14,6 +14,8 @@
 
 #endif
 
+using namespace std;
+
 class Tasky : public wxApp {
 public:
     bool OnInit() override;
@@ -23,12 +25,18 @@ public:
 wxIMPLEMENT_APP(Tasky);
 
 bool Tasky::OnInit() {
-    //TODO: controllo del percorso e se non esiste crearlo
 
-    std::string filepath = "/home/lucian/Scrivania/prova.xml";
+    //TODO: trovare il percorso in automatico
+    //TODO: utilizzare degli unique pointer
+    std::string filepath = "/home/giannimoretti/Scrivania/prova.xml";
+    XMLFileRepository *fileRepository;
+    //unique_ptr<XMLFileRepository> fileRepository;
 
-    //TODO: aggiungere try per le eccezioni all'interno di loaddatafromfile
-    XMLFileRepository *fileRepository = new XMLFileRepository(filepath);
+    //try {
+    fileRepository = new XMLFileRepository(filepath);
+    //}
+    //catch ()
+    //{}
 
     Model *model = new Model(fileRepository);
 

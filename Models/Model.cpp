@@ -22,11 +22,15 @@ void Model::unsubscribe(IObserver *obs) {
     observers.remove(obs);
 }
 
-void Model::addTask(const Task &task) {
+bool Model::addTask(const Task &task) {
     //TODO: se non lo riesce ad aggiungere?
-    repo->addTask(task);
-    taskMap.insert(std::make_pair(task.getDate(), task));
-    notify();
+
+    if (repo->addTask(task)) {
+        taskMap.insert(std::make_pair(task.getDate(), task));
+        notify();
+        return true;
+    }
+    return false;
 }
 
 bool Model::removeTask(const Task &task) {

@@ -18,7 +18,8 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
     wxBoxSizer *bSizer1;
     bSizer1 = new wxBoxSizer(wxHORIZONTAL);
 
-    wxLeftButton = new wxBitmapButton(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize,
+    wxBitmap *b = new wxBitmap("../ApplicationIcons/arrow-left-icon.png", wxBITMAP_DEFAULT_TYPE);
+    wxLeftButton = new wxBitmapButton(this, wxID_ANY, *b, wxDefaultPosition, wxDefaultSize,
                                       wxBU_AUTODRAW | 0);
     bSizer1->Add(wxLeftButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
@@ -28,7 +29,8 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
 
     bSizer1->Add(gSizer4, 1, wxEXPAND, 5);
 
-    wxRightButton = new wxBitmapButton(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize,
+    b = new wxBitmap("../ApplicationIcons/arrow-right-icon.png", wxBITMAP_DEFAULT_TYPE);
+    wxRightButton = new wxBitmapButton(this, wxID_ANY, *b, wxDefaultPosition, wxDefaultSize,
                                        wxBU_AUTODRAW | 0);
     bSizer1->Add(wxRightButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
