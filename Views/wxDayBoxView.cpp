@@ -132,5 +132,5 @@ void wxDayBoxView::render() {
 }
 
 void wxDayBoxView::buttonOneClickShowDay(wxEvent &event) {
-    controller->ShowDayView(dateTime);
+    controller->ShowDayView(this->m_parent, dateTime);
 }

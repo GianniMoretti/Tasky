@@ -20,15 +20,16 @@ public:
 
     wxToolPanel *GetToolPanel();
 
-    void ShowDayView(wxDateTime pTime);
+    void ShowDayView(wxWindow *currentView, wxDateTime *pTime = nullptr);
 
-    void SwapOnTaskListView();
+    void ShowTaskListView(wxWindow *currentView);
 
-    void SwapOnMainView();
+    void ShowMainView(wxWindow *currentView);
 
-    void ShowEditTaskView(wxDateTime *pTime, bool editMode, Task *pTask);
+    void ShowEditTaskView(wxWindow *currentView, wxDateTime *pTime, bool editMode, Task *pTask);
 
-    void BackToDayView();
+
+    void GoBack(wxWindow *pWindow, int currentIndex);
 
 private:
     Model*model;

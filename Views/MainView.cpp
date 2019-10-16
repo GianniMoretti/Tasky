@@ -34,11 +34,13 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
                                        wxBU_AUTODRAW | 0);
     bSizer1->Add(wxRightButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-    //TODO::Bind dei eventi
-    auto toolPanel = ((MainFrame *) (parent))->GetToolPanel();
-    toolPanel->wxSwapButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickSwapView, this);
+    auto tool = ((MainFrame *) (parent))->GetToolPanel();
+    toolPanel = tool;
+    LinkEvents();
+
     this->SetSizer(bSizer1);
     this->Layout();
+    this->Show();
     attach();
 }
 
@@ -72,6 +74,14 @@ void MainView::FillGridSizer(wxGridSizer *pSizer) {
 }
 
 void MainView::OnButtonClickSwapView(wxEvent &event) {
-    controller->ShowReserchView();
+    controller->ShowReserchView(this);
+}
+
+void MainView::LinkEvents() {
+    toolPanel->HideButtons();
+    toolPanel->wxSwapButton->Show();
+    toolPanel->wxNewDayButton->Show();
+    toolPanel->wxRemoveDayButton->Show();
+    toolPanel->wxSwapButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickSwapView, this);
 }
 

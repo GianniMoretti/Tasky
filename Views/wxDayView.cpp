@@ -3,6 +3,7 @@
 //
 
 #include "wxDayView.h"
+#include "MainFrame.h"
 
 
 wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id, const wxPoint &pos, const wxSize &size,
@@ -107,19 +108,10 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxBoxSizer *bSizer4;
     bSizer4 = new wxBoxSizer(wxHORIZONTAL);
 
-    wxRemoveButton = new wxButton(this, wxID_ANY, wxT("Remove"), wxDefaultPosition, wxDefaultSize, 0);
-    bSizer4->Add(wxRemoveButton, 1, wxALIGN_CENTER_VERTICAL | wxALL, 10);
-
-    wxEditButton = new wxButton(this, wxID_ANY, wxT("Edit"), wxDefaultPosition, wxDefaultSize, 0);
-    bSizer4->Add(wxEditButton, 1, wxALIGN_CENTER_VERTICAL | wxALL, 10);
-
-    wxNewTaskButton = new wxButton(this, wxID_ANY, wxT("New task"), wxDefaultPosition, wxDefaultSize, 0);
-    bSizer4->Add(wxNewTaskButton, 1, wxALIGN_CENTER_VERTICAL | wxALL, 10);
-
-    //Creazione eventi pulsanti
-    wxRemoveButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickRemoveTask, this);
-    wxEditButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickShowEditView, this);
-    wxNewTaskButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickAddNewTask, this);
+    //Link toolBar's events
+    auto tool = ((MainFrame *) (parent))->GetToolPanel();
+    toolPanel = tool;
+    LinkEvents();
 
 
     bSizer8->Add(bSizer4, 1, wxALIGN_CENTER | wxLEFT , 5);
@@ -175,7 +167,6 @@ void wxDayView::render() {
 }
 
 void wxDayView::AddTasksToGrid(wxDateTime date) {
-    //Usare le CheckBox forse non è una vuona idea a causa della selezione nella lista
     int index = 0;
     wxString tmp;
     for (auto iter = model->GetTasks(date); iter.first != iter.second; iter.first++) {
@@ -186,12 +177,16 @@ void wxDayView::AddTasksToGrid(wxDateTime date) {
         index++;
     }
 }
-void wxDayView::OnButtonClickShowEditView(wxEvent &event) {
 
+void wxDayView::OnButtonClickEditTask(wxEvent &event) {
+    auto index = listBox->GetSelection();
+    auto ref = model->GetTasks(dateTime);
+    std::advance(ref.first, index);
+    controller->ShowEditTaskView(this, &dateTime, true, &(ref.first)->second);
 }
 
 void wxDayView::OnButtonClickAddNewTask(wxEvent &event) {
-    controller->ShowEditTaskView(&dateTime);
+    controller->ShowEditTaskView(this, &dateTime);
 }
 
 void wxDayView::OnButtonClickRemoveTask(wxEvent &event) {
@@ -201,3 +196,27 @@ void wxDayView::OnButtonClickRemoveTask(wxEvent &event) {
     std::advance(ref.first, index);
     controller->RemoveTask((ref.first)->second);
 }
+
+void wxDayView::OnButtonClickGoBack(wxEvent &event) {
+    controller->BackToHomeView(this);
+}
+
+void wxDayView::LinkEvents() {
+    toolPanel->HideButtons();
+    toolPanel->wxRemoveButton->Show();
+    toolPanel->wxEditButton->Show();
+    toolPanel->wxAddButton->Show();
+    toolPanel->wxBackButton->Show();
+    toolPanel->wxHomeButton->Show();
+    toolPanel->wxRemoveButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickRemoveTask, this);
+    toolPanel->wxEditButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickEditTask, this);
+    toolPanel->wxAddButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickAddNewTask, this);
+    toolPanel->wxBackButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoBack, this);
+    toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoHome, this);
+}
+
+void wxDayView::OnButtonClickGoHome(wxEvent &event) {
+    controller->GoHome(this);
+}
+
+

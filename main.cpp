@@ -31,7 +31,8 @@ bool Tasky::OnInit() {
     //TODO: trovare il percorso in automatico
     //TODO: utilizzare degli unique pointer
     std::string filepath = "/home/giannimoretti/Scrivania/prova.xml";
-    shared_ptr<XMLFileRepository> fileRepository;
+    XMLFileRepository *fileRepository;
+    //unique_ptr<XMLFileRepository> fileRepository;
 
     try {
         fileRepository = make_shared<XMLFileRepository>(XMLFileRepository(filepath));

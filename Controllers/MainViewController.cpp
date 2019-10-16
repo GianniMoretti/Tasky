@@ -10,12 +10,12 @@ MainViewController::MainViewController(Model* pModel,wxWindow* pFrame) {
     frame=pFrame;
 }
 
-void MainViewController::ShowDayView(wxDateTime pDate) {
+void MainViewController::ShowDayView(wxWindow *pWindow, wxDateTime pDate) {
     auto tmp=(MainFrame*)(frame);
-    tmp->ShowDayView(pDate);
+    tmp->ShowDayView(pWindow, &pDate);
 }
 
-void MainViewController::ShowReserchView() {
+void MainViewController::ShowReserchView(wxWindow *pWindow) {
     auto tmp = (MainFrame *) (frame);
-    tmp->SwapOnTaskListView();
+    tmp->ShowTaskListView(pWindow);
 }
