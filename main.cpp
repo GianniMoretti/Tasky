@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <exception>
 // For compilers that support precompilation, includes "wx/wx.h".
 #include <wx/wxprec.h>
 
@@ -7,6 +8,7 @@
 
 #include <wx/wx.h>
 
+#include "Exceptions/ImpossibleToCreateFileExeption.h"
 #include "Views/MainView.h"
 #include "Models/Model.h"
 #include "FileManagement/XMLFileRepository.h"
@@ -29,20 +31,21 @@ bool Tasky::OnInit() {
     //TODO: trovare il percorso in automatico
     //TODO: utilizzare degli unique pointer
     std::string filepath = "/home/giannimoretti/Scrivania/prova.xml";
-    XMLFileRepository *fileRepository;
-    //unique_ptr<XMLFileRepository> fileRepository;
+    shared_ptr<XMLFileRepository> fileRepository;
 
-    //try {
-    fileRepository = new XMLFileRepository(filepath);
-    //}
-    //catch ()
-    //{}
+    try {
+        fileRepository = make_shared<XMLFileRepository>(XMLFileRepository(filepath));
+    }
+    catch (ImpossibleToCreateFileException &e) {
+        wxMessageBox(e.what());
+        return true;
+    }
 
-    Model *model = new Model(fileRepository);
+    shared_ptr<Model> model = make_shared<Model>(Model(fileRepository.get()));
 
     model->setTaskMap(fileRepository->loadTaskFromFile());
 
-    MainFrame *mainFrame = new MainFrame(model, nullptr, "Tasky", wxID_ANY, wxPoint(0, 0), wxSize(-1, -1));
+    MainFrame *mainFrame = new MainFrame(model.get(), nullptr, "Tasky", wxID_ANY, wxPoint(0, 0), wxSize(-1, -1));
 
     return true;
 }

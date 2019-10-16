@@ -7,7 +7,7 @@
 XMLFileRepository::XMLFileRepository(const std::string &fp) : filePath(fp) {
     if (!fileExist(fp)) {
         if (!createXMLFile())
-            throw; //TODO : aggiungere eccezione
+            throw ImpossibleToCreateFileException();
     }
 }
 
