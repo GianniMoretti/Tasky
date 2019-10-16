@@ -21,7 +21,8 @@ ListTasksView::ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id, con
     listBox = new wxCheckListBox(this, wxID_ANY);
     bSizer1->Add(listBox, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxEXPAND, 5);
 
-    FillCheckBoxList(model->getTaskList(false));
+    FillCheckBoxList(model->getTaskList(onlyUnchecked));
+    onlyUnchecked = !onlyUnchecked;
 
     auto tool = ((MainFrame *) (parent))->GetToolPanel();
     toolPanel = tool;
@@ -37,6 +38,7 @@ ListTasksView::~ListTasksView()
 }
 
 void ListTasksView::FillCheckBoxList(std::list<Task> list) {
+    listBox->Clear();
     int index = 0;
     wxString tmp;
     for (auto task:list) {
@@ -48,10 +50,6 @@ void ListTasksView::FillCheckBoxList(std::list<Task> list) {
     }
 }
 
-void ListTasksView::OnButtonClickSwapView(wxEvent &event) {
-    controller->SwapOnMainView(this);
-}
-
 void ListTasksView::setTaskList(std::list<Task> list) {
     taskList = list;
     FillCheckBoxList(taskList);
@@ -61,17 +59,19 @@ void ListTasksView::OnButtonClickHome(wxEvent &event) {
     controller->GoHome(this);
 }
 
-void ListTasksView::OnButtonClickBack(wxEvent &event) {
-    controller->GoBack(this);
-}
-
 void ListTasksView::LinkEvents() {
     //TODO::Bind dei eventi
     toolPanel->HideButtons();
     toolPanel->wxHomeButton->Show();
     toolPanel->wxEditButton->Show();
     toolPanel->wxCheckUnButton->Show();
+    toolPanel->wxCheckUnButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickChecked, this);
     toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickHome, this);
+}
+
+void ListTasksView::OnButtonClickChecked(wxEvent &event) {
+    FillCheckBoxList(model->getTaskList(onlyUnchecked));
+    onlyUnchecked = !onlyUnchecked;
 }
 
 
