@@ -92,7 +92,7 @@ private:
 
     void OnButtonClickGoHome(wxEvent &event);
 
-
+    void OnCheckedItem(wxCommandEvent &event);
 };
 
 

@@ -28,6 +28,8 @@ public:
 
     void GoHome(wxWindow *pView);
 
+    void CheckUncheckTask(Task task);
+
 private:
     Model *model;
     wxWindow *window;

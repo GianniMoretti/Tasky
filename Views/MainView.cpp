@@ -24,7 +24,7 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
     bSizer1->Add(wxLeftButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
     gSizer4 = new wxGridSizer(4, 7, 0, 0);
-    FillGridSizer(gSizer4);
+    renderGrid();
 
 
     bSizer1->Add(gSizer4, 1, wxEXPAND, 5);
@@ -65,12 +65,10 @@ void MainView::detach() {
 }
 
 void MainView::FillGridSizer(wxGridSizer *pSizer) {
-    std::list<wxDateTime> keys = model->GetKeysOnce();
-    for (auto &key : keys) {
-        wxDayBoxView *box = new wxDayBoxView(model,controller, key, this);
+    for (auto &box : wxDayBoxViewsList) {
         pSizer->Add(box);
-        wxDayBoxViewsList.push_back(box);
     }
+    this->Layout();
 }
 
 void MainView::OnButtonClickSwapView(wxEvent &event) {
@@ -83,5 +81,57 @@ void MainView::LinkEvents() {
     toolPanel->wxNewDayButton->Show();
     toolPanel->wxRemoveDayButton->Show();
     toolPanel->wxSwapButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickSwapView, this);
+    wxLeftButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickLeftPage, this);
+    wxRightButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickRightPage, this);
+}
+
+void MainView::OnButtonClickNewDay(wxEvent &event) {
+
+}
+
+void MainView::OnButtonClickLeftPage(wxEvent &event) {
+    if (currentPage == 0)
+        return;
+
+    currentPage -= 1;
+    renderGrid();
+}
+
+void MainView::OnButtonClickRightPage(wxEvent &event) {
+    int numOfPage = (int) (model->GetKeysOnce().size() / boxForPage);
+    if (currentPage == numOfPage)
+        return;
+
+    currentPage += 1;
+    renderGrid();
+}
+
+void MainView::renderGrid() {
+    int init = (currentPage * boxForPage);
+
+    for (auto itr = wxDayBoxViewsList.begin(); itr != wxDayBoxViewsList.end(); itr++) {
+        delete (*itr);
+    }
+    wxDayBoxViewsList.clear();
+
+    int count = 0;
+    std::list<wxDateTime> keys = model->GetKeysOnce();
+    int size = model->GetKeysOnce().size();
+
+    for (auto &key : keys) {
+        if (count < init) {
+            count++;
+            continue;
+        } else if (count >= init && count < init + 28 && count < size) {
+            wxDayBoxView *box = new wxDayBoxView(model, controller, key, this);
+            wxDayBoxViewsList.push_back(box);
+        } else
+            break;
+
+        count++;
+    }
+
+    gSizer4->Clear();
+    FillGridSizer(gSizer4);
 }
 

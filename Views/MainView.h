@@ -42,11 +42,22 @@ private:
 
     void OnButtonClickSwapView(wxEvent &event);
 
+    void OnButtonClickNewDay(wxEvent &event);
+
+    void OnButtonClickLeftPage(wxEvent &event);
+
+    void OnButtonClickRightPage(wxEvent &event);
+
     void OnShow(wxShowEvent &event);
 
     void attach() override;
 
     void detach() override;
+
+    void renderGrid();
+
+    int currentPage = 0;
+    const int boxForPage = 28;
 
 };
 

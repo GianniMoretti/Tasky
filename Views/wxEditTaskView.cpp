@@ -93,7 +93,19 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     if (editMode) {
         //Scrivere i dati nelle caselle e linkare il pulsante save al metodo saveEditTask
         wxNameTxt->SetValue(task->getName());
-        wxPriorityCmbox->SetSelection((int) task->getPriority());
+        switch (task->getPriority()) {
+            case Priority::High :
+                wxPriorityCmbox->SetSelection(2);
+                break;
+
+            case Priority::Medium :
+                wxPriorityCmbox->SetSelection(1);
+                break;
+
+            case Priority::Low :
+                wxPriorityCmbox->SetSelection(0);
+                break;
+        }
         wxDescriptionTxt->SetValue(task->getDescription());
         wxSaveButton->Bind(wxEVT_BUTTON, &wxEditTaskView::OnButtonClickSaveEditTask, this);
 

@@ -180,9 +180,11 @@ void wxDayView::AddTasksToGrid(wxDateTime date) {
 
 void wxDayView::OnButtonClickEditTask(wxEvent &event) {
     auto index = listBox->GetSelection();
-    auto ref = model->GetTasks(dateTime);
-    std::advance(ref.first, index);
-    controller->ShowEditTaskView(this, &dateTime, true, &(ref.first->second));
+    if (index != -1) {
+        auto ref = model->GetTasks(dateTime);
+        std::advance(ref.first, index);
+        controller->ShowEditTaskView(this, &dateTime, true, &(ref.first->second));
+    }
 }
 
 void wxDayView::OnButtonClickAddNewTask(wxEvent &event) {
@@ -213,10 +215,18 @@ void wxDayView::LinkEvents() {
     toolPanel->wxAddButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickAddNewTask, this);
     toolPanel->wxBackButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoBack, this);
     toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoHome, this);
+    listBox->Bind(wxEVT_CHECKLISTBOX, &wxDayView::OnCheckedItem, this);
 }
 
 void wxDayView::OnButtonClickGoHome(wxEvent &event) {
     controller->GoHome(this);
+}
+
+void wxDayView::OnCheckedItem(wxCommandEvent &event) {
+    int index = event.GetInt();
+    auto ref = model->GetTasks(dateTime);
+    std::advance(ref.first, index);
+    controller->CheckUncheckTask((ref.first)->second);
 }
 
 

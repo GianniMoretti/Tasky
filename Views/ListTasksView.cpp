@@ -21,13 +21,11 @@ ListTasksView::ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id, con
     listBox = new wxCheckListBox(this, wxID_ANY);
     bSizer1->Add(listBox, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxEXPAND, 5);
 
-    FillCheckBoxList(model->getTaskList(onlyUnchecked));
-    onlyUnchecked = !onlyUnchecked;
-
     auto tool = ((MainFrame *) (parent))->GetToolPanel();
     toolPanel = tool;
     LinkEvents();
 
+    update();
     bSizer1->Fit(this);
     this->SetSizer( bSizer1 );
     this->Layout();
@@ -66,11 +64,12 @@ void ListTasksView::LinkEvents() {
 }
 
 void ListTasksView::OnTextCtrlChanged(wxCommandEvent &event) {
-
+    update();
 }
 
 void ListTasksView::update() {
-    taskList = model->getTaskList();
+    taskList = model->researchTasks(wxCtrlText->GetValue(), onlyUnchecked);
+    FillCheckBoxList(taskList);
 }
 
 void ListTasksView::attach() {
@@ -82,16 +81,17 @@ void ListTasksView::detach() {
 }
 
 void ListTasksView::OnButtonClickChecked(wxEvent &event) {
-    FillCheckBoxList(model->getTaskList(onlyUnchecked));
     onlyUnchecked = !onlyUnchecked;
+    update();
 }
 
 void ListTasksView::OnButtonClickEditTask(wxEvent &event) {
-    auto list = model->getTaskList(!onlyUnchecked);
     int index = listBox->GetSelection();
-    auto iter = list.begin();
-    std::advance(iter, index);
-    controller->EditTask(this, *iter);
+    if (index != -1) {
+        auto iter = taskList.begin();
+        std::advance(iter, index);
+        controller->EditTask(this, *iter);
+    }
 }
 
 

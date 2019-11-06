@@ -28,3 +28,8 @@ void DayViewController::GoHome(wxWindow *pView) {
     auto tmp = (MainFrame *) (window);
     tmp->ShowMainView(pView);
 }
+
+void DayViewController::CheckUncheckTask(Task task) {
+    Task t(task.getName(), task.getDescription(), task.getDate(), task.getPriority(), !task.isChecked());
+    model->updateTask(task, t);
+}
