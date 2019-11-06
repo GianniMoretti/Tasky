@@ -16,10 +16,10 @@ ListTasksView::ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id, con
     wxCtrlText = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
     wxCtrlText->SetMinSize(wxSize(250, -1));
 
-    bSizer1->Add(wxCtrlText, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5);
+    bSizer1->Add(wxCtrlText, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_CENTER_HORIZONTAL, 5);
 
     listBox = new wxCheckListBox(this, wxID_ANY);
-    bSizer1->Add(listBox, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxEXPAND, 5);
+    bSizer1->Add(listBox, 1, wxALL | wxEXPAND, 5);
 
     FillCheckBoxList(model->getTaskList(onlyUnchecked));
     onlyUnchecked = !onlyUnchecked;
@@ -28,7 +28,6 @@ ListTasksView::ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id, con
     toolPanel = tool;
     LinkEvents();
 
-    bSizer1->Fit(this);
     this->SetSizer( bSizer1 );
     this->Layout();
 }

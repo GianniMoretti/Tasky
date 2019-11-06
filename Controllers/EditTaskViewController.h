@@ -13,11 +13,11 @@ class EditTaskViewController {
 public:
     EditTaskViewController(Model *pModel, wxWindow *pWindow);
 
-    void SaveNewTask(wxWindow *pWindows, Task task);
+    void SaveNewTask(wxWindow *pWindows, const Task &task);
 
-    void SaveEditTask(wxWindow *pWindow, Task newTask, Task oldTask, bool isLastDayView = true);
+    void SaveEditTask(wxWindow *pWindow, const Task &newTask, const Task &oldTask, bool isLastDayView = true);
 
-    void CancelOperation(wxWindow *pWindow, bool isDayViewLastView);
+    void CancelOperation(wxWindow *pWindow, bool isDayViewLastView = true);
 
 private:
     Model *model;

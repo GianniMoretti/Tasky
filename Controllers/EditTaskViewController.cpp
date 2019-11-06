@@ -10,13 +10,14 @@ EditTaskViewController::EditTaskViewController(Model *pModel, wxWindow *pWindow)
     window = pWindow;
 }
 
-void EditTaskViewController::SaveNewTask(wxWindow *pWindows, Task task) {
+void EditTaskViewController::SaveNewTask(wxWindow *pWindows, const Task &task) {
     model->addTask(task);
     auto tmp = (MainFrame *) (window);
     tmp->ShowDayView(pWindows);
 }
 
-void EditTaskViewController::SaveEditTask(wxWindow *pWindow, Task newTask, Task oldTask, bool isLastDayView) {
+void
+EditTaskViewController::SaveEditTask(wxWindow *pWindow, const Task &newTask, const Task &oldTask, bool isLastDayView) {
     model->updateTask(oldTask, newTask);
     auto tmp = (MainFrame *) (window);
     if (isLastDayView)
@@ -26,7 +27,7 @@ void EditTaskViewController::SaveEditTask(wxWindow *pWindow, Task newTask, Task 
 }
 
 void EditTaskViewController::CancelOperation(wxWindow *pWindow, bool isDayViewLastView) {
-    auto tmp = (MainFrame *) (pWindow);
+    auto tmp = (MainFrame *) (window);
     if (isDayViewLastView)
         tmp->ShowDayView(pWindow);
     else

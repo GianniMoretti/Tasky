@@ -7,7 +7,7 @@
 
 
 wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id, const wxPoint &pos, const wxSize &size,
-                     long style, const wxString &name) : wxPanel(parent, id, pos, wxSize(1000, 900), style, name) {
+                     long style, const wxString &name) : wxPanel(parent, id, pos, size, style, name) {
     model = m;
     controller = new DayViewController(model, parent);
     dateTime=date;
@@ -19,31 +19,18 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
 
     this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 
-    wxBoxSizer *wxMainSizer;
-    wxMainSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *bSizer1;
+    bSizer1 = new wxBoxSizer(wxVERTICAL);
 
-    wxMainSizer->SetMinSize(wxSize(-1, -1));
-    wxTopPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1, 20), wxTAB_TRAVERSAL);
-    wxTopPanel->SetFont(
-            wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false,
-                   wxEmptyString));
-    wxTopPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
-    wxTopPanel->SetMaxSize(wxSize(-1, -1));
+    wxBoxSizer *bSizer2;
+    bSizer2 = new wxBoxSizer(wxHORIZONTAL);
 
-    wxMainSizer->Add(wxTopPanel, 1, wxEXPAND, 5);
+    wxBoxSizer *bSizer3;
+    bSizer3 = new wxBoxSizer(wxVERTICAL);
 
-    wxBoxSizer *wxDetailsSizer;
-    wxDetailsSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *bSizer4;
+    bSizer4 = new wxBoxSizer(wxHORIZONTAL);
 
-    wxDetailsSizer->SetMinSize(wxSize(-1, -1));
-    wxBoxSizer *wxDayInfoOperetionSizer;
-    wxDayInfoOperetionSizer = new wxBoxSizer(wxVERTICAL);
-
-
-    wxDayInfoOperetionSizer->Add(0, 0, 1, wxEXPAND, 5);
-
-    wxBoxSizer *wxTopLabelSizer;
-    wxTopLabelSizer = new wxBoxSizer(wxHORIZONTAL);
 
     wxString num = dateTime.Format(wxT("%d"), wxDateTime::CET).c_str();
     m_staticText3 = new wxStaticText(this, wxID_ANY, num, wxDefaultPosition, wxSize(-1, -1), 0);
@@ -51,7 +38,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     m_staticText3->SetFont(
             wxFont(80, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
-    wxTopLabelSizer->Add(m_staticText3, 1, wxALL | wxEXPAND | wxALIGN_CENTER_VERTICAL, 5);
+    bSizer4->Add(m_staticText3, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
     wxString day = dateTime.Format(wxT("%a"), wxDateTime::CET).c_str();
     wxString month = dateTime.Format(wxT("%b"), wxDateTime::CET).c_str();
@@ -61,16 +48,10 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxMonthDayLabel->SetFont(
             wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString));
 
-    wxTopLabelSizer->Add(wxMonthDayLabel, 1, wxALIGN_CENTER_VERTICAL | wxEXPAND | wxTOP, 30);
+    bSizer4->Add(wxMonthDayLabel, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
 
-    wxDayInfoOperetionSizer->Add(wxTopLabelSizer, 1, wxEXPAND, 5);
-
-
-    wxDayInfoOperetionSizer->Add(0, 0, 1, wxEXPAND, 5);
-
-    wxBoxSizer *wxButtonSizer;
-    wxButtonSizer = new wxBoxSizer(wxHORIZONTAL);
+    bSizer3->Add(bSizer4, 1, wxALIGN_CENTER_HORIZONTAL, 5);
 
     wxStatTasksLabel = new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(-1, 40),
                                         wxALIGN_CENTER_HORIZONTAL);
@@ -78,63 +59,29 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     wxStatTasksLabel->SetFont(
             wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString));
 
-    wxButtonSizer->Add(wxStatTasksLabel, 1, wxALIGN_BOTTOM, 10);
+    bSizer3->Add(wxStatTasksLabel, 0, wxALL, 5);
 
 
-    wxDayInfoOperetionSizer->Add(wxButtonSizer, 1, wxALIGN_BOTTOM | wxEXPAND, 5);
-
-
-    wxDetailsSizer->Add(wxDayInfoOperetionSizer, 1, wxALIGN_CENTER_VERTICAL | wxEXPAND, 5);
-
-    wxStaticline1 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_VERTICAL);
-    wxStaticline1->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
-    wxStaticline1->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-
-    wxDetailsSizer->Add(wxStaticline1, 1, wxALL | wxEXPAND, 0);
-
-    wxBoxSizer *bSizer8;
-    bSizer8 = new wxBoxSizer(wxVERTICAL);
+    bSizer2->Add(bSizer3, 1, wxALIGN_CENTER_VERTICAL | wxEXPAND, 5);
 
     listBox = new wxCheckListBox(this, wxID_ANY);
 
-    wxBoxSizer *wxTasksSizer;
-    wxTasksSizer = new wxBoxSizer(wxVERTICAL);
+    bSizer2->Add(listBox, 1, wxALL | wxEXPAND, 5);
 
-    wxTasksSizer->SetMinSize(wxSize(-1, -1));
+    bSizer1->Add(bSizer2, 1, wxEXPAND, 5);
+    wxProgressbar = new wxGauge(this, wxID_ANY, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL);
+    bSizer1->Add(wxProgressbar, 0, wxALL | wxEXPAND, 5);
 
-    wxTasksSizer->Fit(listBox);
-    bSizer8->Add(listBox, 1, wxALL | wxEXPAND, 10);
+    render();
+    this->SetSizer(bSizer1);
+    this->Layout();
 
-    wxBoxSizer *bSizer4;
-    bSizer4 = new wxBoxSizer(wxHORIZONTAL);
+    attach();
 
     //Link toolBar's events
     auto tool = ((MainFrame *) (parent))->GetToolPanel();
     toolPanel = tool;
     LinkEvents();
-
-
-    bSizer8->Add(bSizer4, 1, wxALIGN_CENTER | wxLEFT , 5);
-
-
-    wxDetailsSizer->Add(bSizer8, 1, wxEXPAND, 5);
-
-
-    wxMainSizer->Add(wxDetailsSizer, 1, wxEXPAND, 5);
-
-    wxStaticline2 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
-    wxStaticline2->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-
-    wxMainSizer->Add(wxStaticline2, 1, wxEXPAND | wxALL, 0);
-
-    wxProgressbar = new wxGauge(this, wxID_ANY, 100, wxDefaultPosition, wxSize(1000, 10), wxGA_HORIZONTAL);
-    wxMainSizer->Add(wxProgressbar, 1, wxEXPAND | wxALIGN_CENTER_HORIZONTAL | wxBOTTOM | wxRIGHT | wxLEFT, 5);
-
-    render();
-    this->SetSizer(wxMainSizer);
-    this->Layout();
-
-    attach();
 }
 
 wxDayView::~wxDayView() {
