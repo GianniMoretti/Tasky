@@ -11,7 +11,7 @@
 #include "../Controllers/ListTasksViewController.h"
 #include "wxToolPanel.h"
 
-class ListTasksView : public wxPanel
+class ListTasksView : public wxPanel, public IObserver
 {
 private:
     Model* model;
@@ -27,6 +27,8 @@ private:
 
     void OnButtonClickBack(wxEvent &event);
 
+    void OnTextCtrlChanged(wxCommandEvent &event);
+
 protected:
     wxTextCtrl *wxCtrlText;
     wxCheckListBox *listBox;
@@ -37,9 +39,15 @@ public:
 
     ~ListTasksView();
 
-    void setTaskList(std::list<Task> list);
+    void setTaskList(std::list<Task> &list);
 
     void LinkEvents();
+
+    void update() override;
+
+    void attach() override;
+
+    void detach() override;
 };
 
 

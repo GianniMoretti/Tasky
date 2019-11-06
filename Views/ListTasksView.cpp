@@ -52,7 +52,7 @@ void ListTasksView::OnButtonClickSwapView(wxEvent &event) {
     controller->SwapOnMainView(this);
 }
 
-void ListTasksView::setTaskList(std::list<Task> list) {
+void ListTasksView::setTaskList(std::list<Task> &list) {
     taskList = list;
     FillCheckBoxList(taskList);
 }
@@ -66,12 +66,28 @@ void ListTasksView::OnButtonClickBack(wxEvent &event) {
 }
 
 void ListTasksView::LinkEvents() {
-    //TODO::Bind dei eventi
     toolPanel->HideButtons();
     toolPanel->wxHomeButton->Show();
     toolPanel->wxEditButton->Show();
     toolPanel->wxCheckUnButton->Show();
     toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickHome, this);
+    wxCtrlText->Bind(wxEVT_TEXT, &ListTasksView::OnTextCtrlChanged, this);
+}
+
+void ListTasksView::OnTextCtrlChanged(wxCommandEvent &event) {
+
+}
+
+void ListTasksView::update() {
+    taskList = model->getTaskList();
+}
+
+void ListTasksView::attach() {
+    model->subscribe(this);
+}
+
+void ListTasksView::detach() {
+    model->unsubscribe(this);
 }
 
 

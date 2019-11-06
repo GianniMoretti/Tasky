@@ -8,7 +8,7 @@ wxToolPanel::wxToolPanel(wxWindow *parent, wxWindowID id, const wxPoint &pos, co
                                                                                                             pos, size,
                                                                                                             wxTAB_TRAVERSAL) {
     this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BACKGROUND));
-    this->SetMaxSize(wxSize(-1, -1));
+    this->SetMaxSize(wxSize(100, -1));
 
     wxBoxSizer *bSizer;
     bSizer = new wxBoxSizer(wxVERTICAL);
@@ -17,6 +17,7 @@ wxToolPanel::wxToolPanel(wxWindow *parent, wxWindowID id, const wxPoint &pos, co
 
     wxBackButton = new wxBitmapButton(this, wxID_ANY, *b, wxDefaultPosition, wxDefaultSize,
                                       wxBU_AUTODRAW | 0);
+
     bSizer->Add(wxBackButton, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
 

@@ -19,7 +19,6 @@ wxDayBoxView::wxDayBoxView(Model *m,MainViewController* pController, wxDateTime 
 
     this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BACKGROUND));
 
-    //FIXME:Devo liberare la memoria?
     wxBoxSizer *wxMainSizer;
     wxMainSizer = new wxBoxSizer(wxHORIZONTAL);
 

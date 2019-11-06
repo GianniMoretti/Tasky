@@ -29,24 +29,25 @@ wxIMPLEMENT_APP(Tasky);
 bool Tasky::OnInit() {
 
     //TODO: trovare il percorso in automatico
-    //TODO: utilizzare degli unique pointer
+    //TODO: utilizzare degli smart pointer non mi riesce
     std::string filepath = "/home/giannimoretti/Scrivania/prova.xml";
     XMLFileRepository *fileRepository;
-    //unique_ptr<XMLFileRepository> fileRepository;
+    //shared_ptr<XMLFileRepository> fileRepository;
 
     try {
-        fileRepository = make_shared<XMLFileRepository>(XMLFileRepository(filepath));
+        //fileRepository = make_shared<XMLFileRepository>(XMLFileRepository(filepath));
+        fileRepository = new XMLFileRepository(filepath);
     }
     catch (ImpossibleToCreateFileException &e) {
         wxMessageBox(e.what());
         return true;
     }
 
-    shared_ptr<Model> model = make_shared<Model>(Model(fileRepository.get()));
+    Model *model = new Model(fileRepository);
 
     model->setTaskMap(fileRepository->loadTaskFromFile());
 
-    MainFrame *mainFrame = new MainFrame(model.get(), nullptr, "Tasky", wxID_ANY, wxPoint(0, 0), wxSize(-1, -1));
+    MainFrame *mainFrame = new MainFrame(model, nullptr, "Tasky", wxID_ANY, wxPoint(0, 0), wxSize(-1, -1));
 
     return true;
 }

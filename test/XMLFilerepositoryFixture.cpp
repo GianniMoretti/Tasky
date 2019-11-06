@@ -43,6 +43,13 @@ TEST_F(XMLFileRepositorySuite, testRemoveTask) {
     ASSERT_EQ(ok, true);
 }
 
+TEST_F(XMLFileRepositorySuite, failTestRemoveTask) {
+    wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
+    Task t("ciao", "pluto", dateTime, Priority::Low, true);
+    bool ok = fileRepository->deleteTask(t);
+    ASSERT_EQ(ok, false);
+}
+
 TEST_F(XMLFileRepositorySuite, testLoadDataFromFile) {
     m->setTaskMap(fileRepository->loadTaskFromFile());
     ASSERT_EQ(m->getTaskMap().size(), 38);
@@ -54,4 +61,12 @@ TEST_F(XMLFileRepositorySuite, testUpdateTask) {
     Task t1("Gianni", "Moretti", dateTime, Priority::Medium, false);
     bool ok = fileRepository->updateTask(t, t1);
     ASSERT_EQ(ok, true);
+}
+
+TEST_F(XMLFileRepositorySuite, failTestUpdateTask) {
+    wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
+    Task t("ciao", "pluto", dateTime, Priority::High, true);
+    Task t1("Gianni", "Moretti", dateTime, Priority::Medium, false);
+    bool ok = fileRepository->updateTask(t, t1);
+    ASSERT_EQ(ok, false);
 }

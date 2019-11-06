@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include "Model.h"
+#include <exception>
 
 Model::Model(IFIleRepository *repository) {
     this->repo = repository;
@@ -23,26 +24,26 @@ void Model::unsubscribe(IObserver *obs) {
 }
 
 bool Model::addTask(const Task &task) {
-    //TODO: se non lo riesce ad aggiungere?
-
     if (repo->addTask(task)) {
         taskMap.insert(std::make_pair(task.getDate(), task));
         notify();
         return true;
     }
+
     return false;
 }
 
 bool Model::removeTask(const Task &task) {
-    //TODO: da controllare
     bool ok = false;
     auto ref = taskMap.equal_range(task.getDate());
 
     for (auto itr = ref.first; itr != ref.second; itr++) {
         if (itr->second == task) {
-            repo->deleteTask(task);
-            taskMap.erase(itr);
-            ok = true;
+            if (repo->deleteTask(task)) {
+                taskMap.erase(itr);
+                ok = true;
+            }
+            ok = false;
             break;
         }
     }
@@ -131,13 +132,13 @@ bool Model::updateTask(const Task &old, const Task &New) {
     auto ref = taskMap.equal_range(old.getDate());
     bool ok = false;
 
-    //TODO: da riguardare
     for (auto itr = ref.first; itr != ref.second; itr++) {
         if (itr->second == old) {
-            taskMap.erase(itr);
-            taskMap.insert(std::make_pair(New.getDate(), New));
-            repo->updateTask(old, New);
-            ok = true;
+            if (repo->updateTask(old, New)) {
+                taskMap.erase(itr);
+                taskMap.insert(std::make_pair(New.getDate(), New));
+                ok = true;
+            }
             break;
         }
     }

@@ -125,7 +125,6 @@ void wxEditTaskView::detach() {
 void wxEditTaskView::OnButtonClickSaveEditTask(wxEvent &event) {
     //Call al controller per salvare un task editato
     auto task = GetTask();
-    //TODO::Differenziare l'accesso a edit
     controller->SaveEditTask(this, task, *(this->task));
 }
 
