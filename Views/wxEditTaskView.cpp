@@ -6,11 +6,13 @@
 
 
 wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime, bool editMode, Task *pTask,
-                               wxWindowID id, const wxPoint &pos,
-                               const wxSize &size, long style, const wxString &name) : wxPanel(parent, id, pos, size,
+                               bool isDayViewLast,
+                               const wxPoint &pos, const wxSize &size, long style, const wxString &name, wxWindowID id)
+        : wxPanel(parent, id, pos, size,
                                                                                                style, name) {
     this->model = model;
-    this->task = pTask;
+    task = pTask;
+    this->isDayViewLast = isDayViewLast;
     date = pTime;
     this->editMode = editMode;
     controller = new EditTaskViewController(model, parent);
@@ -47,7 +49,6 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     int wxPriorityCmboxNChoices = sizeof(wxPriorityCmboxChoices) / sizeof(wxString);
     wxPriorityCmbox = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxPriorityCmboxNChoices,
                                    wxPriorityCmboxChoices, 0);
-    //wxPriorityCmbox->SetSelection( 2 );
     wxPrioritySizer->Add(wxPriorityCmbox, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
 
 
@@ -77,6 +78,7 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
 
     wxCancelButton = new wxButton(this, wxID_ANY, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0);
     wxButtonSizer->Add(wxCancelButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+    wxCancelButton->Bind(wxEVT_BUTTON, &wxEditTaskView::OnButtonClickCancelOperation, this);
 
 
     wxMainSizer->Add(wxButtonSizer, 1, wxALIGN_CENTER_HORIZONTAL, 5);
@@ -125,8 +127,7 @@ void wxEditTaskView::detach() {
 void wxEditTaskView::OnButtonClickSaveEditTask(wxEvent &event) {
     //Call al controller per salvare un task editato
     auto task = GetTask();
-    //TODO::Differenziare l'accesso a edit
-    controller->SaveEditTask(this, task, *(this->task));
+    controller->SaveEditTask(this, task, *(this->task), isDayViewLast);
 }
 
 void wxEditTaskView::OnButtonClickSaveNewTask(wxEvent &event) {
@@ -140,4 +141,8 @@ Task wxEditTaskView::GetTask() {
     auto priority = wxPriorityCmbox->GetSelection();
     auto description = wxDescriptionTxt->GetValue();
     return Task(name.ToStdString(), description.ToStdString(), *date, (Priority) priority);
+}
+
+void wxEditTaskView::OnButtonClickCancelOperation(wxEvent &event) {
+    controller->CancelOperation(nullptr, isDayViewLast);
 }

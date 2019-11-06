@@ -37,22 +37,17 @@ ListTasksView::~ListTasksView()
 {
 }
 
-void ListTasksView::FillCheckBoxList(std::list<Task> list) {
+void ListTasksView::FillCheckBoxList(std::list<Task *> list) {
     listBox->Clear();
     int index = 0;
     wxString tmp;
     for (auto task:list) {
-        tmp = wxString::Format("%s | %s | %s", task.getName(), task.getDescription(),
-                               task.getPriorityString());
+        tmp = wxString::Format("%s | %s | %s", task->getName(), task->getDescription(),
+                               task->getPriorityString());
         listBox->Append(tmp);
-        listBox->Check(index, task.isChecked());
+        listBox->Check(index, task->isChecked());
         index++;
     }
-}
-
-void ListTasksView::setTaskList(std::list<Task> list) {
-    taskList = list;
-    FillCheckBoxList(taskList);
 }
 
 void ListTasksView::OnButtonClickHome(wxEvent &event) {
@@ -65,6 +60,7 @@ void ListTasksView::LinkEvents() {
     toolPanel->wxHomeButton->Show();
     toolPanel->wxEditButton->Show();
     toolPanel->wxCheckUnButton->Show();
+    toolPanel->wxEditButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickEditTask, this);
     toolPanel->wxCheckUnButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickChecked, this);
     toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickHome, this);
 }
@@ -72,6 +68,14 @@ void ListTasksView::LinkEvents() {
 void ListTasksView::OnButtonClickChecked(wxEvent &event) {
     FillCheckBoxList(model->getTaskList(onlyUnchecked));
     onlyUnchecked = !onlyUnchecked;
+}
+
+void ListTasksView::OnButtonClickEditTask(wxEvent &event) {
+    auto list = model->getTaskList(!onlyUnchecked);
+    int index = listBox->GetSelection();
+    auto iter = list.begin();
+    std::advance(iter, index);
+    controller->EditTask(this, *iter);
 }
 
 

@@ -21,11 +21,11 @@ private:
 public:
     ListTasksViewController(Model *pModel, wxWindow *pWindow);
 
-    void SwapOnMainView(wxWindow *pView);
 
     void GoHome(wxWindow *pView);
 
-    void GoBack(wxWindow *pView);
+
+    void EditTask(wxWindow *pWindow, Task *task);
 };
 
 

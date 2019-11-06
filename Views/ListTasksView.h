@@ -20,11 +20,13 @@ private:
     wxToolPanel *toolPanel;
     bool onlyUnchecked = false;
 
-    void FillCheckBoxList(std::list<Task> list);
+    void FillCheckBoxList(std::list<Task *> list);
 
     void OnButtonClickHome(wxEvent &event);
 
     void OnButtonClickChecked(wxEvent &event);
+
+    void OnButtonClickEditTask(wxEvent &event);
 
 protected:
     wxTextCtrl *wxCtrlText;
@@ -35,8 +37,6 @@ public:
     ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 892,531 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
 
     ~ListTasksView();
-
-    void setTaskList(std::list<Task> list);
 
     void LinkEvents();
 };

@@ -49,7 +49,6 @@ void MainFrame::ShowTaskListView(wxWindow *currentView) {
         sizer2->Add(tasksView);
     }
     mainView->Hide();
-    tasksView->setTaskList(model->getTaskList());
     tasksView->Show(true);
     tasksView->LinkEvents();
 
@@ -63,9 +62,10 @@ void MainFrame::ShowMainView(wxWindow *currentView) {
     this->Layout();
 }
 
-void MainFrame::ShowEditTaskView(wxWindow *currentView, wxDateTime *pTime, bool editMode, Task *pTask) {
+void
+MainFrame::ShowEditTaskView(wxWindow *currentView, wxDateTime *pTime, bool editMode, Task *pTask, bool isDayViewLast) {
     currentView->Hide();
-    editTaskView = new wxEditTaskView(this, model, pTime, editMode, pTask);
+    editTaskView = new wxEditTaskView(this, model, pTime, editMode, pTask, isDayViewLast);
     sizer2->Add(editTaskView);
     editTaskView->Show();
     this->Layout();

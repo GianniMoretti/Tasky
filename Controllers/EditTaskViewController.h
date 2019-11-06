@@ -15,7 +15,9 @@ public:
 
     void SaveNewTask(wxWindow *pWindows, Task task);
 
-    void SaveEditTask(wxWindow *pWindows, Task newTask, Task oldTask, bool isLastDayView = true);
+    void SaveEditTask(wxWindow *pWindow, Task newTask, Task oldTask, bool isLastDayView = true);
+
+    void CancelOperation(wxWindow *pWindow, bool isDayViewLastView);
 
 private:
     Model *model;

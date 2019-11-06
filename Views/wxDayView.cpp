@@ -182,11 +182,11 @@ void wxDayView::OnButtonClickEditTask(wxEvent &event) {
     auto index = listBox->GetSelection();
     auto ref = model->GetTasks(dateTime);
     std::advance(ref.first, index);
-    controller->ShowEditTaskView(this, &dateTime, true, &(ref.first)->second);
+    controller->ShowEditTaskView(this, &dateTime, true, &(ref.first->second));
 }
 
 void wxDayView::OnButtonClickAddNewTask(wxEvent &event) {
-    controller->ShowEditTaskView(this, &dateTime);
+    controller->ShowEditTaskView(this, &dateTime, false);
 }
 
 void wxDayView::OnButtonClickRemoveTask(wxEvent &event) {
