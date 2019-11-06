@@ -49,10 +49,25 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     int wxPriorityCmboxNChoices = sizeof(wxPriorityCmboxChoices) / sizeof(wxString);
     wxPriorityCmbox = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxPriorityCmboxNChoices,
                                    wxPriorityCmboxChoices, 0);
+    wxPriorityCmbox->SetSelection(2);
     wxPrioritySizer->Add(wxPriorityCmbox, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
 
 
-    wxTopSizer->Add(wxPrioritySizer, 1, wxALIGN_CENTER_HORIZONTAL | wxSHAPED, 5);
+    wxTopSizer->Add(wxPrioritySizer, 1, wxALIGN_CENTER_HORIZONTAL | wxSHAPED | wxALIGN_CENTER_VERTICAL, 5);
+
+    wxBoxSizer *bSizer7;
+    bSizer7 = new wxBoxSizer(wxHORIZONTAL);
+
+    m_staticText4 = new wxStaticText(this, wxID_ANY, wxT("Date"), wxDefaultPosition, wxDefaultSize, 0);
+    m_staticText4->Wrap(-1);
+    bSizer7->Add(m_staticText4, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+
+    m_datePicker2 = new wxDatePickerCtrl(this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize,
+                                         wxDP_DEFAULT);
+    bSizer7->Add(m_datePicker2, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+
+
+    wxTopSizer->Add(bSizer7, 1, wxEXPAND, 5);
 
 
     wxMainSizer->Add(wxTopSizer, 0, wxEXPAND | wxSHAPED | wxALIGN_CENTER_HORIZONTAL, 5);
@@ -68,7 +83,7 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     wxDescriptionSizer->Add(wxDescriptionTxt, 1, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
 
-    wxMainSizer->Add(wxDescriptionSizer, 0, 0, 5);
+    wxMainSizer->Add(wxDescriptionSizer, 1, wxALL | wxEXPAND, 5);
 
     wxBoxSizer *wxButtonSizer;
     wxButtonSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -81,7 +96,7 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     wxCancelButton->Bind(wxEVT_BUTTON, &wxEditTaskView::OnButtonClickCancelOperation, this);
 
 
-    wxMainSizer->Add(wxButtonSizer, 1, wxALIGN_CENTER_HORIZONTAL, 5);
+    wxMainSizer->Add(wxButtonSizer, 0, wxALIGN_CENTER_HORIZONTAL, 5);
 
 
     this->SetSizer(wxMainSizer);
@@ -107,6 +122,7 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
                 break;
         }
         wxDescriptionTxt->SetValue(task->getDescription());
+        m_datePicker2->SetValue(task->getDate());
         wxSaveButton->Bind(wxEVT_BUTTON, &wxEditTaskView::OnButtonClickSaveEditTask, this);
 
     } else {
@@ -156,5 +172,5 @@ Task wxEditTaskView::GetTask() {
 }
 
 void wxEditTaskView::OnButtonClickCancelOperation(wxEvent &event) {
-    controller->CancelOperation(nullptr, isDayViewLast);
+    controller->CancelOperation(this, isDayViewLast);
 }

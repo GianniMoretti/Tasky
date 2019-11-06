@@ -30,10 +30,8 @@ MainFrame::MainFrame(Model* pModel,wxWindow *parent, wxString title, wxWindowID 
 
 void MainFrame::ShowDayView(wxWindow *currentView, wxDateTime *pTime) {
     currentView->Hide();
-    if (pTime == nullptr)
-        dayView->Show();
-    else {
-        dayView = new wxDayView(this, model, *pTime);
+    if (pTime != nullptr) {
+        dayView = new wxDayView(this, model, *pTime, wxID_ANY, wxDefaultPosition, wxSize(1200, 700));
         sizer2->Add(dayView);
     }
 
@@ -45,7 +43,7 @@ void MainFrame::ShowDayView(wxWindow *currentView, wxDateTime *pTime) {
 void MainFrame::ShowTaskListView(wxWindow *currentView) {
     currentView->Hide();
     if (tasksView == nullptr) {
-        tasksView = new ListTasksView(this, model);
+        tasksView = new ListTasksView(this, model, wxID_ANY, wxDefaultPosition, wxSize(1200, 700));
         sizer2->Add(tasksView);
     }
     mainView->Hide();

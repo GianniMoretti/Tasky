@@ -18,6 +18,8 @@
 #include <wx/textctrl.h>
 #include <wx/sizer.h>
 #include <wx/choice.h>
+#include <wx/datectrl.h>
+#include <wx/dateevt.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
@@ -36,6 +38,8 @@ protected:
     wxTextCtrl *wxNameTxt;
     wxStaticText *m_staticText3;
     wxChoice *wxPriorityCmbox;
+    wxStaticText *m_staticText4;
+    wxDatePickerCtrl *m_datePicker2;
     wxStaticText *m_staticText2;
     wxTextCtrl *wxDescriptionTxt;
     wxButton *wxSaveButton;
