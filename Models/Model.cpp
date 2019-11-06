@@ -111,18 +111,18 @@ std::list<wxDateTime> Model::GetKeysOnce() {
     return keys;
 }
 
-std::list<Task> Model::getTaskList(bool unChecked) {
-    std::list<Task> ris;
+std::list<Task *> Model::getTaskList(bool unChecked) {
+    std::list<Task *> ris;
 
     if(unChecked){
         for (auto itr = taskMap.begin(); itr != taskMap.end(); itr++) {
             if (!itr->second.isChecked())
-                ris.push_back(itr->second);
+                ris.push_back(&(itr->second));
         }
     }
     else {
         for (auto itr = taskMap.begin(); itr != taskMap.end(); itr++) {
-                ris.push_back(itr->second);
+            ris.push_back(&(itr->second));
         }
     }
     return ris;

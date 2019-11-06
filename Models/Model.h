@@ -46,7 +46,7 @@ public:
 
     std::list<wxDateTime> GetKeysOnce();
 
-    std::list<Task> getTaskList(bool unChecked = false);
+    std::list<Task *> getTaskList(bool unChecked = false);
 
 private:
     void notify() const override;

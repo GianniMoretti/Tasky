@@ -26,7 +26,8 @@ public:
 
     void ShowMainView(wxWindow *currentView);
 
-    void ShowEditTaskView(wxWindow *currentView, wxDateTime *pTime, bool editMode, Task *pTask);
+    void
+    ShowEditTaskView(wxWindow *currentView, wxDateTime *pTime, bool editMode, Task *pTask, bool isDayViewLast = true);
 
 
     void GoBack(wxWindow *pWindow, int currentIndex);

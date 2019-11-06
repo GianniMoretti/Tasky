@@ -12,7 +12,7 @@ DayViewController::DayViewController(Model *pModel, wxWindow *pWindow) {
 
 void DayViewController::ShowEditTaskView(wxWindow *currentView, wxDateTime *date, bool editMode, Task *task) {
     auto tmp = (MainFrame *) (window);
-    tmp->ShowEditTaskView(currentView, date, editMode, task);
+    tmp->ShowEditTaskView(currentView, date, editMode, task, true);
 }
 
 void DayViewController::RemoveTask(Task task) {

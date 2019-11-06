@@ -30,7 +30,7 @@ bool Task::isChecked() const {
     return checked;
 }
 
-wxDateTime Task::getDate() const {
+const wxDateTime Task::getDate() const {
     return date.GetDateOnly();
 }
 

@@ -18,14 +18,15 @@ private:
     ListTasksViewController *controller;
     std::list<Task> taskList;
     wxToolPanel *toolPanel;
+    bool onlyUnchecked = false;
 
-    void FillCheckBoxList(std::list<Task> list);
-
-    void OnButtonClickSwapView(wxEvent &event);
+    void FillCheckBoxList(std::list<Task *> list);
 
     void OnButtonClickHome(wxEvent &event);
 
-    void OnButtonClickBack(wxEvent &event);
+    void OnButtonClickChecked(wxEvent &event);
+
+    void OnButtonClickEditTask(wxEvent &event);
 
     void OnTextCtrlChanged(wxCommandEvent &event);
 

@@ -43,10 +43,9 @@ protected:
 
 public:
 
-    wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime, bool editMode, Task *pTask,
-                   wxWindowID id = wxID_ANY,
+    wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime, bool editMode, Task *pTask, bool isDayViewLast,
                    const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxSize(500, 300),
-                   long style = wxTAB_TRAVERSAL, const wxString &name = wxEmptyString);
+                   long style = wxTAB_TRAVERSAL, const wxString &name = wxEmptyString, wxWindowID id = wxID_ANY);
 
     ~wxEditTaskView();
 
@@ -62,6 +61,8 @@ private:
     wxDateTime *date;
 
     bool editMode;
+
+    bool isDayViewLast;
 
     EditTaskViewController *controller;
 

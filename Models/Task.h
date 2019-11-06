@@ -31,7 +31,7 @@ public:
 
     Priority getPriority() const;
 
-    wxDateTime getDate() const;
+    const wxDateTime getDate() const;
 
     bool isChecked() const;
 

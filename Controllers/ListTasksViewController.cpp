@@ -10,18 +10,12 @@ ListTasksViewController::ListTasksViewController(Model *pModel, wxWindow *pWindo
     window = pWindow;
 }
 
-void ListTasksViewController::SwapOnMainView(wxWindow *pView) {
-    auto tmp = (MainFrame *) (window);
-    tmp->ShowMainView(pView);
-
-}
-
 void ListTasksViewController::GoHome(wxWindow *pView) {
     auto tmp = (MainFrame *) (window);
     tmp->ShowMainView(pView);
 }
 
-void ListTasksViewController::GoBack(wxWindow *pView) {
+void ListTasksViewController::EditTask(wxWindow *pWindow, Task *task) {
     auto tmp = (MainFrame *) (window);
-    tmp->GoBack(pView, -1);
+    tmp->ShowEditTaskView(pWindow, new wxDateTime(task->getDate()), true, task, false);
 }
