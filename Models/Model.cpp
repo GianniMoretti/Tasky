@@ -51,6 +51,23 @@ bool Model::removeTask(const Task &task) {
     return ok;
 }
 
+bool Model::removeDay(const wxDateTime date) {
+    bool ok = true;
+    auto ref = taskMap.equal_range(date);
+
+    for (auto itr = ref.first; itr != ref.second; itr++) {
+        if (repo->deleteTask(itr->second)) {
+            taskMap.erase(itr);
+        } else {
+            ok = false;
+            //TODO: torno indietro se non va a buon fine?
+            break;
+        }
+    }
+    notify();
+    return ok;
+}
+
 Model::~Model() {}
 
 const std::multimap<wxDateTime, Task> &Model::getTaskMap() const {

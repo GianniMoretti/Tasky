@@ -30,7 +30,7 @@ bool Tasky::OnInit() {
 
     //TODO: trovare il percorso in automatico
     //TODO: utilizzare degli smart pointer non mi riesce
-    std::string filepath = "/home/lucian/Scrivania/prova.xml";
+    std::string filepath = "../data.xml";
     XMLFileRepository *fileRepository;
     //shared_ptr<XMLFileRepository> fileRepository;
 
