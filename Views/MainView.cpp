@@ -45,7 +45,7 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
 }
 
 void MainView::update() {
-
+    renderGrid();
 }
 
 MainView::~MainView() {
@@ -107,6 +107,10 @@ void MainView::OnButtonClickRightPage(wxEvent &event) {
 }
 
 void MainView::renderGrid() {
+    //FIXME:Non funziona .
+    if (model->GetKeysOnce().size() % boxForPage == 0)
+        currentPage -= 1;
+
     int init = (currentPage * boxForPage);
 
     for (auto itr = wxDayBoxViewsList.begin(); itr != wxDayBoxViewsList.end(); itr++) {

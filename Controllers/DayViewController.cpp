@@ -36,7 +36,6 @@ void DayViewController::CheckUncheckTask(Task task) {
 
 void DayViewController::DeleteDay(wxWindow *currentView, wxDateTime time) {
     auto tmp = (MainFrame *) (window);
-    //TODO::Call al model per cancelare una giornata (Carefull gianni ha problemi di exception(o forse no))
+    model->removeDay(time.GetDateOnly());
     tmp->ShowMainView(currentView);
-
 }
