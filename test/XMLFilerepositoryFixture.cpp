@@ -10,7 +10,8 @@ class XMLFileRepositorySuite : public ::testing::Test {
 protected:
     void SetUp() override {
         wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
-        fileRepository = new XMLFileRepository("/home/giannimoretti/Scrivania/prova.xml");
+        //TODO: mettere apposto path e fare test tutti insieme
+        fileRepository = new XMLFileRepository("/prova.xml");
 
         m = new Model(fileRepository);
 
