@@ -127,6 +127,11 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
 
     } else {
         //Lasciare vuote le caselle e linkare i pulsante save a saveNewTask
+        if (isDayViewLast) {
+            m_staticText4->Hide();
+            m_datePicker2->Hide();
+        }
+        m_datePicker2->SetValue(*date);
         wxSaveButton->Bind(wxEVT_BUTTON, &wxEditTaskView::OnButtonClickSaveNewTask, this);
     }
 
@@ -168,7 +173,8 @@ Task wxEditTaskView::GetTask() {
     auto name = wxNameTxt->GetValue();
     auto priority = wxPriorityCmbox->GetSelection();
     auto description = wxDescriptionTxt->GetValue();
-    return Task(name.ToStdString(), description.ToStdString(), *date, (Priority) priority);
+    auto date = m_datePicker2->GetValue();
+    return Task(name.ToStdString(), description.ToStdString(), date, (Priority) priority);
 }
 
 void wxEditTaskView::OnButtonClickCancelOperation(wxEvent &event) {

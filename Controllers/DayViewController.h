@@ -30,6 +30,8 @@ public:
 
     void CheckUncheckTask(Task task);
 
+    void DeleteDay(wxWindow *currentView, wxDateTime time);
+
 private:
     Model *model;
     wxWindow *window;

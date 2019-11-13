@@ -33,3 +33,10 @@ void DayViewController::CheckUncheckTask(Task task) {
     Task t(task.getName(), task.getDescription(), task.getDate(), task.getPriority(), !task.isChecked());
     model->updateTask(task, t);
 }
+
+void DayViewController::DeleteDay(wxWindow *currentView, wxDateTime time) {
+    auto tmp = (MainFrame *) (window);
+    //TODO::Call al model per cancelare una giornata (Carefull gianni ha problemi di exception(o forse no))
+    tmp->ShowMainView(currentView);
+
+}
