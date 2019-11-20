@@ -8,7 +8,17 @@
     <Task Name="ciao" Description="gianni" Priority="High" IsChecked="false" Date="10/06/19"/>
     <Task Name="pippo" Description="pluto" Priority="Low" IsChecked="true" Date="10/07/19"/>
     <Task Name="hello" Description="pippo" Priority="High" IsChecked="true" Date="10/08/19"/>
-    <Task Name="foo" Description="bar" Priority="High" IsChecked="false" Date="10/09/19"/>
+    <Task Name="hello" Description="worldde" Priority="Low" IsChecked="false" Date="10/10/19"/>
+    <Task Name="hello" Description="pippo" Priority="High" IsChecked="true" Date="10/11/19"/>
+    <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="false" Date="02/13/19"/>
+    <Task Name="hello" Description="pippo" Priority="High" IsChecked="true" Date="02/15/19"/>
+    <Task Name="foo" Description="bar" Priority="Low" IsChecked="false" Date="04/08/19"/>
+    <Task Name="pippo" Description="pluto" Priority="Low" IsChecked="true" Date="05/07/19"/>
+    <Task Name="hello" Description="pippo" Priority="High" IsChecked="true" Date="04/08/19"/>
+    <Task Name="foo" Description="bar" Priority="High" IsChecked="false" Date="02/09/19"/>
+    <Task Name="hello" Description="pippo" Priority="High" IsChecked="true" Date="11/11/19"/>
+    <Task Name="ciao" Description="giannibbb" Priority="High" IsChecked="false" Date="10/17/19"/>
+    <Task Name="foo" Description="bar" Priority="Low" IsChecked="false" Date="02/08/19"/>
     <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="false" Date="10/09/19"/>
     <Task Name="hello" Description="worldde" Priority="Low" IsChecked="false" Date="10/10/19"/>
     <Task Name="pippo" Description="pluto" Priority="Low" IsChecked="true" Date="02/10/19"/>
@@ -39,12 +49,16 @@
     <Task Name="pippo" Description="pluto" Priority="Low" IsChecked="true" Date="11/14/19"/>
     <Task Name="hello" Description="pippo" Priority="High" IsChecked="true" Date="11/15/19"/>
     <Task Name="ciao" Description="giannibbb" Priority="High" IsChecked="true" Date="10/17/19"/>
-    <Task Name="ciao" Description="gianni" Priority="High" IsChecked="false" Date="04/01/70"/>
-    <Task Name="ciao" Description="gianni" Priority="High" IsChecked="false" Date="04/01/70"/>
-    <Task Name="dottore" Description="ciao" Priority="Medium" IsChecked="false" Date="10/04/19"/>
-    <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="true" Date="04/01/70"/>
-    <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="false" Date="02/01/70"/>
-    <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="false" Date="02/01/70"/>
-    <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="false" Date="01/01/70"/>
-    <Task Name="sf&lt;" Description="sdff" Priority="High" IsChecked="false" Date="02/08/19"/>
+    <Task Name="hello" Description="pippo" Priority="High" IsChecked="true" Date="04/08/19"/>
+    <Task Name="foo" Description="bar" Priority="High" IsChecked="false" Date="02/09/19"/>
+    <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="false" Date="11/08/19"/>
+    <Task Name="pippo" Description="pluto" Priority="Low" IsChecked="true" Date="11/10/19"/>
+    <Task Name="hello" Description="pippo" Priority="High" IsChecked="true" Date="11/22/19"/>
+    <Task Name="ciao" Description="giannibbb" Priority="High" IsChecked="true" Date="10/17/19"/>
+    <Task Name="hello" Description="pippo" Priority="High" IsChecked="true" Date="04/08/19"/>
+    <Task Name="foo" Description="bar" Priority="High" IsChecked="false" Date="02/02/19"/>
+    <Task Name="Nuovo Task" Description="Cazzo funziona" Priority="High" IsChecked="false" Date="11/13/19"/>
+    <Task Name="gfds" Description="vcx" Priority="Low" IsChecked="false" Date="11/13/19"/>
+    <Task Name="" Description="" Priority="Low" IsChecked="false" Date="11/13/19"/>
+    <Task Name="wsdfjk" Description="sdfghjk" Priority="Medium" IsChecked="false" Date="11/20/19"/>
 </Tasks>

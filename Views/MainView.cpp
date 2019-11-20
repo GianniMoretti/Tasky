@@ -45,7 +45,7 @@ MainView::MainView(Model *model,wxWindow*parent,wxWindowID id, const wxPoint &po
 }
 
 void MainView::update() {
-
+    renderGrid();
 }
 
 MainView::~MainView() {
@@ -81,16 +81,17 @@ void MainView::LinkEvents() {
     toolPanel->wxNewDayButton->Show();
     toolPanel->wxRemoveDayButton->Show();
     toolPanel->wxSwapButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickSwapView, this);
+    toolPanel->wxNewDayButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickNewDay, this);
     wxLeftButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickLeftPage, this);
     wxRightButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickRightPage, this);
 }
 
 void MainView::OnButtonClickNewDay(wxEvent &event) {
-
+    controller->AddNewDay(this);
 }
 
 void MainView::OnButtonClickLeftPage(wxEvent &event) {
-    if (currentPage == 0)
+    if (currentPage == 1)
         return;
 
     currentPage -= 1;
@@ -98,7 +99,7 @@ void MainView::OnButtonClickLeftPage(wxEvent &event) {
 }
 
 void MainView::OnButtonClickRightPage(wxEvent &event) {
-    int numOfPage = (int) (model->GetKeysOnce().size() / boxForPage);
+    int numOfPage = std::ceil(model->GetKeysOnce().size() / (double) boxForPage);
     if (currentPage == numOfPage)
         return;
 
@@ -107,14 +108,10 @@ void MainView::OnButtonClickRightPage(wxEvent &event) {
 }
 
 void MainView::renderGrid() {
-    if (model->GetKeysOnce().size() % boxForPage == 0)
-        currentPage -= 1;
-
     int init = (currentPage * boxForPage);
 
-    for (auto itr = wxDayBoxViewsList.begin(); itr != wxDayBoxViewsList.end(); itr++) {
-        delete (*itr);
-    }
+    int init = ((currentPage - 1) * boxForPage);
+
     wxDayBoxViewsList.clear();
 
     int count = 0;
@@ -134,7 +131,7 @@ void MainView::renderGrid() {
         count++;
     }
 
-    gSizer4->Clear();
+    gSizer4->Clear(true);
     FillGridSizer(gSizer4);
 }
 

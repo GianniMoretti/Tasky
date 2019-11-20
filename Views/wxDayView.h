@@ -92,6 +92,8 @@ private:
 
     void OnButtonClickGoHome(wxEvent &event);
 
+    void OnButtonClickDeleteDay(wxEvent &event);
+
     void OnCheckedItem(wxCommandEvent &event);
 };
 

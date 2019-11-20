@@ -65,6 +65,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     bSizer2->Add(bSizer3, 1, wxALIGN_CENTER_VERTICAL | wxEXPAND, 5);
 
     listBox = new wxCheckListBox(this, wxID_ANY);
+    listBox->SetWindowStyle(wxLB_SINGLE);
 
     bSizer2->Add(listBox, 1, wxALL | wxEXPAND, 5);
 
@@ -157,11 +158,13 @@ void wxDayView::LinkEvents() {
     toolPanel->wxAddButton->Show();
     toolPanel->wxBackButton->Show();
     toolPanel->wxHomeButton->Show();
+    toolPanel->wxRemoveDayButton->Show();
     toolPanel->wxRemoveButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickRemoveTask, this);
     toolPanel->wxEditButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickEditTask, this);
     toolPanel->wxAddButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickAddNewTask, this);
     toolPanel->wxBackButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoBack, this);
     toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoHome, this);
+    toolPanel->wxRemoveDayButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickDeleteDay, this);
     listBox->Bind(wxEVT_CHECKLISTBOX, &wxDayView::OnCheckedItem, this);
 }
 
@@ -174,6 +177,10 @@ void wxDayView::OnCheckedItem(wxCommandEvent &event) {
     auto ref = model->GetTasks(dateTime);
     std::advance(ref.first, index);
     controller->CheckUncheckTask((ref.first)->second);
+}
+
+void wxDayView::OnButtonClickDeleteDay(wxEvent &event) {
+    controller->DeleteDay(this, dateTime);
 }
 
 

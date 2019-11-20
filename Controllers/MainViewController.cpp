@@ -19,3 +19,8 @@ void MainViewController::ShowReserchView(wxWindow *pWindow) {
     auto tmp = (MainFrame *) (frame);
     tmp->ShowTaskListView(pWindow);
 }
+
+void MainViewController::AddNewDay(wxWindow *pWindow) {
+    auto tmp = (MainFrame *) (frame);
+    tmp->ShowEditTaskView(pWindow, nullptr, false, nullptr, false);
+}

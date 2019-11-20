@@ -16,7 +16,6 @@
 
 class wxDayBoxView : public wxPanel, public IObserver {
 protected:
-    //TODO: é meglio utilizzare smart pointer?
     wxStaticLine *m_staticline7;
     wxStaticLine *m_staticline1;
     wxButton *wxDayButton;

@@ -39,9 +39,12 @@ void ListTasksView::FillCheckBoxList(std::list<Task *> list) {
     listBox->Clear();
     int index = 0;
     wxString tmp;
+
     for (auto task:list) {
-        tmp = wxString::Format("%s | %s | %s", task->getName(), task->getDescription(),
-                               task->getPriorityString());
+        tmp = wxString::Format(
+                "Name:   %s                                    Date:   %s \n\nDescription:   %s\n\nPriority:   %s \n_______________________________________________________________________________",
+                task->getName(), task->getDate().Format(wxT("%x"), wxDateTime::CET).c_str(), task->getDescription(),
+                task->getPriorityString());
         listBox->Append(tmp);
         listBox->Check(index, task->isChecked());
         index++;

@@ -58,6 +58,7 @@ bool Model::removeDay(const wxDateTime date) {
     for (auto itr = ref.first; itr != ref.second; itr++) {
         repo->deleteTask(itr->second);
     }
+
     taskMap.erase(ref.first, ref.second);
     notify();
     return ok;
@@ -90,7 +91,6 @@ int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
 }
 
 std::list<Task *> Model::researchTasks(const wxString str, bool unChecked) {
-    //TODO: Fare test
     std::list<Task *> ris;
 
     if (unChecked)  // cerco solo quelli non verificati

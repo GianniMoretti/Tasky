@@ -17,6 +17,8 @@ public:
 
     void ShowReserchView(wxWindow *pWindow);
 
+    void AddNewDay(wxWindow *pWindow);
+
 private:
     Model* model;
     wxWindow* frame;

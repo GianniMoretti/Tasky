@@ -33,3 +33,9 @@ void DayViewController::CheckUncheckTask(Task task) {
     Task t(task.getName(), task.getDescription(), task.getDate(), task.getPriority(), !task.isChecked());
     model->updateTask(task, t);
 }
+
+void DayViewController::DeleteDay(wxWindow *currentView, wxDateTime time) {
+    auto tmp = (MainFrame *) (window);
+    model->removeDay(time.GetDateOnly());
+    tmp->ShowMainView(currentView);
+}
