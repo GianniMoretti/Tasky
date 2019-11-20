@@ -46,4 +46,5 @@
     <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="false" Date="02/01/70"/>
     <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="false" Date="02/01/70"/>
     <Task Name="ciao" Description="gianni" Priority="Low" IsChecked="false" Date="01/01/70"/>
+    <Task Name="sf&lt;" Description="sdff" Priority="High" IsChecked="false" Date="02/08/19"/>
 </Tasks>

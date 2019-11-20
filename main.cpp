@@ -28,7 +28,6 @@ wxIMPLEMENT_APP(Tasky);
 
 bool Tasky::OnInit() {
 
-    //TODO: trovare il percorso in automatico
     //TODO: utilizzare degli smart pointer non mi riesce
     std::string filepath = "../data.xml";
     XMLFileRepository *fileRepository;

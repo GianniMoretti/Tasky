@@ -56,14 +56,9 @@ bool Model::removeDay(const wxDateTime date) {
     auto ref = taskMap.equal_range(date);
 
     for (auto itr = ref.first; itr != ref.second; itr++) {
-        if (repo->deleteTask(itr->second)) {
-            taskMap.erase(itr);
-        } else {
-            ok = false;
-            //TODO: torno indietro se non va a buon fine?
-            break;
-        }
+        repo->deleteTask(itr->second);
     }
+    taskMap.erase(ref.first, ref.second);
     notify();
     return ok;
 }

@@ -107,6 +107,9 @@ void MainView::OnButtonClickRightPage(wxEvent &event) {
 }
 
 void MainView::renderGrid() {
+    if (model->GetKeysOnce().size() % boxForPage == 0)
+        currentPage -= 1;
+
     int init = (currentPage * boxForPage);
 
     for (auto itr = wxDayBoxViewsList.begin(); itr != wxDayBoxViewsList.end(); itr++) {

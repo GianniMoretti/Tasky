@@ -12,7 +12,7 @@ protected:
     void SetUp() override {
         wxDateTime dateTime = wxDateTime().Now().GetDateOnly();
 
-        fileRepository = new XMLFileRepository("/home/giannimoretti/Scrivania/prova.xml");
+        fileRepository = new XMLFileRepository("../data.xml");
         m = new Model(fileRepository);
 
         //Task t("pippo", "pluto", dateTime, Priority::Low, true);
