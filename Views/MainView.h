@@ -37,6 +37,8 @@ private:
     std::list<wxDayBoxView *> wxDayBoxViewsList;
     MainViewController *controller;
     wxToolPanel *toolPanel;
+    int currentPage = 1;
+    const int boxForPage = 28;
 
     void FillGridSizer(wxGridSizer *pSizer);
 
@@ -48,16 +50,11 @@ private:
 
     void OnButtonClickRightPage(wxEvent &event);
 
-    void OnShow(wxShowEvent &event);
-
     void attach() override;
 
     void detach() override;
 
     void renderGrid();
-
-    int currentPage = 0;
-    const int boxForPage = 28;
 
 };
 

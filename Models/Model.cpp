@@ -91,7 +91,6 @@ int Model::numberOfCompletedTasks(wxDateTime dateTime) const {
 }
 
 std::list<Task *> Model::researchTasks(const wxString str, bool unChecked) {
-    //TODO: Fare test
     std::list<Task *> ris;
 
     if (unChecked)  // cerco solo quelli non verificati

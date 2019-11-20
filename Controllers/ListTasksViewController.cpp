@@ -11,7 +11,6 @@ ListTasksViewController::ListTasksViewController(Model *pModel, wxWindow *pWindo
 }
 
 void ListTasksViewController::GoHome(wxWindow *pView) {
-    //TODO:Cambiare tutti i cast
     auto tmp = (MainFrame *) (window);
     tmp->ShowMainView(pView);
 }

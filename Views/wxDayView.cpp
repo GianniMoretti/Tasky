@@ -65,6 +65,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     bSizer2->Add(bSizer3, 1, wxALIGN_CENTER_VERTICAL | wxEXPAND, 5);
 
     listBox = new wxCheckListBox(this, wxID_ANY);
+    listBox->SetWindowStyle(wxLB_SINGLE);
 
     bSizer2->Add(listBox, 1, wxALL | wxEXPAND, 5);
 
@@ -180,7 +181,6 @@ void wxDayView::OnCheckedItem(wxCommandEvent &event) {
 
 void wxDayView::OnButtonClickDeleteDay(wxEvent &event) {
     controller->DeleteDay(this, dateTime);
-    //TODO:Call del controller
 }
 
 
