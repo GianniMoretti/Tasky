@@ -148,7 +148,7 @@ bool Model::updateTask(const Task &old, const Task &New) {
         if (itr->second == old) {
             if (repo->updateTask(old, New)) {
                 taskMap.erase(itr);
-                taskMap.insert(std::make_pair(New.getDate(), New));
+                taskMap.insert(itr--, std::make_pair(New.getDate(), New));
                 ok = true;
             }
             break;
