@@ -30,6 +30,8 @@ private:
 
     void OnTextCtrlChanged(wxCommandEvent &event);
 
+    void OnCheckedItem(wxCommandEvent &event);
+
 protected:
     wxTextCtrl *wxCtrlText;
     wxCheckListBox *listBox;

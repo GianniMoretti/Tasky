@@ -50,6 +50,8 @@ public:
 
     std::list<Task *> getTaskList(bool unChecked = false);
 
+    bool existTask(Task t, wxDateTime date);
+
 private:
     void notify() const override;
     std::multimap<wxDateTime, Task> taskMap;

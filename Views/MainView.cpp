@@ -79,6 +79,7 @@ void MainView::LinkEvents() {
     toolPanel->HideButtons();
     toolPanel->wxSwapButton->Show();
     toolPanel->wxNewDayButton->Show();
+    toolPanel->wxRemoveDayButton->Show();
     toolPanel->wxSwapButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickSwapView, this);
     toolPanel->wxNewDayButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickNewDay, this);
     wxLeftButton->Bind(wxEVT_BUTTON, &MainView::OnButtonClickLeftPage, this);

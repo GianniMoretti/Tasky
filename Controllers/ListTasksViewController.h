@@ -21,9 +21,9 @@ private:
 public:
     ListTasksViewController(Model *pModel, wxWindow *pWindow);
 
-
     void GoHome(wxWindow *pView);
 
+    void CheckUncheckTask(Task *task);
 
     void EditTask(wxWindow *pWindow, Task *task);
 };

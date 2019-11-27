@@ -148,7 +148,7 @@ bool Model::updateTask(const Task &old, const Task &New) {
         if (itr->second == old) {
             if (repo->updateTask(old, New)) {
                 taskMap.erase(itr);
-                taskMap.insert(itr--, std::make_pair(New.getDate(), New));
+                taskMap.insert(std::make_pair(New.getDate(), New));
                 ok = true;
             }
             break;
@@ -157,3 +157,16 @@ bool Model::updateTask(const Task &old, const Task &New) {
     notify();
     return ok;
 }
+
+bool Model::existTask(Task t, wxDateTime date) {
+    auto ref = GetTasks(date);
+    for (auto itr = ref.first; itr != ref.second; itr++) {
+        if (itr->second == t) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+

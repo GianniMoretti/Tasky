@@ -162,13 +162,19 @@ void wxEditTaskView::detach() {
 void wxEditTaskView::OnButtonClickSaveEditTask(wxEvent &event) {
     //Call al controller per salvare un task editato
     auto task = GetTask();
-    controller->SaveEditTask(this, task, *(this->task), isDayViewLast);
+    if (!model->existTask(task, task.getDate()))
+        controller->SaveEditTask(this, task, *(this->task), isDayViewLast);
+    else
+        wxMessageBox("This task is already add");
 }
 
 void wxEditTaskView::OnButtonClickSaveNewTask(wxEvent &event) {
 //Call al controller per salvare un nuovo task
     auto task = GetTask();
-    controller->SaveNewTask(this, task, isDayViewLast);
+    if (!model->existTask(task, task.getDate()))
+        controller->SaveNewTask(this, task, isDayViewLast);
+    else
+        wxMessageBox("This task is already add");
 }
 
 Task wxEditTaskView::GetTask() {
@@ -182,3 +188,7 @@ Task wxEditTaskView::GetTask() {
 void wxEditTaskView::OnButtonClickCancelOperation(wxEvent &event) {
     controller->CancelOperation(this, editMode, isDayViewLast);
 }
+
+
+
+
