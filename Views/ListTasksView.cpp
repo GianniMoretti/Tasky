@@ -64,6 +64,7 @@ void ListTasksView::LinkEvents() {
     toolPanel->wxCheckUnButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickChecked, this);
     toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &ListTasksView::OnButtonClickHome, this);
     wxCtrlText->Bind(wxEVT_TEXT, &ListTasksView::OnTextCtrlChanged, this);
+    listBox->Bind(wxEVT_CHECKLISTBOX, &ListTasksView::OnCheckedItem, this);
 }
 
 void ListTasksView::OnTextCtrlChanged(wxCommandEvent &event) {
@@ -95,6 +96,16 @@ void ListTasksView::OnButtonClickEditTask(wxEvent &event) {
         std::advance(iter, index);
         controller->EditTask(this, *iter);
     }
+}
+
+void ListTasksView::OnCheckedItem(wxCommandEvent &event) {
+    int index = event.GetInt();
+    if (index != -1) {
+        auto iter = taskList.begin();
+        std::advance(iter, index);
+        controller->CheckUncheckTask(*iter);
+    }
+    update();
 }
 
 

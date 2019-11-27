@@ -19,3 +19,8 @@ void ListTasksViewController::EditTask(wxWindow *pWindow, Task *task) {
     auto tmp = (MainFrame *) (window);
     tmp->ShowEditTaskView(pWindow, new wxDateTime(task->getDate()), true, task, false);
 }
+
+void ListTasksViewController::CheckUncheckTask(Task *task) {
+    Task t(task->getName(), task->getDescription(), task->getDate(), task->getPriority(), !task->isChecked());
+    model->updateTask(*task, t);
+}

@@ -158,5 +158,15 @@ bool Model::updateTask(const Task &old, const Task &New) {
     return ok;
 }
 
+bool Model::existTask(Task t, wxDateTime date) {
+    auto ref = GetTasks(date);
+    for (auto itr = ref.first; itr != ref.second; itr++) {
+        if (itr->second == t) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 

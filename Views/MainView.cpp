@@ -108,7 +108,6 @@ void MainView::OnButtonClickRightPage(wxEvent &event) {
 }
 
 void MainView::renderGrid() {
-    int init = (currentPage * boxForPage);
 
     int init = ((currentPage - 1) * boxForPage);
 

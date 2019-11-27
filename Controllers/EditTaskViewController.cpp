@@ -15,7 +15,8 @@ void EditTaskViewController::SaveNewTask(wxWindow *pWindows, const Task &task, b
     auto tmp = (MainFrame *) (window);
     if (isLastDayView)
         tmp->ShowDayView(pWindows);
-    tmp->ShowMainView(pWindows);
+    else
+        tmp->ShowMainView(pWindows);
 }
 
 void
