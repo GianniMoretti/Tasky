@@ -157,6 +157,3 @@ bool Model::updateTask(const Task &old, const Task &New) {
     notify();
     return ok;
 }
-
-
-

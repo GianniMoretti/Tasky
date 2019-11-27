@@ -180,5 +180,5 @@ Task wxEditTaskView::GetTask() {
 }
 
 void wxEditTaskView::OnButtonClickCancelOperation(wxEvent &event) {
-    controller->CancelOperation(this, isDayViewLast);
+    controller->CancelOperation(this, editMode, isDayViewLast);
 }
