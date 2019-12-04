@@ -40,13 +40,10 @@
 
 class wxDayView : public wxPanel, IObserver {
 protected:
-    wxPanel *wxTopPanel;
     wxStaticText *m_staticText3;
     wxStaticText *wxMonthDayLabel;
     wxStaticText *wxStatTasksLabel;
-    wxStaticLine *wxStaticline1;
     wxCheckListBox *listBox;
-    wxStaticLine *wxStaticline2;
     wxGauge *wxProgressbar;
 
 public:
@@ -87,8 +84,6 @@ private:
     void OnButtonClickEditTask(wxEvent &event);
 
     void OnButtonClickAddNewTask(wxEvent &event);
-
-    void OnButtonClickGoBack(wxEvent &event);
 
     void OnButtonClickGoHome(wxEvent &event);
 

@@ -147,22 +147,16 @@ void wxDayView::OnButtonClickRemoveTask(wxEvent &event) {
     controller->RemoveTask((ref.first)->second);
 }
 
-void wxDayView::OnButtonClickGoBack(wxEvent &event) {
-    controller->BackToHomeView(this);
-}
-
 void wxDayView::LinkEvents() {
     toolPanel->HideButtons();
     toolPanel->wxRemoveButton->Show();
     toolPanel->wxEditButton->Show();
     toolPanel->wxAddButton->Show();
-    toolPanel->wxBackButton->Show();
     toolPanel->wxHomeButton->Show();
     toolPanel->wxRemoveDayButton->Show();
     toolPanel->wxRemoveButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickRemoveTask, this);
     toolPanel->wxEditButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickEditTask, this);
     toolPanel->wxAddButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickAddNewTask, this);
-    toolPanel->wxBackButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoBack, this);
     toolPanel->wxHomeButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickGoHome, this);
     toolPanel->wxRemoveDayButton->Bind(wxEVT_BUTTON, &wxDayView::OnButtonClickDeleteDay, this);
     listBox->Bind(wxEVT_CHECKLISTBOX, &wxDayView::OnCheckedItem, this);

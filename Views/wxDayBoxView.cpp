@@ -22,18 +22,8 @@ wxDayBoxView::wxDayBoxView(Model *m,MainViewController* pController, wxDateTime 
     wxBoxSizer *wxMainSizer;
     wxMainSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    m_staticline7 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxSize(2, -1), wxLI_HORIZONTAL);
-    m_staticline7->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
-
-    wxMainSizer->Add(m_staticline7, 0, wxEXPAND, 0);
-
     wxBoxSizer *wxMainSizer2;
     wxMainSizer2 = new wxBoxSizer(wxVERTICAL);
-
-    m_staticline1 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxSize(-1, 2), wxLI_HORIZONTAL);
-    m_staticline1->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
-
-    wxMainSizer2->Add(m_staticline1, 0, wxEXPAND, 0);
 
     wxBoxSizer *wxMainSizer3;
     wxMainSizer3 = new wxBoxSizer(wxVERTICAL);
@@ -79,18 +69,7 @@ wxDayBoxView::wxDayBoxView(Model *m,MainViewController* pController, wxDateTime 
 
     wxMainSizer2->Add(wxMainSizer3, 1, wxEXPAND, 5);
 
-    m_staticline2 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxSize(-1, 2), wxLI_HORIZONTAL);
-    m_staticline2->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
-
-    wxMainSizer2->Add(m_staticline2, 0, wxEXPAND, 0);
-
-
     wxMainSizer->Add(wxMainSizer2, 1, wxEXPAND, 5);
-
-    m_staticline8 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxSize(2, -1), wxLI_HORIZONTAL);
-    m_staticline8->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTION));
-
-    wxMainSizer->Add(m_staticline8, 0, wxEXPAND, 0);
 
     //Event visualizzare DayView
     wxDayButton->Bind(wxEVT_BUTTON,&wxDayBoxView::buttonOneClickShowDay, this);

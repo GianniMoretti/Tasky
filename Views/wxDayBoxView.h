@@ -16,14 +16,10 @@
 
 class wxDayBoxView : public wxPanel, public IObserver {
 protected:
-    wxStaticLine *m_staticline7;
-    wxStaticLine *m_staticline1;
     wxButton *wxDayButton;
     wxStaticText *wxDayInfoLabel;
     wxStaticText *wxStatTasksLabel;
     wxGauge *wxProgressbar;
-    wxStaticLine *m_staticline2;
-    wxStaticLine *m_staticline8;
 
 public:
 

@@ -10,7 +10,6 @@
 
 class wxToolPanel : public wxPanel {
 public:
-    wxBitmapButton *wxBackButton;
     wxBitmapButton *wxAddButton;
     wxBitmapButton *wxRemoveButton;
     wxBitmapButton *wxEditButton;
