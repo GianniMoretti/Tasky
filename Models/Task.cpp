@@ -11,7 +11,7 @@ bool Task::operator==(const Task &task) const {
 
 bool Task::isEqual(const Task &task) const {
     return task.name == this->name && task.description == this->description && task.priority == this->priority &&
-           task.getDate() == this->getDate();
+            task.getDate() == this->getDate();
 }
 
 const string &Task::getName() const {

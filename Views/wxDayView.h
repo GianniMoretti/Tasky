@@ -80,7 +80,7 @@ private:
 
     void render();
 
-    void AddTasksToGrid(wxDateTime date);
+    void AddTasksToGrid();
 
     void OnButtonClickRemoveTask(wxEvent &event);
 
@@ -95,6 +95,7 @@ private:
     void OnButtonClickDeleteDay(wxEvent &event);
 
     void OnCheckedItem(wxCommandEvent &event);
+    void refreshList();
 };
 
 

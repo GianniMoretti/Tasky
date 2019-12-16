@@ -28,7 +28,7 @@ public:
 
     void GoHome(wxWindow *pView);
 
-    void CheckUncheckTask(Task task);
+    bool CheckUncheckTask(Task task);
 
     void DeleteDay(wxWindow *currentView, wxDateTime time);
 

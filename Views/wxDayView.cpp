@@ -13,9 +13,6 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     dateTime=date;
     numberOfTasks = model->numberOfTasks(dateTime);
     numberOfCompletedTasks = model->numberOfCompletedTasks(dateTime);
-    for (auto iter = model->GetTasks(dateTime); iter.first != iter.second; iter.first++) {
-        tasks.push_back(iter.first->second);
-    }
 
     this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 
@@ -83,6 +80,7 @@ wxDayView::wxDayView(wxWindow *parent, Model *m, wxDateTime date, wxWindowID id,
     auto tool = ((MainFrame *) (parent))->GetToolPanel();
     toolPanel = tool;
     LinkEvents();
+    refreshList();
 }
 
 wxDayView::~wxDayView() {
@@ -104,24 +102,23 @@ void wxDayView::detach() {
 }
 
 void wxDayView::render() {
-    listBox->Clear();
-    AddTasksToGrid(dateTime);
     wxString stat = wxString::Format("%d / %d", numberOfCompletedTasks, numberOfTasks);
     wxStatTasksLabel->SetLabel(stat);
     if (numberOfTasks != 0)
         wxProgressbar->SetValue((int) ((100 * numberOfCompletedTasks) / numberOfTasks));
     else
         wxProgressbar->SetValue(0);
+    refreshList();
 }
 
-void wxDayView::AddTasksToGrid(wxDateTime date) {
+void wxDayView::AddTasksToGrid() {
     int index = 0;
     wxString tmp;
-    for (auto iter = model->GetTasks(date); iter.first != iter.second; iter.first++) {
-        tmp = wxString::Format("%s | %s | %s", iter.first->second.getName(), iter.first->second.getDescription(),
-                               iter.first->second.getPriorityString());
+    for (auto iter = tasks.begin(); iter != tasks.end(); iter++) {
+        tmp = wxString::Format("%s | %s | %s", iter->getName(), iter->getDescription(),
+                               iter->getPriorityString());
         listBox->Append(tmp);
-        listBox->Check(index, iter.first->second.isChecked());
+        listBox->Check(index, iter->isChecked());
         index++;
     }
 }
@@ -129,9 +126,9 @@ void wxDayView::AddTasksToGrid(wxDateTime date) {
 void wxDayView::OnButtonClickEditTask(wxEvent &event) {
     auto index = listBox->GetSelection();
     if (index != -1) {
-        auto ref = model->GetTasks(dateTime);
-        std::advance(ref.first, index);
-        controller->ShowEditTaskView(this, &dateTime, true, &(ref.first->second));
+        auto ref = tasks.begin();
+        std::advance(ref, index);
+        controller->ShowEditTaskView(this, &dateTime, true, &(*ref));
     }
 }
 
@@ -141,10 +138,12 @@ void wxDayView::OnButtonClickAddNewTask(wxEvent &event) {
 
 void wxDayView::OnButtonClickRemoveTask(wxEvent &event) {
     int index = listBox->GetSelection();
-    listBox->Delete(index);
-    auto ref = model->GetTasks(dateTime);
-    std::advance(ref.first, index);
-    controller->RemoveTask((ref.first)->second);
+    if (index != -1) {
+        listBox->Delete(index);
+        auto ref = tasks.begin();
+        std::advance(ref, index);
+        controller->RemoveTask(*ref);
+    }
 }
 
 void wxDayView::OnButtonClickGoBack(wxEvent &event) {
@@ -174,13 +173,21 @@ void wxDayView::OnButtonClickGoHome(wxEvent &event) {
 
 void wxDayView::OnCheckedItem(wxCommandEvent &event) {
     int index = event.GetInt();
-    auto ref = model->GetTasks(dateTime);
-    std::advance(ref.first, index);
-    controller->CheckUncheckTask((ref.first)->second);
+    auto ref = tasks.begin();
+    std::advance(ref, index);
+    controller->CheckUncheckTask(*ref);
 }
 
 void wxDayView::OnButtonClickDeleteDay(wxEvent &event) {
     controller->DeleteDay(this, dateTime);
 }
 
+void wxDayView::refreshList() {
+    listBox->Clear();
+    tasks.clear();
+    for (auto iter = model->GetTasks(dateTime); iter.first != iter.second; iter.first++) {
+        tasks.push_back(iter.first->second);
+    }
+    AddTasksToGrid();
+}
 

@@ -29,9 +29,9 @@ void DayViewController::GoHome(wxWindow *pView) {
     tmp->ShowMainView(pView);
 }
 
-void DayViewController::CheckUncheckTask(Task task) {
+bool DayViewController::CheckUncheckTask(Task task) {
     Task t(task.getName(), task.getDescription(), task.getDate(), task.getPriority(), !task.isChecked());
-    model->updateTask(task, t);
+    return model->updateTask(task, t);
 }
 
 void DayViewController::DeleteDay(wxWindow *currentView, wxDateTime time) {
