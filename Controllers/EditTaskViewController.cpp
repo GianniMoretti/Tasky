@@ -29,11 +29,15 @@ EditTaskViewController::SaveEditTask(wxWindow *pWindow, const Task &newTask, con
         tmp->ShowTaskListView(pWindow);
 }
 
-void EditTaskViewController::CancelOperation(wxWindow *pWindow, bool isDayViewLastView) {
+void EditTaskViewController::CancelOperation(wxWindow *pWindow, bool editMode, bool isDayViewLastView) {
     auto tmp = (MainFrame *) (window);
     if (isDayViewLastView)
         tmp->ShowDayView(pWindow);
-    else
-        tmp->ShowTaskListView(pWindow);
+    else {
+        if (editMode)
+            tmp->ShowTaskListView(pWindow);
+        else
+            tmp->ShowMainView(pWindow);
+    }
 }
 

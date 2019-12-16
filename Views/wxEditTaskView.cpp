@@ -45,7 +45,7 @@ wxEditTaskView::wxEditTaskView(wxWindow *parent, Model *model, wxDateTime *pTime
     m_staticText3->Wrap(-1);
     wxPrioritySizer->Add(m_staticText3, 0, wxALIGN_CENTER | wxALL, 5);
 
-    wxString wxPriorityCmboxChoices[] = {wxT("Low"), wxT("Medium"), wxT("High")};
+    wxString wxPriorityCmboxChoices[] = {wxT("High"), wxT("Medium"), wxT("Low")};
     int wxPriorityCmboxNChoices = sizeof(wxPriorityCmboxChoices) / sizeof(wxString);
     wxPriorityCmbox = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxPriorityCmboxNChoices,
                                    wxPriorityCmboxChoices, 0);
@@ -179,14 +179,14 @@ void wxEditTaskView::OnButtonClickSaveNewTask(wxEvent &event) {
 
 Task wxEditTaskView::GetTask() {
     auto name = wxNameTxt->GetValue();
-    auto priority = wxPriorityCmbox->GetSelection();
+    auto priority = wxPriorityCmbox->GetCurrentSelection();
     auto description = wxDescriptionTxt->GetValue();
     auto date = m_datePicker2->GetValue();
-    return Task(name.ToStdString(), description.ToStdString(), date, (Priority) priority);
+    return Task(name.ToStdString(), description.ToStdString(), date, (Priority) (priority));
 }
 
 void wxEditTaskView::OnButtonClickCancelOperation(wxEvent &event) {
-    controller->CancelOperation(this, isDayViewLast);
+    controller->CancelOperation(this, editMode, isDayViewLast);
 }
 
 
