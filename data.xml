@@ -4,21 +4,20 @@
   <Task Name="dsfsadf" Description="bar" Priority="High" IsChecked="false" Date="10/05/19" />
   <Task Name="asdfasd" Description="gianni" Priority="Low" IsChecked="false" Date="10/06/19" />
   <Task Name="cxzvzxcv" Description="pippo" Priority="High" IsChecked="false" Date="10/07/19" />
-  <Task Name="fodfgsdfo" Description="bar" Priority="Low" IsChecked="false" Date="02/08/19" />
+  <Task Name="fodfgsdfo" Description="bar" Priority="Low" IsChecked="true" Date="02/08/19" />
   <Task Name="csdfgsdfhiao" Description="gianni" Priority="Low" IsChecked="false" Date="10/06/19" />
-  <Task Name="hedfhgfllo" Description="pippo" Priority="High" IsChecked="false" Date="10/08/19" />
   <Task Name="helvcbncvnlo" Description="worldde" Priority="Low" IsChecked="false" Date="10/10/19" />
-  <Task Name="hevcnbvbnllo" Description="pippo" Priority="High" IsChecked="false" Date="10/11/19" />
+  <Task Name="hevcnbvbnllo" Description="pippo" Priority="High" IsChecked="true" Date="10/11/19" />
   <Task Name="cifghfgdhao" Description="gianni" Priority="Low" IsChecked="false" Date="02/13/19" />
   <Task Name="hetreytryllo" Description="pippo" Priority="High" IsChecked="true" Date="02/15/19" />
   <Task Name="ferytrtgfhoo" Description="bar" Priority="Low" IsChecked="true" Date="04/08/19" />
   <Task Name="pipfdhfcgnvpo" Description="pluto" Priority="Low" IsChecked="true" Date="05/07/19" />
   <Task Name="hgfdhghtrello" Description="pippo" Priority="High" IsChecked="false" Date="04/08/19" />
-  <Task Name="fofgbfgcvno" Description="bar" Priority="High" IsChecked="false" Date="02/09/19" />
+  <Task Name="fofgbfgcvno" Description="bar" Priority="High" IsChecked="true" Date="02/09/19" />
   <Task Name="hecnbvbllo" Description="pippo" Priority="High" IsChecked="false" Date="11/11/19" />
   <Task Name="civbcnbnao" Description="giannibbb" Priority="High" IsChecked="false" Date="10/17/19" />
   <Task Name="fbvgoo" Description="bar" Priority="Low" IsChecked="false" Date="02/08/19" />
-  <Task Name="cigfjukao" Description="gianni" Priority="Low" IsChecked="false" Date="10/09/19" />
+  <Task Name="cigfjukao" Description="gianni" Priority="Low" IsChecked="true" Date="10/09/19" />
   <Task Name="hlkugjgello" Description="worldde" Priority="Low" IsChecked="false" Date="10/10/19" />
   <Task Name="pippgbnyfgho" Description="pluto" Priority="Low" IsChecked="false" Date="02/10/19" />
   <Task Name="hegfhgfllo" Description="pippo" Priority="High" IsChecked="false" Date="10/11/19" />
@@ -36,30 +35,30 @@
   <Task Name="hedjgcfbvllo" Description="world" Priority="High" IsChecked="true" Date="04/04/19" />
   <Task Name="hedfgbvllo" Description="pippo" Priority="High" IsChecked="false" Date="11/07/19" />
   <Task Name="forsthfo" Description="bar" Priority="Low" IsChecked="false" Date="04/08/19" />
-  <Task Name="cisfgbxao" Description="gianni" Priority="High" IsChecked="false" Date="11/06/19" />
+  <Task Name="cisfgbxao" Description="gianni" Priority="High" IsChecked="true" Date="11/06/19" />
   <Task Name="pippsrgfbo" Description="pluto" Priority="Low" IsChecked="true" Date="05/07/19" />
   <Task Name="hsgfvello" Description="pippo" Priority="High" IsChecked="false" Date="04/08/19" />
-  <Task Name="sdfvcfoo" Description="bar" Priority="High" IsChecked="false" Date="02/09/19" />
+  <Task Name="sdfvcfoo" Description="bar" Priority="High" IsChecked="true" Date="02/09/19" />
   <Task Name="cisdfbvcao" Description="gianni" Priority="Low" IsChecked="false" Date="11/08/19" />
-  <Task Name="hegdfvcllo" Description="worldde" Priority="Low" IsChecked="false" Date="11/10/19" />
-  <Task Name="pdbvcippo" Description="pluto" Priority="Low" IsChecked="false" Date="11/10/19" />
+  <Task Name="hegdfvcllo" Description="worldde" Priority="Low" IsChecked="true" Date="11/10/19" />
+  <Task Name="pdbvcippo" Description="pluto" Priority="Low" IsChecked="true" Date="11/10/19" />
   <Task Name="helsfbvclo" Description="pippo" Priority="High" IsChecked="false" Date="11/11/19" />
-  <Task Name="cidfbvcao" Description="gianni" Priority="Low" IsChecked="false" Date="11/13/19" />
+  <Task Name="cidfbvcao" Description="gianni" Priority="Low" IsChecked="true" Date="11/13/19" />
   <Task Name="pidfvcppo" Description="pluto" Priority="Low" IsChecked="false" Date="11/14/19" />
   <Task Name="heergsfdvcllo" Description="pippo" Priority="High" IsChecked="false" Date="11/15/19" />
-  <Task Name="ciegfdvcao" Description="giannibbb" Priority="High" IsChecked="false" Date="10/17/19" />
+  <Task Name="ciegfdvcao" Description="giannibbb" Priority="High" IsChecked="true" Date="10/17/19" />
   <Task Name="hgfdvbcello" Description="pippo" Priority="High" IsChecked="false" Date="04/08/19" />
   <Task Name="fodsfxvco" Description="bar" Priority="High" IsChecked="false" Date="02/09/19" />
   <Task Name="creshgiao" Description="gianni" Priority="Low" IsChecked="false" Date="11/08/19" />
-  <Task Name="pytjhgippo" Description="pluto" Priority="Low" IsChecked="false" Date="11/10/19" />
+  <Task Name="pytjhgippo" Description="pluto" Priority="Low" IsChecked="true" Date="11/10/19" />
   <Task Name="hetrgfbllo" Description="pippo" Priority="High" IsChecked="false" Date="11/22/19" />
-  <Task Name="ciergfdao" Description="giannibbb" Priority="High" IsChecked="false" Date="10/17/19" />
+  <Task Name="ciergfdao" Description="giannibbb" Priority="High" IsChecked="true" Date="10/17/19" />
   <Task Name="heergfdllo" Description="pippo" Priority="High" IsChecked="false" Date="04/08/19" />
-  <Task Name="foergfdo" Description="bar" Priority="High" IsChecked="true" Date="02/02/19" />
+  <Task Name="foergfdo" Description="bar" Priority="High" IsChecked="false" Date="02/02/19" />
   <Task Name="NuovorefdTask" Description="fdcxb" Priority="High" IsChecked="false" Date="11/13/19" />
-  <Task Name="gfds" Description="vcx" Priority="Low" IsChecked="false" Date="11/13/19" />
+  <Task Name="gfds" Description="vcx" Priority="Low" IsChecked="true" Date="11/13/19" />
   <Task Name="dsvdz" Description="zcxvd" Priority="Low" IsChecked="false" Date="11/13/19" />
-  <Task Name="wsdfjk" Description="sdfghjk" Priority="Medium" IsChecked="false" Date="11/20/19" />
+  <Task Name="wsdfjk" Description="sdfghjk" Priority="Medium" IsChecked="true" Date="11/20/19" />
   <Task Name="pipzxcpo" Description="pluto" Priority="Low" IsChecked="false" Date="05/07/19" />
   <Task Name="pifghjkppo" Description="pluto" Priority="Low" IsChecked="false" Date="05/07/19" />
   <Task Name="dsaf" Description="safdsafa" Priority="Low" IsChecked="false" Date="10/04/19" />
@@ -69,4 +68,12 @@
   <Task Name="sdavs" Description="scz&lt;csdf" Priority="Low" IsChecked="false" Date="10/07/19" />
   <Task Name="&lt;xc&lt;xzc" Description="antonio" Priority="High" IsChecked="false" Date="10/07/19" />
   <Task Name="dasfds" Description="Gianni" Priority="High" IsChecked="false" Date="10/07/19" />
+  <Task Name="sdafadf" Description="wsdasd" Priority="Low" IsChecked="false" Date="12/16/19" />
+  <Task Name="dsfa" Description="adfsafdsfsx" Priority="Low" IsChecked="false" Date="10/05/19" />
+  <Task Name="ghhghyiy" Description="ciao" Priority="Low" IsChecked="false" Date="05/28/20" />
+  <Task Name="Impegno1" Description="Descrizione impegno1" Priority="Low" IsChecked="true" Date="10/08/19" />
+  <Task Name="Impegno2" Description="Descrizione impegno2" Priority="Medium" IsChecked="true" Date="10/08/19" />
+  <Task Name="Impegno3" Description="Descrizione impegno3" Priority="Low" IsChecked="false" Date="10/08/19" />
+  <Task Name="Impegno4" Description="Descrizione impegno4" Priority="Medium" IsChecked="false" Date="10/08/19" />
+  <Task Name="Impegno5" Description="Descrizione impegno5" Priority="High" IsChecked="false" Date="10/08/19" />
 </Tasks>

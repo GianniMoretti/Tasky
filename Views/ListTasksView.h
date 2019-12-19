@@ -40,7 +40,7 @@ public:
 
     ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 892,531 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
 
-    ~ListTasksView();
+    ~ListTasksView() override = default;
 
     void LinkEvents();
 

@@ -28,7 +28,6 @@ wxIMPLEMENT_APP(Tasky);
 
 bool Tasky::OnInit() {
 
-    //TODO: utilizzare degli smart pointer non mi riesce
     std::string filepath = "../data.xml";
     XMLFileRepository *fileRepository;
     //shared_ptr<XMLFileRepository> fileRepository;

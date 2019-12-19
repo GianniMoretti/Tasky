@@ -31,9 +31,6 @@ ListTasksView::ListTasksView( wxWindow* parent,Model* pModel, wxWindowID id, con
     this->Layout();
 }
 
-ListTasksView::~ListTasksView()
-{
-}
 
 void ListTasksView::FillCheckBoxList(std::list<Task *> list) {
     listBox->Clear();
