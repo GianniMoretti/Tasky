@@ -3,6 +3,6 @@
 Applicazione per la gestione delle attività. (Progetto del corso di programmazione).
 
 
-![HomeScreenShot](assetREEDME/HomeScreenShot.png)
+![HomeScreenShot](https://github.com/GianniMoretti/Tasky/blob/master/AssetREEDME/DayScreenShot.png)
 
 ciao
