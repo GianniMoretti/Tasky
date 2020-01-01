@@ -1,6 +1,6 @@
 # **Tasky**
 
-Applicazione per la gestione delle attività. (Progetto del corso di programmazione).
+This is an application for activity management.
 
 ## **Home**
 Home is the main view, where you can see every day and the progress of all day. 
@@ -15,6 +15,6 @@ In the list view there's a list of all tasks about every day. At the same way of
 ![ListViewScreenShot](https://github.com/GianniMoretti/Tasky/blob/master/AssetREEDME/ListViewScreenShot.png)
 
 ## **Modify**
-This is the view that you can use for change a task. it's possible to change date, description and name.
+This is the view that you can use for change a task. it's possible to change date, description, name and priority.
 ![ModifyScreenShot](https://github.com/GianniMoretti/Tasky/blob/master/AssetREEDME/ModifyScreenShot.png)
 
